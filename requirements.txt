@@ -1,3 +1,10 @@
 Django==2.1.2
+django-hashers-passlib==0.4
+django-rest-auth==0.9.3
 djangorestframework==3.8.2
+passlib==1.7.1
+python-mimeparse==1.6.0
 pytz==2018.5
+RestAuthCommon==0.7.0
+six==1.11.0
+South==1.0.2
