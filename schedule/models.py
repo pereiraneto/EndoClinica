@@ -77,3 +77,6 @@ class Consultation(models.Model):
     requester = models.CharField(max_length=100)
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.patient
