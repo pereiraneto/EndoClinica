@@ -1,9 +1,12 @@
 from django.db import models
 
 PROCEDURES_NAMES = [
-    "Cápsula Endoscópica", "Colonoscopia", "Consulta",
-    "Corpo estranho", "CPRE", "Diverticulectomia", "Ecoendoscopia",
-    "Parecer", "Retorno", "Retosigmoidoscopia"
+    "Cirurgia da cabeça e do pescoço", "Coloproctologia",
+    "Gastroenterologia", "Proctologista",
+    "Ecoendoscopia", "Endoscopia Digestiva Alta",
+    "Colonoscopia", "Colangiografia Endoscópica Retrógrada – CPRE",
+    "Retossigmoidoscopia", "Balão Intragástrico", "Manometria Anorretal",
+    "pHmetria", "Manometria Esofágica"
 ]
 
 STATUS_NAMES = [
@@ -66,3 +69,9 @@ class Consultation(models.Model):
 
     def __str__(self):
         return self.patient
+
+
+class Doctor(models.Model):
+    name = models.CharField(max_length=100)
+
+    procedures = models.TextField()
