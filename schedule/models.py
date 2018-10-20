@@ -77,4 +77,4 @@ class Doctor(models.Model):
     procedures = models.TextField()
 
     def __str__(self):
-        return self.patient
+        return self.name
