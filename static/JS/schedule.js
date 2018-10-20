@@ -87,10 +87,12 @@ function fillTable(tableBody, consultations) {
 baseUrl = window.location
 
 document.onreadystatechange = () => {
-    getOnApi(function (consultations) {
-        console.log(consultations, document.getElementById("schedule-body"));
-
-        fillTable(document.getElementById("schedule-body"), consultations)
-
-    }, `${baseUrl}consultas/`, {})
+    if (document.readyState == "interactive") {
+        getOnApi(function (consultations) {
+            console.log(consultations, document.getElementById("schedule-body"));
+    
+            fillTable(document.getElementById("schedule-body"), consultations)
+    
+        }, `${baseUrl}consultas/`, {})
+    }
 }
