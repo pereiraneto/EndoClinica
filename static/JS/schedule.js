@@ -26,15 +26,14 @@ function getOnApi(callback, url, body = {}) {
 
 function fillTable(tableBody, consultations) {
     tableBody.innerHTML = '';
-    consultations.forEach(consultation => {
-        const addTag = (callback, parent, tag = "td") => {
-            const th = document.createElement(tag);
-            callback(th);
-            parent.appendChild(th);
-        }
 
-        const tr = document.createElement("tr");
+    const addTag = (callback, parent, tag = "td") => {
+        const newEl = document.createElement(tag);
+        callback(newEl);
+        parent.appendChild(newEl);
+    }
 
+    consultations.forEach(consultation => addTag((tr) => {
         addTag(th => {
             th.scope = "row";
             const date = `${consultation.date.slice(8,10)}/${consultation.date.slice(5,7)}`;
@@ -49,17 +48,40 @@ function fillTable(tableBody, consultations) {
         addTag(th => {
             addTag(a => {
                 a.textContent = "Visualizar";
-                a.style = "color: #007bff !important; margin-right: 1em;"
+                a.classList += "link-color ";
+                a.classList += "mr-2";
             }, th, "a");
             addTag(a => {
                 a.textContent = "Editar";
-                a.style = "color: #007bff !important;"
+                a.classList += "link-color";
             }, th, "a");
         }, tr);
 
         tableBody.appendChild(tr)
 
-    });
+        let trClass;
+
+        switch (consultation.status) {
+            case "Agendado":
+                trClass = "table-danger";
+                break;
+            case "Confirmado":
+                trClass = "table-warning";
+                break;
+            case "Chegou":
+                trClass = "bg-danger";
+                break;
+            case "Realizado":
+                trClass = "table-success";
+                break;
+            case "Desmarcado":
+                trClass = "table-info line-through-text";
+                break;
+        }
+
+        tr.classList += trClass
+
+    }, tableBody, "tr"))
 }
 
 baseUrl = window.location
