@@ -45,7 +45,7 @@ function fillTable(tableBody, consultations) {
         addTag(th => th.textContent = consultation.patient, tr);
         addTag(th => th.textContent = consultation.priority, tr);
         addTag(th => th.textContent = consultation.procedure, tr);
-        addTag(th => th.textContent = consultation.prepare, tr);
+        addTag(th => th.textContent = consultation.prepare ? "Sim" : "Não", tr);
         addTag(th => {
             addTag(a => {
                 a.textContent = "Visualizar";
