@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 
 router.register('consultas', views.ConsultationViewSet, base_name='consultation')
 router.register('medicos', views.DoctorViewSet, base_name='doctor')
-urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule')]
+router.register('pacientes', views.PatientViewSet, base_name='patient')
 
+urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule')]
 urlpatterns += router.urls

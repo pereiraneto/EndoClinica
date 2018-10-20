@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Consultation, Doctor
+from .models import Consultation, Doctor, Patient
 
 @admin.register(Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
@@ -8,4 +8,8 @@ class ConsultationAdmin(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Patient)
+class PatientAdmin(admin.ModelAdmin):
     pass
