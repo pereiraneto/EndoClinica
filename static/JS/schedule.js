@@ -37,8 +37,9 @@ function fillTable(tableBody, consultations) {
 
         addTag(th => {
             th.scope = "row";
-            const date = `${consultation.date.slice(8,10)}/${consultation.date.slice(5,7)}/${consultation.date.slice(0,4)}`;
-            th.textContent = date;
+            const date = `${consultation.date.slice(8,10)}/${consultation.date.slice(5,7)}`;
+            const hour = `${consultation.date.slice(11,13)}h${consultation.date.slice(14,16)}`;
+            th.textContent = `${date} - ${hour}`;
         }, tr, "th");
         addTag(th => th.textContent = `${consultation.duration} min`, tr);
         addTag(th => th.textContent = consultation.patient, tr);
