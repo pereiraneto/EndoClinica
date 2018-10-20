@@ -1,9 +1,11 @@
 from schedule import views
 from rest_framework import routers
 
-app_name = 'Consultation'
+app_name = 'Schedule'
 
 router = routers.DefaultRouter()
-router.register('', views.ConsultationViewSet, base_name='consultation')
+
+router.register('consultas', views.ConsultationViewSet, base_name='consultation')
+router.register('medicos', views.DoctorViewSet, base_name='doctor')
 
 urlpatterns = router.urls
