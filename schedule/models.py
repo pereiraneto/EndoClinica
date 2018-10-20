@@ -55,6 +55,8 @@ class Consultation(models.Model):
 
     phone = models.CharField(max_length=25)
 
+    birth_date = models.DateField(auto_now=False, auto_now_add=False)
+
     PROCEDURES = (
         (procedure, procedure)
         for procedure in PROCEDURES_NAMES
@@ -65,8 +67,6 @@ class Consultation(models.Model):
 
     requester = models.CharField(max_length=100)
 
-    birth_date = models.DateField(auto_now=False, auto_now_add=False)
-
     def __str__(self):
         return self.patient
 
@@ -75,6 +75,19 @@ class Doctor(models.Model):
     name = models.CharField(max_length=100)
 
     procedures = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Patient(models.Model): 
+    name = models.CharField(max_length=100)
+
+    cell_phone = models.CharField(max_length=25)
+
+    phone = models.CharField(max_length=25)
+
+    birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
         return self.name
