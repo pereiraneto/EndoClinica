@@ -48,15 +48,15 @@ class Consultation(models.Model):
         (prioritie, prioritie)
         for prioritie in PRIORITIES_NAMES
     )
-    priority = models.CharField(choices=PRIORITIES, max_length=15)
+    priority = models.CharField(choices=PRIORITIES, max_length=15, blank=True)
 
-    prepare = models.TextField()
+    prepare = models.TextField(blank=True)
 
     insurance = models.CharField(max_length=50)
 
     cell_phone = models.CharField(max_length=25)
 
-    phone = models.CharField(max_length=25)
+    phone = models.CharField(max_length=25, blank=True)
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
@@ -66,9 +66,9 @@ class Consultation(models.Model):
     )
     procedure = models.CharField(max_length=25, choices=PROCEDURES)
 
-    details = models.TextField()
+    details = models.TextField(blank=True)
 
-    requester = models.CharField(max_length=100)
+    requester = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.patient
@@ -88,7 +88,7 @@ class Patient(models.Model):
 
     cell_phone = models.CharField(max_length=25)
 
-    phone = models.CharField(max_length=25)
+    phone = models.CharField(max_length=25, blank=True)
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
