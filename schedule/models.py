@@ -18,7 +18,10 @@ PRIORITIES_NAMES = [
     "Idoso", "Criança", "Deficiente"
 ]
 
+
 class Consultation(models.Model):
+    class Meta:
+        ordering = ('date', )
     POSSIBLE_STATUS = (
         (status, status)
         for status in STATUS_NAMES
