@@ -1,10 +1,10 @@
 {% load static %}
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
 <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -42,10 +42,150 @@
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
-            <tbody id="schedule-body">
 
-            </tbody>
+            <tbody id="schedule-body"> </tbody>
         </table>
+
+        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#consultationForm">
+            Novo Agendamento
+        </button>
+
+        <div class="modal fade" id="consultationForm" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xlg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h5 class="modal-title">Consulta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <h6>Status</h6>
+                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <label class="btn btn-light active">
+                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                                            Agendado
+                                        </label>
+                                        <label class="btn btn-light">
+                                            <input type="radio" name="options" id="option2" autocomplete="off">
+                                            Confirmado
+                                        </label>
+                                        <label class="btn btn-light">
+                                            <input type="radio" name="options" id="option3" autocomplete="off">
+                                            Chegou
+                                        </label>
+                                    </div>
+
+                                    <h6 class="mt-3">Paciente</h6>
+                                    <select class="form-control">
+                                        <option>Maria Célia Carneiro Melgaço de Andrade</option>
+                                        <option>Régis</option>
+                                    </select>
+
+                                    <div id="patientData">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="mt-3">Celular</h6>
+                                                <input class="form-control" type="text" placeholder="(85) 98989-7384" readonly>
+                                            </div>
+                                            <div class="col">
+                                                <h6 class="mt-3">Telefone Fixo</h6>
+                                                <input class="form-control" type="text" placeholder="(85) 3214-1432" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h6 class="mt-3">Data de Nascimento</h6>
+                                                <input type="date" class="form-control" readonly>
+                                            </div>
+                                            <div class="col">
+                                                <h6 class="mt-3">Convenio</h6>
+                                                <input class="form-control" type="text" placeholder="Unimed" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h6>Data</h6>
+                                            <input type="date" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h6>Hora</h6>
+                                            <input class="form-control" type="text" placeholder="10h30">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h6>Duração</h6>
+                                            <select class="form-control">
+                                                <option>5</option>
+                                                <option>10</option>
+                                                <option>15</option>
+                                                <option>20</option>
+                                                <option>25</option>
+                                                <option>30</option>
+                                                <option>35</option>
+                                                <option>40</option>
+                                                <option>45</option>
+                                                <option>50</option>
+                                                <option>55</option>
+                                                <option>60</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>Prioridade</h6>
+                                            <select class="form-control">
+                                                <option>Normal</option>
+                                                <option>Ambulatorio</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <h6 class="mt-3">Procedimento</h6>
+                                            <select class="form-control">
+                                                <option>Cirurgia da cabeça e do pescoço</option>
+                                                <option>Gastroenterologia</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="mt-3">Solicitante</h6>
+                                            <input class="form-control" type="number" placeholder="12612">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h6 class="mt-3">Preparo</h6>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h6 class="mt-3">Detalhes</h6>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
