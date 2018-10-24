@@ -1,14 +1,5 @@
 from django.db import models
 
-PROCEDURES_NAMES = [
-    "Cirurgia da cabeça e do pescoço", "Coloproctologia",
-    "Gastroenterologia", "Proctologista",
-    "Ecoendoscopia", "Endoscopia Digestiva Alta",
-    "Colonoscopia", "Colangiografia Endoscópica Retrógrada – CPRE",
-    "Retossigmoidoscopia", "Balão Intragástrico", "Manometria Anorretal",
-    "pHmetria", "Manometria Esofágica"
-]
-
 STATUS_NAMES = [
     "Agendado", "Confirmado", "Chegou", "Realizado", "Desmarcado"
 ]
@@ -17,6 +8,35 @@ PRIORITIES_NAMES = [
     "Ambulatorio", "Internado", "Isolamento", "Urgencia", 
     "Idoso", "Criança", "Deficiente"
 ]
+
+
+class Doctor(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Procedure(models.Model):
+    name = models.CharField(max_length=100)
+
+    doctors = models.ManyToManyField(Doctor)
+
+    def __str__(self):
+        return self.name
+
+
+class Patient(models.Model): 
+    name = models.CharField(max_length=100)
+
+    cell_phone = models.CharField(max_length=25)
+
+    phone = models.CharField(max_length=25, blank=True)
+
+    birth_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    def __str__(self):
+        return self.name
 
 
 class Consultation(models.Model):
@@ -42,7 +62,7 @@ class Consultation(models.Model):
         default=15
     )
 
-    patient = models.CharField(max_length=100)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
     PRIORITIES = (
         (prioritie, prioritie)
@@ -60,11 +80,9 @@ class Consultation(models.Model):
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
-    PROCEDURES = (
-        (procedure, procedure)
-        for procedure in PROCEDURES_NAMES
-    )
-    procedure = models.CharField(max_length=25, choices=PROCEDURES)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+
+    procedure = models.ForeignKey(Procedure, on_delete=models.CASCADE)
 
     details = models.TextField(blank=True)
 
@@ -72,25 +90,3 @@ class Consultation(models.Model):
 
     def __str__(self):
         return self.patient
-
-
-class Doctor(models.Model):
-    name = models.CharField(max_length=100)
-
-    procedures = models.TextField()
-
-    def __str__(self):
-        return self.name
-
-
-class Patient(models.Model): 
-    name = models.CharField(max_length=100)
-
-    cell_phone = models.CharField(max_length=25)
-
-    phone = models.CharField(max_length=25, blank=True)
-
-    birth_date = models.DateField(auto_now=False, auto_now_add=False)
-
-    def __str__(self):
-        return self.name
