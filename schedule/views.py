@@ -2,8 +2,8 @@ from rest_framework import permissions, viewsets
 from django import views
 from django.shortcuts import render
 
-from .models import Consultation, Doctor, Patient
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer
+from .models import Consultation, Doctor, Patient, Procedure
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer
 
 
 class ConsultationViewSet(viewsets.ModelViewSet):
@@ -17,11 +17,18 @@ class DoctorViewSet(viewsets.ModelViewSet):
     serializer_class = DoctorSerializer
     permissions_classes = (permissions.IsAuthenticated, )
 
-class ScheduleView(views.View):
-    def get(self, request):
-        return render(request, 'schedule.html', {});
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     permissions_classes = (permissions.IsAuthenticated, )
+
+
+class ProcedureViewSet(viewsets.ModelViewSet):
+    queryset = Procedure.objects.all()
+    serializer_class = ProcedureSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+class ScheduleView(views.View):
+    def get(self, request):
+        return render(request, 'schedule.html', {})
