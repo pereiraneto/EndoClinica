@@ -89,4 +89,4 @@ class Consultation(models.Model):
     requester = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return self.patient
+        return self.patient.name
