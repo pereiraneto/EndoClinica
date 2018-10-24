@@ -5,7 +5,7 @@ STATUS_NAMES = [
 ]
 
 PRIORITIES_NAMES = [
-    "Ambulatorio", "Internado", "Isolamento", "Urgencia", 
+    "Normal", "Ambulatorio", "Internado", "Isolamento", "Urgencia", 
     "Idoso", "Criança", "Deficiente"
 ]
 
@@ -68,7 +68,7 @@ class Consultation(models.Model):
         (prioritie, prioritie)
         for prioritie in PRIORITIES_NAMES
     )
-    priority = models.CharField(choices=PRIORITIES, max_length=15, blank=True)
+    priority = models.CharField(choices=PRIORITIES, max_length=15, default="Normal")
 
     prepare = models.TextField(blank=True)
 
