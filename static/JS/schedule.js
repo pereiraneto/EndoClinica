@@ -1,3 +1,64 @@
+const selectConsultationStatusEl = (consultationStatus) => {
+
+    const statusIdNameList = [
+        {id: "consultation-status-scheduled", name: "Agendado", cssClass: "btn btn-outline-secondary"},
+        {id: "consultation-status-confirmed", name: "Confirmado", cssClass: "btn btn-outline-warning"},
+        {id: "consultation-status-arrived", name: "Chegou", cssClass: "btn btn-outline-danger"},
+        {id: "consultation-status-realized", name: "Realizado", cssClass: "btn btn-outline-success"},
+        {id: "consultation-status-disengaged", name: "Desmarcado", cssClass: "btn btn-outline-primary"}
+    ]
+
+    statusIdNameList.forEach(status => {
+        if (status.name == consultationStatus) status.cssClass += " active";
+        document.getElementById(status.id).className = status.cssClass
+    });
+}
+
+const setElsInputs = (idInputList) => {
+    idInputList.forEach(relatedIdInput => {
+        document.getElementById(relatedIdInput.id).value = relatedIdInput.value;
+    });
+}
+
+const setElsOption = (idSelectList) => {
+    idSelectList.forEach(relatedIdSelect => {
+        document.getElementById(relatedIdSelect.id).value = relatedIdSelect.value
+    });
+}
+
+const fillInfoModal = (consultationObj) => {
+
+    const idInputList = [
+        {id: "consultation-patient", value: consultationObj.patient},
+        {id: "consultation-cell-phone", value: consultationObj.cell_phone},
+        {id: "consultation-phone", value: consultationObj.phone},
+        {id: "consultation-birth-date", value: consultationObj.birth_date},
+        {id: "consultation-insurance", value: consultationObj.insurance},
+        {id: "consultation-date", value: consultationObj.date.slice(0, 10)},
+        {id: "consultation-hour", value: consultationObj.date.slice(11, 16)},
+        {id: "consultation-duration", value: consultationObj.duration},
+        {id: "consultaion-requester", value: consultationObj.requester},
+        {id: "consultaion-prepare", value: consultationObj.prepare},
+        {id: "consultaion-details", value: consultationObj.details}
+    ];
+    
+    const idSelectList = [
+        {id: "consultation-priority", value: consultationObj.priority},
+        {id: "consultaion-procedure", value: consultationObj.procedure}
+    ];
+
+    selectConsultationStatusEl(consultationObj.status);
+    setElsInputs(idInputList);
+    setElsOption(idSelectList);
+}
+
+const handleClickInfoModal = (consultationObj) => {
+    fillInfoModal(consultationObj);
+    document.getElementById("consultation-form-button").click();
+}
+
+
+
 function getOnApi(callback, url, body = {}) {
 
     const request = new XMLHttpRequest();
@@ -48,12 +109,8 @@ function fillTable(tableBody, consultations) {
         addTag(th => {
             addTag(a => {
                 a.textContent = "Visualizar";
-                a.classList += "link-color ";
-                a.classList += "mr-2";
-            }, th, "a");
-            addTag(a => {
-                a.textContent = "Editar";
-                a.classList += "link-color";
+                a.classList += "default-link mr-2";
+                a.onclick = () => handleClickInfoModal(consultation)
             }, th, "a");
         }, tr);
 
@@ -90,9 +147,9 @@ document.onreadystatechange = () => {
     if (document.readyState == "interactive") {
         getOnApi(function (consultations) {
             console.log(consultations, document.getElementById("schedule-body"));
-    
+
             fillTable(document.getElementById("schedule-body"), consultations)
-    
+
         }, `${baseUrl}consultas/`, {})
     }
 }

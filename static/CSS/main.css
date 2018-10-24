@@ -1,5 +1,6 @@
-.link-color {
+.default-link {
     color: #007bff !important;
+    cursor: pointer !important;
 }
 
 .line-through-text {

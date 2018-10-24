@@ -46,11 +46,11 @@
             <tbody id="schedule-body"> </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#consultationForm">
+        <button id="consultation-form-button" type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#consultation-form">
             Novo Agendamento
         </button>
 
-        <div class="modal fade" id="consultationForm" tabindex="-1" role="dialog">
+        <div class="modal fade" id="consultation-form" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-xlg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -67,46 +67,52 @@
                                 <div class="col">
                                     <h6>Status</h6>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-light active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked>
+
+                                        <label id="consultation-status-scheduled" class="btn btn-secondary">
+                                            <input type="radio" name="options" autocomplete="off">
                                             Agendado
                                         </label>
-                                        <label class="btn btn-light">
-                                            <input type="radio" name="options" id="option2" autocomplete="off">
+                                        <label id="consultation-status-confirmed" class="btn btn-warning">
+                                            <input type="radio" name="options" autocomplete="off">
                                             Confirmado
                                         </label>
-                                        <label class="btn btn-light">
-                                            <input type="radio" name="options" id="option3" autocomplete="off">
+                                        <label id="consultation-status-arrived" class="btn btn-danger">
+                                            <input type="radio" name="options" autocomplete="off">
                                             Chegou
+                                        </label>
+                                        <label id="consultation-status-realized" class="btn btn-success">
+                                            <input type="radio" name="options" autocomplete="off">
+                                            Realizado
+                                        </label>
+                                        <label id="consultation-status-disengaged" class="btn btn-primary">
+                                            <input type="radio" name="options" autocomplete="off">
+                                            Desmarcado
                                         </label>
                                     </div>
 
                                     <h6 class="mt-3">Paciente</h6>
-                                    <select class="form-control">
-                                        <option>Maria Célia Carneiro Melgaço de Andrade</option>
-                                        <option>Régis</option>
-                                    </select>
+                                    <input id="consultation-patient" class="form-control" type="text" readonly>
 
                                     <div id="patientData">
                                         <div class="row">
                                             <div class="col">
                                                 <h6 class="mt-3">Celular</h6>
-                                                <input class="form-control" type="text" placeholder="(85) 98989-7384" readonly>
+                                                <input id="consultation-cell-phone" class="form-control" type="text" placeholder="(85) 98989-7384" readonly>
                                             </div>
                                             <div class="col">
                                                 <h6 class="mt-3">Telefone Fixo</h6>
-                                                <input class="form-control" type="text" placeholder="(85) 3214-1432" readonly>
+                                                <input id="consultation-phone" class="form-control" type="text" placeholder="(85) 3214-1432" readonly>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <h6 class="mt-3">Data de Nascimento</h6>
-                                                <input type="date" class="form-control" readonly>
+                                                <input id="consultation-birth-date" type="date" class="form-control" readonly>
                                             </div>
                                             <div class="col">
                                                 <h6 class="mt-3">Convenio</h6>
-                                                <input class="form-control" type="text" placeholder="Unimed" readonly>
+                                                <input id="consultation-insurance" class="form-control" type="text" placeholder="Unimed" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -116,34 +122,27 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <h6>Data</h6>
-                                            <input type="date" class="form-control">
+                                            <input id="consultation-date" type="date" class="form-control">
                                         </div>
                                         <div class="col-md-2">
                                             <h6>Hora</h6>
-                                            <input class="form-control" type="text" placeholder="10h30">
+                                            <input id="consultation-hour" class="form-control" type="text">
                                         </div>
                                         <div class="col-md-2">
                                             <h6>Duração</h6>
-                                            <select class="form-control">
-                                                <option>5</option>
-                                                <option>10</option>
-                                                <option>15</option>
-                                                <option>20</option>
-                                                <option>25</option>
-                                                <option>30</option>
-                                                <option>35</option>
-                                                <option>40</option>
-                                                <option>45</option>
-                                                <option>50</option>
-                                                <option>55</option>
-                                                <option>60</option>
-                                            </select>
+                                            <input id="consultation-duration" class="form-control" type="number">
                                         </div>
                                         <div class="col-md-4">
                                             <h6>Prioridade</h6>
-                                            <select class="form-control">
-                                                <option>Normal</option>
-                                                <option>Ambulatorio</option>
+                                            <select id="consultation-priority" class="form-control">
+                                                <option value="Normal">Normal</option>
+                                                <option value="Ambulatorio">Ambulatorio</option>
+                                                <option value="Internado">Internado</option>
+                                                <option value="Isolamento">Isolamento</option>
+                                                <option value="Urgencia">Urgencia</option>
+                                                <option value="Idoso">Idoso</option>
+                                                <option value="Criança">Criança</option>
+                                                <option value="Deficiente">Deficiente</option>
                                             </select>
                                         </div>
                                     </div>
@@ -151,20 +150,20 @@
                                     <div class="row">
                                         <div class="col">
                                             <h6 class="mt-3">Procedimento</h6>
-                                            <select class="form-control">
+                                            <select id="consultaion-procedure" class="form-control">
                                                 <option>Cirurgia da cabeça e do pescoço</option>
                                                 <option>Gastroenterologia</option>
                                             </select>
                                         </div>
                                         <div class="col">
                                             <h6 class="mt-3">Solicitante</h6>
-                                            <input class="form-control" type="number" placeholder="12612">
+                                            <input id="consultaion-requester" class="form-control" type="number" placeholder="12612">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <h6 class="mt-3">Preparo</h6>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea id="consultaion-prepare" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
 
                                 </div>
@@ -173,7 +172,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <h6 class="mt-3">Detalhes</h6>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" id="consultaion-details" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
