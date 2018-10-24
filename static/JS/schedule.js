@@ -141,15 +141,35 @@ function fillTable(tableBody, consultations) {
     }, tableBody, "tr"))
 }
 
-baseUrl = window.location
+const handleIdFromConsultations = (consultations, callback = ()=>{}) => {
+    const consultationPropertiesUrls = [
+        {property: "patient", url: `${baseUrl}pacientes/`},
+        {property: "doctor", url: `${baseUrl}medicos/`},                
+        {property: "procedure", url: `${baseUrl}procedimentos/`}
+    ];
+
+    consultations.forEach(consultation => {
+        consultationPropertiesUrls.forEach(pu => {
+            getOnApi(response => {
+                consultation[pu.property] = response.name;
+                console.log("consultation", consultation);
+                console.log("response", response)
+                callback(consultations);
+            }, pu.url+consultation[pu.property]);
+        });
+    });
+}
+
+const baseUrl = window.location;
 
 document.onreadystatechange = () => {
     if (document.readyState == "interactive") {
-        getOnApi(function (consultations) {
-            console.log(consultations, document.getElementById("schedule-body"));
+        getOnApi(consultations => {
+            const scheduleEl = document.getElementById("schedule-body")
+            console.log(consultations, scheduleEl);
 
-            fillTable(document.getElementById("schedule-body"), consultations)
+            handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations));
 
-        }, `${baseUrl}consultas/`, {})
+        }, `${baseUrl}consultas/`);
     }
 }
