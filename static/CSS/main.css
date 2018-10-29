@@ -1,7 +1,12 @@
-.link-color {
+.default-link {
     color: #007bff !important;
+    cursor: pointer !important;
 }
 
 .line-through-text {
     text-decoration: line-through;
+}
+
+.modal-xlg {
+    max-width: 90%;
 }
