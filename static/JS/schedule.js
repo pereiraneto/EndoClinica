@@ -94,51 +94,48 @@ function fillTable(tableBody, consultations) {
         parent.appendChild(newEl);
     }
 
-    consultations.forEach(consultation => addTag((tr) => {
+    consultations.forEach(consultation => addTag(rowEl => {
         addTag(th => {
             th.scope = "row";
             const date = `${consultation.date.slice(8,10)}/${consultation.date.slice(5,7)}`;
             const hour = `${consultation.date.slice(11,13)}h${consultation.date.slice(14,16)}`;
             th.textContent = `${date} - ${hour}`;
-        }, tr, "th");
-        addTag(th => th.textContent = `${consultation.duration} min`, tr);
-        addTag(th => th.textContent = consultation.patient, tr);
-        addTag(th => th.textContent = consultation.priority, tr);
-        addTag(th => th.textContent = consultation.procedure, tr);
-        addTag(th => th.textContent = consultation.prepare ? "Sim" : "Não", tr);
-        addTag(th => {
+        }, rowEl, "th");
+        addTag(td => td.textContent = `${consultation.duration} min`, rowEl);
+        addTag(td => td.textContent = consultation.patient, rowEl);
+        addTag(td => td.textContent = consultation.priority, rowEl);
+        addTag(td => td.textContent = consultation.procedure, rowEl);
+        addTag(td => td.textContent = consultation.prepare ? "Sim" : "Não", rowEl);
+        addTag(td => {
             addTag(a => {
-                a.textContent = "Visualizar";
+                a.textContent = "Editar";
                 a.classList += "default-link mr-2";
-                a.onclick = () => handleClickInfoModal(consultation)
-            }, th, "a");
-        }, tr);
+                a.onclick = () => handleClickInfoModal(consultation);
+            }, td, "a");
+        }, rowEl);
 
-        tableBody.appendChild(tr)
-
-        let trClass;
-
+        let rowElClass;
         switch (consultation.status) {
             case "Agendado":
-                trClass = "table-danger";
+                rowElClass = "table-danger";
                 break;
             case "Confirmado":
-                trClass = "table-warning";
+                rowElClass = "table-warning";
                 break;
             case "Chegou":
-                trClass = "bg-danger";
+                rowElClass = "bg-danger";
                 break;
             case "Realizado":
-                trClass = "table-success";
+                rowElClass = "table-success";
                 break;
             case "Desmarcado":
-                trClass = "table-info line-through-text";
+                rowElClass = "table-info line-through-text";
                 break;
         }
 
-        tr.classList += trClass
+        rowEl.classList += rowElClass;
 
-    }, tableBody, "tr"))
+    }, tableBody, "tr"));
 }
 
 const handleIdFromConsultations = (consultations, callback = ()=>{}) => {
