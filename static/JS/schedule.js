@@ -1,11 +1,30 @@
 const selectConsultationStatusEl = (consultationStatus) => {
 
-    const statusIdNameList = [
-        {id: "consultation-status-scheduled", name: "Agendado", cssClass: "btn btn-outline-secondary"},
-        {id: "consultation-status-confirmed", name: "Confirmado", cssClass: "btn btn-outline-warning"},
-        {id: "consultation-status-arrived", name: "Chegou", cssClass: "btn btn-outline-danger"},
-        {id: "consultation-status-realized", name: "Realizado", cssClass: "btn btn-outline-success"},
-        {id: "consultation-status-disengaged", name: "Desmarcado", cssClass: "btn btn-outline-primary"}
+    const statusIdNameList = [{
+            id: "consultation-status-scheduled",
+            name: "Agendado",
+            cssClass: "btn btn-outline-secondary"
+        },
+        {
+            id: "consultation-status-confirmed",
+            name: "Confirmado",
+            cssClass: "btn btn-outline-warning"
+        },
+        {
+            id: "consultation-status-arrived",
+            name: "Chegou",
+            cssClass: "btn btn-outline-danger"
+        },
+        {
+            id: "consultation-status-realized",
+            name: "Realizado",
+            cssClass: "btn btn-outline-success"
+        },
+        {
+            id: "consultation-status-disengaged",
+            name: "Desmarcado",
+            cssClass: "btn btn-outline-primary"
+        }
     ]
 
     statusIdNameList.forEach(status => {
@@ -28,23 +47,60 @@ const setElsOption = (idSelectList) => {
 
 const fillInfoModal = (consultationObj) => {
 
-    const idInputList = [
-        {id: "consultation-patient", value: consultationObj.patient},
-        {id: "consultation-cell-phone", value: consultationObj.cell_phone},
-        {id: "consultation-phone", value: consultationObj.phone},
-        {id: "consultation-birth-date", value: consultationObj.birth_date},
-        {id: "consultation-insurance", value: consultationObj.insurance},
-        {id: "consultation-date", value: consultationObj.date.slice(0, 10)},
-        {id: "consultation-hour", value: consultationObj.date.slice(11, 16)},
-        {id: "consultation-duration", value: consultationObj.duration},
-        {id: "consultaion-requester", value: consultationObj.requester},
-        {id: "consultaion-prepare", value: consultationObj.prepare},
-        {id: "consultaion-details", value: consultationObj.details}
+    const idInputList = [{
+            id: "consultation-patient",
+            value: consultationObj.patient
+        },
+        {
+            id: "consultation-cell-phone",
+            value: consultationObj.cell_phone
+        },
+        {
+            id: "consultation-phone",
+            value: consultationObj.phone
+        },
+        {
+            id: "consultation-birth-date",
+            value: consultationObj.birth_date
+        },
+        {
+            id: "consultation-insurance",
+            value: consultationObj.insurance
+        },
+        {
+            id: "consultation-date",
+            value: consultationObj.date.slice(0, 10)
+        },
+        {
+            id: "consultation-hour",
+            value: consultationObj.date.slice(11, 16)
+        },
+        {
+            id: "consultation-duration",
+            value: consultationObj.duration
+        },
+        {
+            id: "consultaion-requester",
+            value: consultationObj.requester
+        },
+        {
+            id: "consultaion-prepare",
+            value: consultationObj.prepare
+        },
+        {
+            id: "consultaion-details",
+            value: consultationObj.details
+        }
     ];
-    
-    const idSelectList = [
-        {id: "consultation-priority", value: consultationObj.priority},
-        {id: "consultaion-procedure", value: consultationObj.procedure}
+
+    const idSelectList = [{
+            id: "consultation-priority",
+            value: consultationObj.priority
+        },
+        {
+            id: "consultaion-procedure",
+            value: consultationObj.procedure
+        }
     ];
 
     selectConsultationStatusEl(consultationObj.status);
@@ -59,7 +115,7 @@ const handleClickInfoModal = (consultationObj) => {
 
 
 
-function getOnApi(callback, url, body = {}) {
+const getOnApi = (callback, url, body = {}) => {
 
     const request = new XMLHttpRequest();
     request.open('GET', url);
@@ -77,7 +133,7 @@ function getOnApi(callback, url, body = {}) {
         }
     }
 
-    request.onerror = function () {
+    request.onerror = () => {
         console.log("On Error API Request")
         callback(null);
     }
@@ -85,7 +141,7 @@ function getOnApi(callback, url, body = {}) {
     request.send(body);
 }
 
-function fillTable(tableBody, consultations) {
+const fillTable = (tableBody, consultations) => {
     tableBody.innerHTML = '';
 
     const addTag = (callback, parent, tag = "td") => {
@@ -138,11 +194,19 @@ function fillTable(tableBody, consultations) {
     }, tableBody, "tr"));
 }
 
-const handleIdFromConsultations = (consultations, callback = ()=>{}) => {
-    const consultationPropertiesUrls = [
-        {property: "patient", url: `${baseUrl}pacientes/`},
-        {property: "doctor", url: `${baseUrl}medicos/`},                
-        {property: "procedure", url: `${baseUrl}procedimentos/`}
+const handleIdFromConsultations = (consultations, callback = () => {}) => {
+    const consultationPropertiesUrls = [{
+            property: "patient",
+            url: `${baseUrl}pacientes/`
+        },
+        {
+            property: "doctor",
+            url: `${baseUrl}medicos/`
+        },
+        {
+            property: "procedure",
+            url: `${baseUrl}procedimentos/`
+        }
     ];
 
     consultations.forEach(consultation => {
@@ -152,14 +216,20 @@ const handleIdFromConsultations = (consultations, callback = ()=>{}) => {
                 console.log("consultation", consultation);
                 console.log("response", response)
                 callback(consultations);
-            }, pu.url+consultation[pu.property]);
+            }, pu.url + consultation[pu.property]);
         });
     });
 }
 
+
+
+
 const baseUrl = window.location;
 
 document.onreadystatechange = () => {
+    if (!window.indexedDB) {
+        window.alert("Atualize seu navegador para usar este site.");
+    }
     if (document.readyState == "interactive") {
         getOnApi(consultations => {
             const scheduleEl = document.getElementById("schedule-body")
