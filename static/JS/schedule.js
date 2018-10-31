@@ -106,6 +106,12 @@ const fillInfoModal = (consultationObj) => {
     selectConsultationStatusEl(consultationObj.status);
     setElsInputs(idInputList);
     setElsOption(idSelectList);
+    setButtonOnClickFunction(consultationObj.id, "saveConsultation");
+}
+
+const setButtonOnClickFunction = (consultaionId, buttonId) => {
+    const button = document.getElementById(buttonId);
+    button.onclick = () => handleSaveConsultationModal(consultaionId);
 }
 
 const handleClickInfoModal = (consultationObj) => {
@@ -115,10 +121,10 @@ const handleClickInfoModal = (consultationObj) => {
 
 
 
-const getOnApi = (callback, url, body = {}) => {
+const requestFromApi = (callback, url, body = {}, method = 'GET') => {
 
     const request = new XMLHttpRequest();
-    request.open('GET', url);
+    request.open(method, url);
 
     request.onload = () => {
         console.log(request.status)
@@ -211,18 +217,32 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
 
     consultations.forEach(consultation => {
         consultationPropertiesUrls.forEach(pu => {
-            getOnApi(response => {
+            requestFromApi(response => {
                 consultation[pu.property] = response.name;
                 console.log("consultation", consultation);
-                console.log("response", response)
+                console.log("response", response);
                 callback(consultations);
             }, pu.url + consultation[pu.property]);
         });
     });
 }
 
+const handleSaveConsultationModal = (consultaionId) => {
+    let consultationStatus;
+    document.getElementsByName("statusOptions").forEach(option => {
+        if(option.checked) {
+            consultationStatus = option.value;
+        }
+    })
 
+    const requestBody = {
+        status: consultationStatus,
+        prepare: document.getElementById("consultaion-prepare").value,
+        details: document.getElementById("consultaion-prepare").value
+    }
 
+    requestFromApi(() => {}, `${baseUrl}consultas/${consultaionId}/`, requestBody, 'PUT');
+}
 
 const baseUrl = window.location;
 
@@ -231,7 +251,7 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        getOnApi(consultations => {
+        requestFromApi(consultations => {
             const scheduleEl = document.getElementById("schedule-body")
             console.log(consultations, scheduleEl);
 
