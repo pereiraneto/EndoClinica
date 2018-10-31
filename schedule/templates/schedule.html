@@ -69,29 +69,29 @@
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
                                         <label id="consultation-status-scheduled" class="btn btn-secondary">
-                                            <input type="radio" name="options" autocomplete="off">
+                                            <input type="radio" name="statusOptions" autocomplete="off" value="Agendado">
                                             Agendado
                                         </label>
                                         <label id="consultation-status-confirmed" class="btn btn-warning">
-                                            <input type="radio" name="options" autocomplete="off">
+                                            <input type="radio" name="statusOptions" autocomplete="off" value="Confirmado">
                                             Confirmado
                                         </label>
                                         <label id="consultation-status-arrived" class="btn btn-danger">
-                                            <input type="radio" name="options" autocomplete="off">
+                                            <input type="radio" name="statusOptions" autocomplete="off" value="Chegou">
                                             Chegou
                                         </label>
                                         <label id="consultation-status-realized" class="btn btn-success">
-                                            <input type="radio" name="options" autocomplete="off">
+                                            <input type="radio" name="statusOptions" autocomplete="off" value="Realizado">
                                             Realizado
                                         </label>
                                         <label id="consultation-status-disengaged" class="btn btn-primary">
-                                            <input type="radio" name="options" autocomplete="off">
+                                            <input type="radio" name="statusOptions" autocomplete="off" value="Desmarcado">
                                             Desmarcado
                                         </label>
                                     </div>
 
                                     <h6 class="mt-3">Paciente</h6>
-                                    <input id="consultation-patient" class="form-control" type="text">
+                                    <input id="consultation-patient" class="form-control" type="text" readonly>
 
                                     <div id="patientData">
                                         <div class="row">
@@ -179,7 +179,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-primary" id="saveConsultation">Salvar</button>
                     </div>
                 </div>
             </div>
