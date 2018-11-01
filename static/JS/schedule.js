@@ -28,8 +28,12 @@ const selectConsultationStatusEl = (consultationStatus) => {
     ]
 
     statusIdNameList.forEach(status => {
-        if (status.name == consultationStatus) status.cssClass += " active";
-        document.getElementById(status.id).className = status.cssClass
+        const el = document.getElementById(status.id)
+        if (status.name == consultationStatus){
+            status.cssClass += " active";
+            el.click();
+        }
+        el.className = status.cssClass;
     });
 }
 
@@ -144,7 +148,7 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
         callback(null);
     }
 
-    request.send(body);
+    request.send(JSON.stringify(body));
 }
 
 const fillTable = (tableBody, consultations) => {
@@ -229,17 +233,38 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
 
 const handleSaveConsultationModal = (consultaionId) => {
     let consultationStatus;
+
     document.getElementsByName("statusOptions").forEach(option => {
         if(option.checked) {
+            console.log("Status", option.value, option)
             consultationStatus = option.value;
         }
-    })
+    });
+
+    for (el in document.getElementsByName("statusOptions")){
+        if( el.checked){
+            console.log(el.value)
+        }
+    }
 
     const requestBody = {
         status: consultationStatus,
+        date: `${document.getElementById("consultation-date").value}T${document.getElementById("consultation-hour").value}:00Z`,
+        duration: document.getElementById("consultation-duration").value,
+        priority: document.getElementById("consultation-priority").value,
         prepare: document.getElementById("consultaion-prepare").value,
-        details: document.getElementById("consultaion-prepare").value
-    }
+        insurance: document.getElementById("consultation-insurance").value,
+        cell_phone: document.getElementById("consultation-cell-phone").value,
+        phone: document.getElementById("consultation-phone").value,
+        birth_date: document.getElementById("consultation-birth-date").value,
+        details: document.getElementById("consultaion-details").value,
+        requester: document.getElementById("consultaion-requester").value,
+        patient: 1,
+        doctor: 1,
+        procedure: 1
+    };
+
+    console.log("Request body", requestBody);
 
     requestFromApi(() => {}, `${baseUrl}consultas/${consultaionId}/`, requestBody, 'PUT');
 }
