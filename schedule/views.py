@@ -9,25 +9,25 @@ from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerial
 class ConsultationViewSet(viewsets.ModelViewSet):
     queryset = Consultation.objects.all()
     serializer_class = ConsultationSerializer
-    permissions_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
-    permissions_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
-    permissions_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 
 class ProcedureViewSet(viewsets.ModelViewSet):
     queryset = Procedure.objects.all()
     serializer_class = ProcedureSerializer
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.AllowAny, )
 
 class ScheduleView(views.View):
     def get(self, request):
