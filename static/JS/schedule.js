@@ -131,7 +131,6 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
     request.open(method, url);
 
     request.onload = () => {
-        console.log(request.status)
         if (request.status == 200 || request.status == 201) {
             if (request.response) {
                 const response = request.response;
@@ -148,6 +147,13 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
         callback(null);
     }
 
+    console.log("request obj > ", request);
+
+    if (['PUT'].includes(method)) {
+        const csrftoken = Cookies.get('csrftoken');
+        request.setRequestHeader("X-CSRFToken", csrftoken);
+        request.setRequestHeader("Content-type", "application/json")
+    }
     request.send(JSON.stringify(body));
 }
 
@@ -257,15 +263,13 @@ const handleSaveConsultationModal = (consultaionId) => {
         cell_phone: document.getElementById("consultation-cell-phone").value,
         phone: document.getElementById("consultation-phone").value,
         birth_date: document.getElementById("consultation-birth-date").value,
+        doctor: 1,
+        procedure: 1,
         details: document.getElementById("consultaion-details").value,
         requester: document.getElementById("consultaion-requester").value,
-        patient: 1,
-        doctor: 1,
-        procedure: 1
+        patient: 1
     };
-
-    console.log("Request body", requestBody);
-
+    console.log(requestBody);
     requestFromApi(() => {}, `${baseUrl}consultas/${consultaionId}/`, requestBody, 'PUT');
 }
 
