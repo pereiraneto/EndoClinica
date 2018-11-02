@@ -125,7 +125,7 @@ const setButtonOnClickFunction = (consultationId, buttonId) => {
 
 const handleClickInfoModal = (consultationObj) => {
     fillInfoModal(consultationObj);
-    document.getElementById("consultation-form-button").click();
+    $("#consultation-form").modal('show');
 }
 
 const requestFromApi = (callback, url, body = {}, method = 'GET') => {
