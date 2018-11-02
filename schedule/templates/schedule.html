@@ -65,7 +65,11 @@
                         <form>
                             <div class="row">
                                 <div class="col">
-                                    <h6>Status</h6>
+
+                                    <h6>Médico</h6>
+                                    <select id="consultation-doctors" class="form-control"></select>
+    
+                                    <h6 class="mt-3">Status</h6>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
                                         <label id="consultation-status-scheduled" class="btn btn-secondary">
@@ -149,20 +153,20 @@
                                     <div class="row">
                                         <div class="col">
                                             <h6 class="mt-3">Procedimento</h6>
-                                            <select id="consultaion-procedure" class="form-control">
+                                            <select id="consultation-procedure" class="form-control">
                                                 <option>Cirurgia da cabeça e do pescoço</option>
                                                 <option>Gastroenterologia</option>
                                             </select>
                                         </div>
                                         <div class="col">
                                             <h6 class="mt-3">Solicitante</h6>
-                                            <input id="consultaion-requester" class="form-control" type="number" placeholder="12612">
+                                            <input id="consultation-requester" class="form-control" type="number" placeholder="12612">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <h6 class="mt-3">Preparo</h6>
-                                        <textarea id="consultaion-prepare" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
                                     </div>
 
                                 </div>
@@ -171,7 +175,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <h6 class="mt-3">Detalhes</h6>
-                                        <textarea class="form-control" id="consultaion-details" rows="3"></textarea>
+                                        <textarea class="form-control" id="consultation-details" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
