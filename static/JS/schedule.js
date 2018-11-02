@@ -29,7 +29,7 @@ const selectConsultationStatusEl = (consultationStatus) => {
 
     statusIdNameList.forEach(status => {
         const el = document.getElementById(status.id)
-        if (status.name == consultationStatus){
+        if (status.name == consultationStatus) {
             status.cssClass += " active";
             el.click();
         }
@@ -53,7 +53,7 @@ const fillInfoModal = (consultationObj) => {
 
     const idInputList = [{
             id: "consultation-patient",
-            value: consultationObj.patient
+            value: consultationObj.patientName
         },
         {
             id: "consultation-cell-phone",
@@ -84,15 +84,15 @@ const fillInfoModal = (consultationObj) => {
             value: consultationObj.duration
         },
         {
-            id: "consultaion-requester",
+            id: "consultation-requester",
             value: consultationObj.requester
         },
         {
-            id: "consultaion-prepare",
+            id: "consultation-prepare",
             value: consultationObj.prepare
         },
         {
-            id: "consultaion-details",
+            id: "consultation-details",
             value: consultationObj.details
         }
     ];
@@ -102,8 +102,12 @@ const fillInfoModal = (consultationObj) => {
             value: consultationObj.priority
         },
         {
-            id: "consultaion-procedure",
+            id: "consultation-procedure",
             value: consultationObj.procedure
+        },
+        {
+            id: "consultation-doctors",
+            value: consultationObj.doctor
         }
     ];
 
@@ -113,17 +117,15 @@ const fillInfoModal = (consultationObj) => {
     setButtonOnClickFunction(consultationObj.id, "saveConsultation");
 }
 
-const setButtonOnClickFunction = (consultaionId, buttonId) => {
+const setButtonOnClickFunction = (consultationId, buttonId) => {
     const button = document.getElementById(buttonId);
-    button.onclick = () => handleSaveConsultationModal(consultaionId);
+    button.onclick = () => handleSaveConsultationModal(consultationId);
 }
 
 const handleClickInfoModal = (consultationObj) => {
     fillInfoModal(consultationObj);
     document.getElementById("consultation-form-button").click();
 }
-
-
 
 const requestFromApi = (callback, url, body = {}, method = 'GET') => {
 
@@ -157,14 +159,15 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
     request.send(JSON.stringify(body));
 }
 
+const addTag = (callback, parent, tag = "td") => {
+    const newEl = document.createElement(tag);
+    callback(newEl);
+    parent.appendChild(newEl);
+}
+
 const fillTable = (tableBody, consultations) => {
     tableBody.innerHTML = '';
 
-    const addTag = (callback, parent, tag = "td") => {
-        const newEl = document.createElement(tag);
-        callback(newEl);
-        parent.appendChild(newEl);
-    }
 
     consultations.forEach(consultation => addTag(rowEl => {
         addTag(th => {
@@ -174,9 +177,9 @@ const fillTable = (tableBody, consultations) => {
             th.textContent = `${date} - ${hour}`;
         }, rowEl, "th");
         addTag(td => td.textContent = `${consultation.duration} min`, rowEl);
-        addTag(td => td.textContent = consultation.patient, rowEl);
+        addTag(td => td.textContent = consultation.patientName, rowEl);
         addTag(td => td.textContent = consultation.priority, rowEl);
-        addTag(td => td.textContent = consultation.procedure, rowEl);
+        addTag(td => td.textContent = consultation.procedureName, rowEl);
         addTag(td => td.textContent = consultation.prepare ? "Sim" : "Não", rowEl);
         addTag(td => {
             addTag(a => {
@@ -216,10 +219,6 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
             url: `${baseUrl}pacientes/`
         },
         {
-            property: "doctor",
-            url: `${baseUrl}medicos/`
-        },
-        {
             property: "procedure",
             url: `${baseUrl}procedimentos/`
         }
@@ -228,7 +227,7 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
     consultations.forEach(consultation => {
         consultationPropertiesUrls.forEach(pu => {
             requestFromApi(response => {
-                consultation[pu.property] = response.name;
+                consultation[`${pu.property}Name`] = response.name;
                 console.log("consultation", consultation);
                 console.log("response", response);
                 callback(consultations);
@@ -237,18 +236,18 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
     });
 }
 
-const handleSaveConsultationModal = (consultaionId) => {
+const handleSaveConsultationModal = (consultationId) => {
     let consultationStatus;
 
     document.getElementsByName("statusOptions").forEach(option => {
-        if(option.checked) {
+        if (option.checked) {
             console.log("Status", option.value, option)
             consultationStatus = option.value;
         }
     });
 
-    for (el in document.getElementsByName("statusOptions")){
-        if( el.checked){
+    for (el in document.getElementsByName("statusOptions")) {
+        if (el.checked) {
             console.log(el.value)
         }
     }
@@ -258,19 +257,30 @@ const handleSaveConsultationModal = (consultaionId) => {
         date: `${document.getElementById("consultation-date").value}T${document.getElementById("consultation-hour").value}:00Z`,
         duration: document.getElementById("consultation-duration").value,
         priority: document.getElementById("consultation-priority").value,
-        prepare: document.getElementById("consultaion-prepare").value,
+        prepare: document.getElementById("consultation-prepare").value,
         insurance: document.getElementById("consultation-insurance").value,
         cell_phone: document.getElementById("consultation-cell-phone").value,
         phone: document.getElementById("consultation-phone").value,
         birth_date: document.getElementById("consultation-birth-date").value,
-        doctor: 1,
+        doctor: document.getElementById("consultation-doctors").value,
         procedure: 1,
-        details: document.getElementById("consultaion-details").value,
-        requester: document.getElementById("consultaion-requester").value,
+        details: document.getElementById("consultation-details").value,
+        requester: document.getElementById("consultation-requester").value,
         patient: 1
     };
     console.log(requestBody);
-    requestFromApi(() => {}, `${baseUrl}consultas/${consultaionId}/`, requestBody, 'PUT');
+    requestFromApi(() => {
+        $('#consultation-form').modal('hide');
+        renderScreen();
+    }, `${baseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
+}
+
+const renderScreen = () => {
+    requestFromApi(consultations => {
+        const scheduleEl = document.getElementById("schedule-body")
+        console.log("render data", consultations, scheduleEl);
+        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations));
+    }, `${baseUrl}consultas/`);
 }
 
 const baseUrl = window.location;
@@ -280,12 +290,14 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        requestFromApi(consultations => {
-            const scheduleEl = document.getElementById("schedule-body")
-            console.log(consultations, scheduleEl);
-
-            handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations));
-
-        }, `${baseUrl}consultas/`);
+        requestFromApi(doctors => {
+            doctors.forEach(doctor => {
+                addTag(option => {
+                    option.textContent = doctor.name;
+                    option.value = doctor.id;
+                }, document.getElementById("consultation-doctors"), 'option')
+            });
+            renderScreen();
+        }, baseUrl + "medicos/");
     }
 }
