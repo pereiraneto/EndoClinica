@@ -54,7 +54,7 @@ const fillInfoModal = (consultationObj) => {
 
 const handleClickInfoModal = (consultationObj) => {
     fillInfoModal(consultationObj);
-    document.getElementById("consultation-form-button").click();
+    $("#consultation-form").modal('show');
 }
 
 
