@@ -103,7 +103,7 @@ const fillInfoModal = (consultationObj) => {
             value: consultationObj.priority
         },
         {
-            id: "consultation-procedure",
+            id: "consultation-procedures",
             value: consultationObj.procedure
         },
         {
@@ -268,7 +268,7 @@ const handleSaveConsultationModal = (consultationId) => {
         phone: document.getElementById("consultation-phone").value,
         birth_date: document.getElementById("consultation-birth-date").value,
         doctor: document.getElementById("consultation-doctors").value,
-        procedure: 1,
+        procedure: document.getElementById("consultation-procedures").value,
         details: document.getElementById("consultation-details").value,
         requester: document.getElementById("consultation-requester").value,
         patient: 1
@@ -300,9 +300,17 @@ document.onreadystatechange = () => {
                 addTag(option => {
                     option.textContent = doctor.name;
                     option.value = doctor.id;
-                }, document.getElementById("consultation-doctors"), 'option')
+                }, document.getElementById("consultation-doctors"), 'option');
             });
-            renderScreen();
+            requestFromApi(procedures => {
+                procedures.forEach(procedure => {
+                    addTag(option => {
+                        option.textContent = procedure.name;
+                        option.value = procedure.id;
+                    }, document.getElementById("consultation-procedures"), 'option');
+                });
+                renderScreen();
+            }, baseUrl + "procedimentos/");
         }, baseUrl + "medicos/");
     }
 }
