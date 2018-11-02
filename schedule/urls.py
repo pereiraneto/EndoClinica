@@ -12,5 +12,5 @@ router.register('procedimentos', views.ProcedureViewSet, base_name='procedure')
 router.register('pacientes', views.PatientViewSet, base_name='patient')
 
 urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
-                path('consultas/nova', views.ScheduleView.as_view(), name='create_consultation')]
+                path('consultas/nova', views.NewContultationView.as_view(), name='create-consultation')]
 urlpatterns += router.urls

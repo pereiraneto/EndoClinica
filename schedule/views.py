@@ -32,3 +32,7 @@ class ProcedureViewSet(viewsets.ModelViewSet):
 class ScheduleView(views.View):
     def get(self, request):
         return render(request, 'schedule.html', {})
+
+class NewContultationView(views.View):
+    def get(self, request):
+        return render(request, 'create-consultation.html', {})
