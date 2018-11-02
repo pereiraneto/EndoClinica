@@ -29,6 +29,7 @@ const selectConsultationStatusEl = (consultationStatus) => {
 
     statusIdNameList.forEach(status => {
         const el = document.getElementById(status.id)
+        
         if (status.name == consultationStatus) {
             status.cssClass += " active";
             el.click();
@@ -217,6 +218,10 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
     const consultationPropertiesUrls = [{
             property: "patient",
             url: `${baseUrl}pacientes/`
+        },
+        {
+            property: "doctor",
+            url: `${baseUrl}medicos/`
         },
         {
             property: "procedure",
