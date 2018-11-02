@@ -31,40 +31,23 @@
         </h2>
 
         <form>
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col sm-1">
 
                     <h6>Médico</h6>
                     <select id="consultation-doctors" class="form-control"></select>
 
-                    <h6 class="mt-3">Status</h6>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-                        <label id="consultation-status-scheduled" class="btn btn-secondary">
-                            <input type="radio" name="statusOptions" autocomplete="off" value="Agendado">
-                            Agendado
-                        </label>
-                        <label id="consultation-status-confirmed" class="btn btn-warning">
-                            <input type="radio" name="statusOptions" autocomplete="off" value="Confirmado">
-                            Confirmado
-                        </label>
-                        <label id="consultation-status-arrived" class="btn btn-danger">
-                            <input type="radio" name="statusOptions" autocomplete="off" value="Chegou">
-                            Chegou
-                        </label>
-                        <label id="consultation-status-realized" class="btn btn-success">
-                            <input type="radio" name="statusOptions" autocomplete="off" value="Realizado">
-                            Realizado
-                        </label>
-                        <label id="consultation-status-disengaged" class="btn btn-primary">
-                            <input type="radio" name="statusOptions" autocomplete="off" value="Desmarcado">
-                            Desmarcado
-                        </label>
+                    <div class="row">
+                        <h6 class="mt-4 col-md-12">Paciente</h6>
+                        <div class="col-md-9">    
+                            <select id="consultation-patient" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" style="line-height: 35px; text-decoration: none">Novo paciente</a>
+                        </div>
                     </div>
-
-                    <h6 class="mt-3">Paciente</h6>
-                    <input id="consultation-patient" class="form-control" type="text" readonly>
-
+                    
                     <div id="patientData">
                         <div class="row">
                             <div class="col">
@@ -120,21 +103,21 @@
 
                     <div class="row">
                         <div class="col">
-                            <h6 class="mt-3">Procedimento</h6>
+                            <h6 class="mt-4">Procedimento</h6>
                             <select id="consultation-procedure" class="form-control">
                                 <option>Cirurgia da cabeça e do pescoço</option>
                                 <option>Gastroenterologia</option>
                             </select>
                         </div>
                         <div class="col">
-                            <h6 class="mt-3">Solicitante</h6>
+                            <h6 class="mt-4">Solicitante</h6>
                             <input id="consultation-requester" class="form-control" type="number" placeholder="12612">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h6 class="mt-3">Preparo</h6>
-                        <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                        <h6 class="mt-4">Preparo</h6>
+                        <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
                     </div>
 
                 </div>
@@ -146,6 +129,10 @@
                         <textarea class="form-control" id="consultation-details" rows="3"></textarea>
                     </div>
                 </div>
+            </div>
+            <div class="mt-4 float-right">
+                <button type="button" class="btn btn-secondary">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveConsultation">Salvar</button>
             </div>
         </form>
 
