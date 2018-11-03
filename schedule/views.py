@@ -48,9 +48,8 @@ class ConsultationFilter(generics.ListAPIView):
         initial_date = self.request.query_params.get('data_inicial', None)
         final_date = self.request.query_params.get('data_final', None)
 
-        if doctor != 0:
+        if doctor != '0':
             objects = objects.filter(doctor=doctor)
-        if initial_date != None and final_date != None:
-            objects = objects.filter(date__range=[initial_date+" 12:00:00+00:00", final_date+" 12:00:00+00:00"])
-
+        if initial_date != '0' and final_date != '0':
+            objects = objects.filter(date__range=[initial_date+" 00:00:01+00:00", final_date+" 23:59:59+00:00"])
         return objects

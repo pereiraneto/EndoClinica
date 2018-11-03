@@ -168,7 +168,6 @@ const addTag = (callback, parent, tag = "td") => {
 const fillTable = (tableBody, consultations) => {
     tableBody.innerHTML = '';
 
-
     consultations.forEach(consultation => addTag(rowEl => {
         addTag(th => {
             th.scope = "row";
@@ -227,17 +226,18 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
             url: `${baseUrl}procedimentos/`
         }
     ];
-
-    consultations.forEach(consultation => {
-        consultationPropertiesUrls.forEach(pu => {
-            requestFromApi(response => {
-                consultation[`${pu.property}Name`] = response.name;
-                console.log("consultation", consultation);
-                console.log("response", response);
-                callback(consultations);
-            }, pu.url + consultation[pu.property]);
-        });
-    });
+    if(consultations.length == 0) {
+        callback([])
+    } else {
+        consultations.forEach(consultation => {
+            consultationPropertiesUrls.forEach(pu => {
+                requestFromApi(response => {
+                    consultation[`${pu.property}Name`] = response.name
+                    callback(consultations)
+                }, pu.url + consultation[pu.property])
+            })
+        })
+    }
 }
 
 const handleChangePatientSelector = () => {
@@ -259,7 +259,13 @@ const handleFilter = () => {
     const date = document.getElementById("filter-dates").value
     const doctor = document.getElementById("filter-doctors").value
 
-    console.log(date, doctor)
+    const urlRequest = `${baseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${date}&data_final=${date}`
+    console.log("URL maldita", urlRequest)
+    requestFromApi(consultations => {
+        const scheduleEl = document.getElementById("schedule-body")
+        console.log("filtered data", consultations)
+        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
+    }, urlRequest);
 }
 
 const handleSaveConsultationModal = (consultationId) => {
