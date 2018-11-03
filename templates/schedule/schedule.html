@@ -5,9 +5,27 @@
 
     <div class="container mt-5">
 
-        <h2 class="mb-4">
+        <h2 class="mb-5">
             <strong>Agendamentos</strong>
         </h2>
+
+        <div class="row mb-4">
+            <div class="col-md-5">
+                <h6>Médico</h6>
+                <select id="filter-doctor" class="form-control"></select>
+            </div>
+            <div class="col-md-3">
+                <h6>Data</h6>
+                <input id="filter-date" type="date" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <h6>Hora</h6>
+                <input id="filter-hour" class="form-control" type="text">
+            </div>
+            <div class="col-md-2">
+                <a href="#" style="line-height: 85px; text-decoration: none">Filtrar</a>
+            </div>
+        </div>
 
         <table class="table table-striped">
             <thead>
