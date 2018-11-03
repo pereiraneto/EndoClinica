@@ -180,7 +180,7 @@ const fillTable = (tableBody, consultations) => {
         addTag(td => td.textContent = consultation.patientName, rowEl);
         addTag(td => td.textContent = consultation.priority, rowEl);
         addTag(td => td.textContent = consultation.procedureName, rowEl);
-        addTag(td => td.textContent = consultation.prepare ? "Sim" : "Não", rowEl);
+        addTag(td => td.textContent = consultation.insurance, rowEl);
         addTag(td => {
             addTag(a => {
                 a.textContent = "Editar";
