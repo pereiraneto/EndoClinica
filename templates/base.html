@@ -20,10 +20,13 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-green">
         <div class="container">
-            <a class="navbar-brand" href="#">EndoSystem</a>
-            <a href="{% url 'accounts:logout' %}?next=/">logout</a>
+            <a class="navbar-brand" href="/">
+                <img src="{% static "IMG/logo.jpeg"%}" width="30" height="30" class="d-inline-block align-top circle mr-2" alt="logo da EndoClinica">
+                EndoSystem
+            </a>
+            <button type="button" class="btn btn-light btn-sm" onclick="window.location.href='{% url "accounts:logout" %}?next=/'">Sair</button>
         </div>
     </nav>
 
