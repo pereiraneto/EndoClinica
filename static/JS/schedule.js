@@ -288,7 +288,7 @@ const renderScreen = () => {
     }, `${baseUrl}consultas/`);
 }
 
-const baseUrl = window.location;
+const baseUrl = window.location.origin + "/";
 
 document.onreadystatechange = () => {
     if (!window.indexedDB) {
