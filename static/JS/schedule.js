@@ -168,7 +168,6 @@ const addTag = (callback, parent, tag = "td") => {
 const fillTable = (tableBody, consultations) => {
     tableBody.innerHTML = '';
 
-
     consultations.forEach(consultation => addTag(rowEl => {
         addTag(th => {
             th.scope = "row";
@@ -227,17 +226,18 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
             url: `${baseUrl}procedimentos/`
         }
     ];
-
-    consultations.forEach(consultation => {
-        consultationPropertiesUrls.forEach(pu => {
-            requestFromApi(response => {
-                consultation[`${pu.property}Name`] = response.name;
-                console.log("consultation", consultation);
-                console.log("response", response);
-                callback(consultations);
-            }, pu.url + consultation[pu.property]);
-        });
-    });
+    if(consultations.length == 0) {
+        callback([])
+    } else {
+        consultations.forEach(consultation => {
+            consultationPropertiesUrls.forEach(pu => {
+                requestFromApi(response => {
+                    consultation[`${pu.property}Name`] = response.name
+                    callback(consultations)
+                }, pu.url + consultation[pu.property])
+            })
+        })
+    }
 }
 
 const handleChangePatientSelector = () => {
@@ -253,6 +253,19 @@ const handleChangePatientSelector = () => {
         document.getElementById("consultation-phone").value = ""
         document.getElementById("consultation-birth-date").value = ""
     }
+}
+
+const handleFilter = () => {
+    const date = document.getElementById("filter-dates").value
+    const doctor = document.getElementById("filter-doctors").value
+
+    const urlRequest = `${baseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${date}&data_final=${date}`
+    console.log("URL maldita", urlRequest)
+    requestFromApi(consultations => {
+        const scheduleEl = document.getElementById("schedule-body")
+        console.log("filtered data", consultations)
+        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
+    }, urlRequest);
 }
 
 const handleSaveConsultationModal = (consultationId) => {
@@ -294,11 +307,26 @@ const handleSaveConsultationModal = (consultationId) => {
     }, `${baseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
 }
 
+const loadDataFilterDate = (consultations) => {
+    const dates = []
+    consultations.forEach(consultation => {
+        const date = consultation.date.slice(0, 10)
+        if(! dates.includes(date)){ 
+            dates.push(date)
+            addTag(option => {
+                option.textContent = date
+                option.value = date
+            }, document.getElementById("filter-dates"), 'option')
+        }
+    })
+}
+
 const renderScreen = () => {
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
-        console.log("render data", consultations, scheduleEl);
-        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations));
+        console.log("render data", consultations, scheduleEl)
+        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
+        loadDataFilterDate(consultations)
     }, `${baseUrl}consultas/`);
 }
 
@@ -312,9 +340,13 @@ document.onreadystatechange = () => {
         requestFromApi(doctors => {
             doctors.forEach(doctor => {
                 addTag(option => {
-                    option.textContent = doctor.name;
-                    option.value = doctor.id;
-                }, document.getElementById("consultation-doctors"), 'option');
+                    option.textContent = doctor.name
+                    option.value = doctor.id
+                }, document.getElementById("consultation-doctors"), 'option')
+                addTag(option => {
+                    option.textContent = doctor.name
+                    option.value = doctor.id
+                }, document.getElementById("filter-doctors"), 'option')
             });
             requestFromApi(procedures => {
                 procedures.forEach(procedure => {
