@@ -84,6 +84,7 @@ const handleSaveConsultation = () => {
 
     requestFromApi(() => {
         window.alert("Consulta salva com sucesso!")
+        window.location.href='/'
     }, `${baseUrl}consultas/`, requestBody, 'POST');
 }
 
