@@ -30,7 +30,7 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
 
     console.log("request obj > ", request);
 
-    if (['PUT'].includes(method)) {
+    if (['PUT', 'POST'].includes(method)) {
         const csrftoken = Cookies.get('csrftoken');
         request.setRequestHeader("X-CSRFToken", csrftoken);
         request.setRequestHeader("Content-type", "application/json")
@@ -51,6 +51,40 @@ const handleChangePatientSelector = () => {
         document.getElementById("consultation-phone").value = ""
         document.getElementById("consultation-birth-date").value = ""
     }
+}
+
+const handleSaveConsultation = () => {
+    let consultationStatus;
+
+    document.getElementsByName("statusOptions").forEach(option => {
+        if (option.checked) {
+            console.log("Status", option.value, option)
+            consultationStatus = option.value;
+        }
+    });
+
+    const requestBody = {
+        status: consultationStatus,
+        date: `${document.getElementById("consultation-date").value}T${document.getElementById("consultation-hour").value}:00Z`,
+        duration: document.getElementById("consultation-duration").value,
+        priority: document.getElementById("consultation-priority").value,
+        prepare: document.getElementById("consultation-prepare").value,
+        insurance: document.getElementById("consultation-insurance").value,
+        cell_phone: document.getElementById("consultation-cell-phone").value,
+        phone: document.getElementById("consultation-phone").value,
+        birth_date: document.getElementById("consultation-birth-date").value,
+        doctor: document.getElementById("consultation-doctors").value,
+        procedure: document.getElementById("consultation-procedures").value,
+        details: document.getElementById("consultation-details").value,
+        requester: document.getElementById("consultation-requester").value,
+        patient: document.getElementById("consultation-patients").value
+    };
+    
+    console.log(requestBody);
+
+    requestFromApi(() => {
+        window.alert("Consulta salva com sucesso!")
+    }, `${baseUrl}consultas/`, requestBody, 'POST');
 }
 
 document.onreadystatechange = () => {
