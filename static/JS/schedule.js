@@ -53,10 +53,6 @@ const setElsOption = (idSelectList) => {
 const fillInfoModal = (consultationObj) => {
 
     const idInputList = [{
-            id: "consultation-patient",
-            value: consultationObj.patientName
-        },
-        {
             id: "consultation-cell-phone",
             value: consultationObj.cell_phone
         },
@@ -98,7 +94,8 @@ const fillInfoModal = (consultationObj) => {
         }
     ];
 
-    const idSelectList = [{
+    const idSelectList = [
+        {
             id: "consultation-priority",
             value: consultationObj.priority
         },
@@ -112,6 +109,8 @@ const fillInfoModal = (consultationObj) => {
         }
     ];
 
+    document.getElementById("consultation-patients").innerHTML = "";
+    addTag(opt=>{opt.innerText=consultationObj.patientName; opt.value=consultationObj.patient}, document.getElementById("consultation-patients"), 'option');
     selectConsultationStatusEl(consultationObj.status);
     setElsInputs(idInputList);
     setElsOption(idSelectList);
@@ -152,7 +151,7 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
 
     console.log("request obj > ", request);
 
-    if (['PUT'].includes(method)) {
+    if (['PUT', 'POST'].includes(method)) {
         const csrftoken = Cookies.get('csrftoken');
         request.setRequestHeader("X-CSRFToken", csrftoken);
         request.setRequestHeader("Content-type", "application/json")
@@ -193,13 +192,13 @@ const fillTable = (tableBody, consultations) => {
         let rowElClass;
         switch (consultation.status) {
             case "Agendado":
-                rowElClass = "table-danger";
+                rowElClass = "";
                 break;
             case "Confirmado":
                 rowElClass = "table-warning";
                 break;
             case "Chegou":
-                rowElClass = "bg-danger";
+                rowElClass = "table-danger";
                 break;
             case "Realizado":
                 rowElClass = "table-success";
@@ -241,6 +240,21 @@ const handleIdFromConsultations = (consultations, callback = () => {}) => {
     });
 }
 
+const handleChangePatientSelector = () => {
+    const patientId = document.getElementById("consultation-patients").value
+    if (patientId != 0) {
+        requestFromApi( patient => {
+            document.getElementById("consultation-cell-phone").value = patient.cell_phone
+            document.getElementById("consultation-phone").value = patient.phone
+            document.getElementById("consultation-birth-date").value = patient.birth_date
+        }, baseUrl + "pacientes/" + patientId)
+    } else {
+        document.getElementById("consultation-cell-phone").value = ""
+        document.getElementById("consultation-phone").value = ""
+        document.getElementById("consultation-birth-date").value = ""
+    }
+}
+
 const handleSaveConsultationModal = (consultationId) => {
     let consultationStatus;
 
@@ -271,7 +285,7 @@ const handleSaveConsultationModal = (consultationId) => {
         procedure: document.getElementById("consultation-procedures").value,
         details: document.getElementById("consultation-details").value,
         requester: document.getElementById("consultation-requester").value,
-        patient: 1
+        patient: document.getElementById("consultation-patients").value 
     };
     console.log(requestBody);
     requestFromApi(() => {
@@ -288,7 +302,7 @@ const renderScreen = () => {
     }, `${baseUrl}consultas/`);
 }
 
-const baseUrl = window.location;
+const baseUrl = window.location.origin + "/";
 
 document.onreadystatechange = () => {
     if (!window.indexedDB) {
