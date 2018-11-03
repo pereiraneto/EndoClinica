@@ -294,11 +294,27 @@ const handleSaveConsultationModal = (consultationId) => {
     }, `${baseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
 }
 
+const loadDataFilterDate = (consultations) => {
+    const dates = []
+    consultations.forEach(consultation => {
+        const date = consultation.date.slice(0, 10)
+        if(! dates.includes(date)){ 
+            dates.push(date)
+            addTag(option => {
+                option.textContent = date
+                option.value = date
+            }, document.getElementById("filter-dates"), 'option')
+        }
+    })
+    console.log("Dates: ", dates)
+}
+
 const renderScreen = () => {
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
-        console.log("render data", consultations, scheduleEl);
-        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations));
+        console.log("render data", consultations, scheduleEl)
+        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
+        loadDataFilterDate(consultations)
     }, `${baseUrl}consultas/`);
 }
 
