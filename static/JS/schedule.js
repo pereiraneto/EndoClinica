@@ -312,9 +312,13 @@ document.onreadystatechange = () => {
         requestFromApi(doctors => {
             doctors.forEach(doctor => {
                 addTag(option => {
-                    option.textContent = doctor.name;
-                    option.value = doctor.id;
-                }, document.getElementById("consultation-doctors"), 'option');
+                    option.textContent = doctor.name
+                    option.value = doctor.id
+                }, document.getElementById("consultation-doctors"), 'option')
+                addTag(option => {
+                    option.textContent = doctor.name
+                    option.value = doctor.id
+                }, document.getElementById("filter-doctors"), 'option')
             });
             requestFromApi(procedures => {
                 procedures.forEach(procedure => {
