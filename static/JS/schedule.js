@@ -255,6 +255,13 @@ const handleChangePatientSelector = () => {
     }
 }
 
+const handleFilter = () => {
+    const date = document.getElementById("filter-dates").value
+    const doctor = document.getElementById("filter-doctors").value
+
+    console.log(date, doctor)
+}
+
 const handleSaveConsultationModal = (consultationId) => {
     let consultationStatus;
 
@@ -306,7 +313,6 @@ const loadDataFilterDate = (consultations) => {
             }, document.getElementById("filter-dates"), 'option')
         }
     })
-    console.log("Dates: ", dates)
 }
 
 const renderScreen = () => {
