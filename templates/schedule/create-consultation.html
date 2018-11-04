@@ -37,9 +37,15 @@
                             Desmarcado
                         </label>
                     </div>
-
-                    <h6 class="mt-4">Médico</h6>
-                    <select id="consultation-doctors" class="form-control"></select>
+        
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h6>Procedimento</h6>
+                            <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
+                                <option value="0">Selecione o procedimento</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <h6 class="mt-4 col-md-12">Paciente</h6>
@@ -108,8 +114,8 @@
 
                     <div class="row mt-4">
                         <div class="col-md-12">
-                            <h6>Procedimento</h6>
-                            <select id="consultation-procedures" class="form-control"></select>
+                            <h6>Médico</h6>
+                            <select id="consultation-doctors" class="form-control" disabled></select>    
                         </div>
                     </div>
 

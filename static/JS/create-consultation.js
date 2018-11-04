@@ -53,6 +53,27 @@ const handleChangePatientSelector = () => {
     }
 }
 
+const handleChangeProcedureSelector = () => {
+    const procedureId = document.getElementById("consultation-procedures").value
+    document.getElementById("consultation-doctors").innerHTML = ''
+    if (procedureId != 0) {
+        document.getElementById("consultation-doctors").disabled = false
+        requestFromApi( consultation => {
+            consultation.doctors.forEach(doctorId => {
+                console.log("MEDIQUINHO", doctorId)
+                requestFromApi(doctor => {
+                    addTag(option => {
+                        option.textContent = doctor.name;
+                        option.value = doctor.id;
+                    }, document.getElementById("consultation-doctors"), 'option');
+                }, baseUrl + "medicos/" + doctorId);
+            });
+        }, baseUrl + "procedimentos/" + procedureId)
+    } else {
+        document.getElementById("consultation-doctors").disabled = true
+    }
+}
+
 const handleSaveConsultation = () => {
     let consultationStatus;
 
@@ -93,29 +114,21 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        requestFromApi(doctors => {
-            doctors.forEach(doctor => {
+        requestFromApi(procedures => {
+            procedures.forEach(procedure => {
                 addTag(option => {
-                    option.textContent = doctor.name;
-                    option.value = doctor.id;
-                }, document.getElementById("consultation-doctors"), 'option');
+                    option.textContent = procedure.name;
+                    option.value = procedure.id;
+                }, document.getElementById("consultation-procedures"), 'option');
             });
-            requestFromApi(procedures => {
-                procedures.forEach(procedure => {
+            requestFromApi(patients => {
+                patients.forEach(patient => {
                     addTag(option => {
-                        option.textContent = procedure.name;
-                        option.value = procedure.id;
-                    }, document.getElementById("consultation-procedures"), 'option');
+                        option.textContent = patient.name;
+                        option.value = patient.id;
+                    }, document.getElementById("consultation-patients"), 'option');
                 });
-                requestFromApi(patients => {
-                    patients.forEach(patient => {
-                        addTag(option => {
-                            option.textContent = patient.name;
-                            option.value = patient.id;
-                        }, document.getElementById("consultation-patients"), 'option');
-                    });
-                }, baseUrl + "pacientes/");
-            }, baseUrl + "procedimentos/");
-        }, baseUrl + "medicos/");
+            }, baseUrl + "pacientes/");
+        }, baseUrl + "procedimentos/");
     }
 }
