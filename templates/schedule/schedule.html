@@ -78,20 +78,17 @@
                         <div class="row mt-4">
                            <div class="col-md-12">
                               <h6>Procedimento</h6>
-                              <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
+                              <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()" disabled>
                                  <option value="0">Selecione o procedimento</option>
                               </select>
                            </div>
                         </div>
                         <div class="row">
                            <h6 class="mt-4 col-md-12">Paciente</h6>
-                           <div class="col-md-9">
-                              <select id="consultation-patients" class="form-control" onchange="handleChangePatientSelector()">
+                           <div class="col-md-12">
+                              <select id="consultation-patients" class="form-control" onchange="handleChangePatientSelector()" disabled>
                                  <option value="0">Selecione o paciente</option>
                               </select>
-                           </div>
-                           <div class="col-md-3">
-                              <a href="#" style="line-height: 35px; text-decoration: none">Novo paciente</a>
                            </div>
                         </div>
                         <div id="patientData">
