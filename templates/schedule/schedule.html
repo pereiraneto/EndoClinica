@@ -1,200 +1,200 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
-
-    <div class="container mt-5">
-
-        <h2 class="mb-5">
-            <strong>Agendamentos</strong>
-        </h2>
-
-        <div class="row mb-3">
-            <div class="col-md-5">
-                <h6>Médico</h6>
-                <select id="filter-doctors" class="form-control">
-                    <option value="0">Selecione o médico</option>
-                </select>
+<div class="container mt-5">
+   <h2 class="mb-5">
+      <strong>Agendamentos</strong>
+   </h2>
+   <div class="row mb-3">
+      <div class="col-md-5">
+         <h6>Médico</h6>
+         <select id="filter-doctors" class="form-control">
+            <option value="0">Selecione o médico</option>
+         </select>
+      </div>
+      <div class="col-md-3">
+         <h6>Data</h6>
+         <select id="filter-dates" class="form-control">
+            <option value="0">Selecione a data</option>
+         </select>
+      </div>
+      <div class="col-md-2">
+         <a class="default-link" style="line-height: 85px; text-decoration: none" onclick="handleFilter()">Filtrar</a>
+      </div>
+   </div>
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th scope="col">Data e Horário</th>
+            <th scope="col">Duração</th>
+            <th scope="col">Paciente</th>
+            <th scope="col">Prioridade</th>
+            <th scope="col">Procedimento</th>
+            <th scope="col">Preparo</th>
+            <th scope="col">Ações</th>
+         </tr>
+      </thead>
+      <tbody id="schedule-body"> </tbody>
+   </table>
+   <button id="consultation-form-button" type="button" class="btn btn-primary bg-green mt-3" onclick="window.location.href='/consultas/nova'">
+   Novo Agendamento
+   </button>
+   <div class="modal fade" id="consultation-form" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-xlg modal-dialog-centered">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Consulta</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
             </div>
-            <div class="col-md-3">
-                <h6>Data</h6>
-                <select id="filter-dates" class="form-control">
-                    <option value="0">Selecione a data</option>
-                </select>
+            <div class="modal-body">
+               <form>
+                  <div class="row">
+                     <div class="col sm-1">
+                        <h6 class="">Status</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                           <label id="consultation-status-scheduled" class="btn btn-outline-secondary active">
+                           <input type="radio" name="statusOptions" autocomplete="off" value="Agendado" checked>
+                           Agendado
+                           </label>
+                           <label id="consultation-status-confirmed" class="btn btn-outline-warning">
+                           <input type="radio" name="statusOptions" autocomplete="off" value="Confirmado">
+                           Confirmado
+                           </label>
+                           <label id="consultation-status-arrived" class="btn btn-outline-danger">
+                           <input type="radio" name="statusOptions" autocomplete="off" value="Chegou">
+                           Chegou
+                           </label>
+                           <label id="consultation-status-realized" class="btn btn-outline-success">
+                           <input type="radio" name="statusOptions" autocomplete="off" value="Realizado">
+                           Realizado
+                           </label>
+                           <label id="consultation-status-disengaged" class="btn btn-outline-primary">
+                           <input type="radio" name="statusOptions" autocomplete="off" value="Desmarcado">
+                           Desmarcado
+                           </label>
+                        </div>
+                        <div class="row mt-4">
+                           <div class="col-md-12">
+                              <h6>Procedimento</h6>
+                              <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
+                                 <option value="0">Selecione o procedimento</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <h6 class="mt-4 col-md-12">Paciente</h6>
+                           <div class="col-md-9">
+                              <select id="consultation-patients" class="form-control" onchange="handleChangePatientSelector()">
+                                 <option value="0">Selecione o paciente</option>
+                              </select>
+                           </div>
+                           <div class="col-md-3">
+                              <a href="#" style="line-height: 35px; text-decoration: none">Novo paciente</a>
+                           </div>
+                        </div>
+                        <div id="patientData">
+                           <div class="row">
+                              <div class="col">
+                                 <h6 class="mt-3">Celular</h6>
+                                 <input id="consultation-cell-phone" class="form-control" type="text" disabled readonly>
+                              </div>
+                              <div class="col">
+                                 <h6 class="mt-3">Telefone Fixo</h6>
+                                 <input id="consultation-phone" class="form-control" type="text" disabled readonly>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-5">
+                                 <h6 class="mt-3">Data de Nascimento</h6>
+                                 <input id="consultation-birth-date" type="date" class="form-control" disabled readonly>
+                              </div>
+                              <div class="col-md-7">
+                                 <h6 class="mt-3">Convenio</h6>
+                                 <input id="consultation-insurance" class="form-control" type="text">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col md-1">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <h6>Data</h6>
+                              <input id="consultation-date" type="date" class="form-control">
+                           </div>
+                           <div class="col-md-3">
+                              <h6>Hora (00:00)</h6>
+                              <input id="consultation-hour" class="form-control" type="text">
+                           </div>
+                           <div class="col-md-3">
+                              <h6>Duração</h6>
+                              <select id="consultation-duration" class="form-control">
+                                 <option value="5">5 min</option>
+                                 <option value="10">10 min</option>
+                                 <option value="15">15 min</option>
+                                 <option value="20">20 min</option>
+                                 <option value="25">25 min</option>
+                                 <option value="30">30 min</option>
+                                 <option value="35">35 min</option>
+                                 <option value="40">40 min</option>
+                                 <option value="45">45 min</option>
+                                 <option value="50">50 min</option>
+                                 <option value="55">55 min</option>
+                                 <option value="60">60 min</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="row mt-4">
+                           <div class="col-md-12">
+                              <h6>Médico</h6>
+                              <select id="consultation-doctors" class="form-control" disabled></select>    
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <div class="col-md-6">
+                              <h6>Prioridade</h6>
+                              <select id="consultation-priority" class="form-control">
+                                 <option value="Normal">Normal</option>
+                                 <option value="Ambulatorio">Ambulatorio</option>
+                                 <option value="Internado">Internado</option>
+                                 <option value="Isolamento">Isolamento</option>
+                                 <option value="Urgencia">Urgencia</option>
+                                 <option value="Idoso">Idoso</option>
+                                 <option value="Criança">Criança</option>
+                                 <option value="Deficiente">Deficiente</option>
+                              </select>
+                           </div>
+                           <div class="col-md-6">
+                              <h6>Solicitante</h6>
+                              <input id="consultation-requester" class="form-control" type="text">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <h6 class="mt-4">Preparo</h6>
+                           <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col">
+                        <div class="form-group">
+                           <h6 class="mt-4">Detalhes</h6>
+                           <textarea class="form-control" id="consultation-details" rows="3"></textarea>
+                        </div>
+                     </div>
+                  </div>
+               </form>
             </div>
-            <div class="col-md-2">
-                <a class="default-link" style="line-height: 85px; text-decoration: none" onclick="handleFilter()">Filtrar</a>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+               <button type="button" class="btn btn-primary bg-green" id="saveConsultation">Salvar</button>
             </div>
-        </div>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Data e Horário</th>
-                    <th scope="col">Duração</th>
-                    <th scope="col">Paciente</th>
-                    <th scope="col">Prioridade</th>
-                    <th scope="col">Procedimento</th>
-                    <th scope="col">Preparo</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-
-            <tbody id="schedule-body"> </tbody>
-        </table>
-
-        <button id="consultation-form-button" type="button" class="btn btn-primary bg-green mt-3" onclick="window.location.href='/consultas/nova'">
-            Novo Agendamento
-        </button>
-
-        <div class="modal fade" id="consultation-form" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-xlg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-
-                        <h5 class="modal-title">Consulta</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col md-1">
-
-                                    <h6>Médico</h6>
-                                    <select id="consultation-doctors" class="form-control"></select>
-    
-                                    <h6 class="mt-3">Status</h6>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-
-                                        <label id="consultation-status-scheduled" class="btn btn-secondary">
-                                            <input type="radio" name="statusOptions" autocomplete="off" value="Agendado">
-                                            Agendado
-                                        </label>
-                                        <label id="consultation-status-confirmed" class="btn btn-warning">
-                                            <input type="radio" name="statusOptions" autocomplete="off" value="Confirmado">
-                                            Confirmado
-                                        </label>
-                                        <label id="consultation-status-arrived" class="btn btn-danger">
-                                            <input type="radio" name="statusOptions" autocomplete="off" value="Chegou">
-                                            Chegou
-                                        </label>
-                                        <label id="consultation-status-realized" class="btn btn-success">
-                                            <input type="radio" name="statusOptions" autocomplete="off" value="Realizado">
-                                            Realizado
-                                        </label>
-                                        <label id="consultation-status-disengaged" class="btn btn-primary">
-                                            <input type="radio" name="statusOptions" autocomplete="off" value="Desmarcado">
-                                            Desmarcado
-                                        </label>
-                                    </div>
-
-                                    <h6 class="mt-3">Paciente</h6>
-
-                                    <div id="patientData">
-                                        <div class="row">
-                                            <h6 class="mt-4 col-md-12">Paciente</h6>
-                                            <div class="col-md-9">    
-                                                <select id="consultation-patients" class="form-control" onchange="handleChangePatientSelector()" readonly></select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <a href="#" style="line-height: 35px; text-decoration: none">Novo paciente</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col">
-                                                <h6 class="mt-3">Celular</h6>
-                                                <input id="consultation-cell-phone" class="form-control" type="text" placeholder="(85) 98989-7384" readonly>
-                                            </div>
-                                            <div class="col">
-                                                <h6 class="mt-3">Telefone Fixo</h6>
-                                                <input id="consultation-phone" class="form-control" type="text" placeholder="(85) 3214-1432" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <h6 class="mt-3">Data de Nascimento</h6>
-                                                <input id="consultation-birth-date" type="date" class="form-control" readonly>
-                                            </div>
-                                            <div class="col">
-                                                <h6 class="mt-3">Convenio</h6>
-                                                <input id="consultation-insurance" class="form-control" type="text" placeholder="Unimed" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col md-1">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>Data</h6>
-                                            <input id="consultation-date" type="date" class="form-control">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <h6>Hora</h6>
-                                            <input id="consultation-hour" class="form-control" type="text">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <h6>Duração</h6>
-                                            <input id="consultation-duration" class="form-control" type="number">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6>Prioridade</h6>
-                                            <select id="consultation-priority" class="form-control">
-                                                <option value="Normal">Normal</option>
-                                                <option value="Ambulatorio">Ambulatorio</option>
-                                                <option value="Internado">Internado</option>
-                                                <option value="Isolamento">Isolamento</option>
-                                                <option value="Urgencia">Urgencia</option>
-                                                <option value="Idoso">Idoso</option>
-                                                <option value="Criança">Criança</option>
-                                                <option value="Deficiente">Deficiente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <h6 class="mt-3">Procedimento</h6>
-                                            <select id="consultation-procedures" class="form-control"></select>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="mt-3">Solicitante</h6>
-                                            <input id="consultation-requester" class="form-control" type="number" placeholder="12612">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <h6 class="mt-3">Preparo</h6>
-                                        <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <h6 class="mt-3">Detalhes</h6>
-                                        <textarea class="form-control" id="consultation-details" rows="3"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary bg-green" id="saveConsultation">Salvar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+         </div>
+      </div>
+   </div>
+</div>
 {% endblock %}
-
 {% block scripts %}
-    <script src="{% static "JS/schedule.js" %}"></script>
+<script src="{% static "JS/schedule.js" %}"></script>
 {% endblock %}
