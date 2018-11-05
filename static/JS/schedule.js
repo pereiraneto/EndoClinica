@@ -299,7 +299,15 @@ const handleSaveConsultationModal = (consultationId) => {
 }
 
 const loadDataFilterDate = (consultations) => {
+    const filterDateEl = document.getElementById("filter-dates")
     const dates = []
+
+    filterDateEl.innerHTML = ''
+    addTag(option => {
+        option.textContent = 'Selecione a data'
+        option.value = '0'
+    }, filterDateEl, 'option')
+    
     consultations.forEach(consultation => {
         const date = consultation.date.slice(0, 10)
         if(! dates.includes(date)){ 
@@ -307,7 +315,7 @@ const loadDataFilterDate = (consultations) => {
             addTag(option => {
                 option.textContent = date
                 option.value = date
-            }, document.getElementById("filter-dates"), 'option')
+            }, filterDateEl, 'option')
         }
     })
 }
