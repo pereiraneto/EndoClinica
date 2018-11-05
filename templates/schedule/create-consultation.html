@@ -41,9 +41,17 @@
                     <div class="row mt-4">
                         <div class="col-md-12">
                             <h6>Procedimento</h6>
-                            <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
-                                <option value="0">Selecione o procedimento</option>
-                            </select>
+                            {% if doctor %}
+                                <select id="consultation-procedures" class="form-control">
+                                    {% for procedure in procedures %}
+                                        <option value="{{ procedure.id }}">{{ procedure }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
+                                    <option value="0">Selecione o procedimento</option>
+                                </select>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -115,7 +123,13 @@
                     <div class="row mt-4">
                         <div class="col-md-12">
                             <h6>Médico</h6>
-                            <select id="consultation-doctors" class="form-control" disabled></select>    
+                            {% if doctor %}
+                                <select id="consultation-doctors" class="form-control">
+                                    <option value="{{ doctor.id }}">{{ doctor }}</option>
+                                </select>
+                            {% else %}
+                                <select id="consultation-doctors" class="form-control" disabled></select>
+                            {% endif %} 
                         </div>
                     </div>
 
