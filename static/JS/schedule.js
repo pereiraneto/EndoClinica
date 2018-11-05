@@ -343,7 +343,7 @@ document.onreadystatechange = () => {
                 }, document.getElementById("consultation-doctors"), 'option')
 
                 const filterDoctorsEl = document.getElementById("filter-doctors")
-                if (filterDoctorsEl == '0') {
+                if (filterDoctorsEl.value == '0') {
                     addTag(option => {
                         option.textContent = doctor.name
                         option.value = doctor.id
