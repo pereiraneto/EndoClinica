@@ -60,5 +60,16 @@ class ScheduleView(LoginRequiredMixin, views.View):
         return render(request, 'schedule/schedule.html', {'doctor_id': doctor_id, 'doctor': doctor})
 
 class NewContultationView(LoginRequiredMixin, views.View):
+
     def get(self, request):
-        return render(request, 'schedule/create-consultation.html', {})
+        doctor = False
+        doctor_id = None
+        procedures = None
+
+        if request.user.is_authenticated:
+            if hasattr(request.user, 'doctor'):
+                doctor_id = request.user.doctor.id
+                doctor = request.user.doctor
+                procedures = request.user.doctor.procedure_set.all()
+
+        return render(request, 'schedule/create-consultation.html', {'doctor_id': doctor_id, 'doctor': doctor, 'procedures': procedures})
