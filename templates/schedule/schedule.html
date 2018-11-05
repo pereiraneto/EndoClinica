@@ -2,16 +2,18 @@
 {% load static %}
 {% block content %}
 <div class="container mt-5">
-   <h2 class="mb-5">
-      <strong>Agendamentos</strong>
-   </h2>
-   <div class="row mb-3">
-      <div class="col-md-5">
-         <h6>Médico</h6>
-         <select id="filter-doctors" class="form-control">
-            <option value="0">Selecione o médico</option>
-         </select>
-      </div>
+
+    <h2 class="mb-5">
+        <strong>Agendamentos</strong>
+    </h2>
+
+    <div class="row mb-3">
+        <div class="col-md-5">
+            <h6>Médico</h6>
+            <select id="filter-doctors" class="form-control">
+                <option value="{{ doctor_id }}">{{ doctor }}</option>
+            </select>
+        </div>
       <div class="col-md-3">
          <h6>Data</h6>
          <select id="filter-dates" class="form-control">
@@ -47,7 +49,6 @@
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>
-            </div>
             <div class="modal-body">
                <form>
                   <div class="row">

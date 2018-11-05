@@ -114,21 +114,23 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        requestFromApi(procedures => {
-            procedures.forEach(procedure => {
-                addTag(option => {
-                    option.textContent = procedure.name;
-                    option.value = procedure.id;
-                }, document.getElementById("consultation-procedures"), 'option');
-            });
-            requestFromApi(patients => {
-                patients.forEach(patient => {
+        if (!document.getElementById("consultation-doctors").hasChildNodes()) {
+            requestFromApi(procedures => {
+                procedures.forEach(procedure => {
                     addTag(option => {
-                        option.textContent = patient.name;
-                        option.value = patient.id;
-                    }, document.getElementById("consultation-patients"), 'option');
+                        option.textContent = procedure.name;
+                        option.value = procedure.id;
+                    }, document.getElementById("consultation-procedures"), 'option');
                 });
-            }, apiBaseUrl + "pacientes/");
-        }, apiBaseUrl + "procedimentos/");
+                requestFromApi(patients => {
+                    patients.forEach(patient => {
+                        addTag(option => {
+                            option.textContent = patient.name;
+                            option.value = patient.id;
+                        }, document.getElementById("consultation-patients"), 'option');
+                    });
+                }, apiBaseUrl + "pacientes/");
+            }, apiBaseUrl + "procedimentos/");
+        }
     }
 }
