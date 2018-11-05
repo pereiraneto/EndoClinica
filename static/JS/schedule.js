@@ -214,15 +214,15 @@ const fillTable = (tableBody, consultations) => {
 const handleIdFromConsultations = (consultations, callback = () => {}) => {
     const consultationPropertiesUrls = [{
             property: "patient",
-            url: `${baseUrl}pacientes/`
+            url: `${apiBaseUrl}pacientes/`
         },
         {
             property: "doctor",
-            url: `${baseUrl}medicos/`
+            url: `${apiBaseUrl}medicos/`
         },
         {
             property: "procedure",
-            url: `${baseUrl}procedimentos/`
+            url: `${apiBaseUrl}procedimentos/`
         }
     ];
     if(consultations.length == 0) {
@@ -246,7 +246,7 @@ const handleChangePatientSelector = () => {
             document.getElementById("consultation-cell-phone").value = patient.cell_phone
             document.getElementById("consultation-phone").value = patient.phone
             document.getElementById("consultation-birth-date").value = patient.birth_date
-        }, baseUrl + "pacientes/" + patientId)
+        }, apiBaseUrl + "pacientes/" + patientId)
     } else {
         document.getElementById("consultation-cell-phone").value = ""
         document.getElementById("consultation-phone").value = ""
@@ -258,7 +258,8 @@ const handleFilter = () => {
     const date = document.getElementById("filter-dates").value
     const doctor = document.getElementById("filter-doctors").value
 
-    const urlRequest = `${baseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${date}&data_final=${date}`
+    const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${date}&data_final=${date}`
+
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
         handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
@@ -295,7 +296,7 @@ const handleSaveConsultationModal = (consultationId) => {
     requestFromApi(() => {
         $('#consultation-form').modal('hide');
         handleFilter();
-    }, `${baseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
+    }, `${apiBaseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
 }
 
 const loadDataFilterDate = (consultations) => {
@@ -328,7 +329,7 @@ const loadDataFilterDate = (consultations) => {
 //     }, `${baseUrl}consultas/`);
 // }
 
-const baseUrl = window.location.origin + "/";
+const apiBaseUrl = window.location.origin + "/api/";
 
 document.onreadystatechange = () => {
     if (!window.indexedDB) {
@@ -358,7 +359,7 @@ document.onreadystatechange = () => {
                     }, document.getElementById("consultation-procedures"), 'option');
                 });
                 handleFilter();
-            }, baseUrl + "procedimentos/");
-        }, baseUrl + "medicos/");
+            }, apiBaseUrl + "procedimentos/");
+        }, apiBaseUrl + "medicos/");
     }
 }

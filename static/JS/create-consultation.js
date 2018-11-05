@@ -1,4 +1,4 @@
-const baseUrl = window.location.origin + "/";
+const apiBaseUrl = window.location.origin + "/api/";
 
 const addTag = (callback, parent, tag = "td") => {
     const newEl = document.createElement(tag);
@@ -45,7 +45,7 @@ const handleChangePatientSelector = () => {
             document.getElementById("consultation-cell-phone").value = patient.cell_phone
             document.getElementById("consultation-phone").value = patient.phone
             document.getElementById("consultation-birth-date").value = patient.birth_date
-        }, baseUrl + "pacientes/" + patientId)
+        }, apiBaseUrl + "pacientes/" + patientId)
     } else {
         document.getElementById("consultation-cell-phone").value = ""
         document.getElementById("consultation-phone").value = ""
@@ -66,9 +66,9 @@ const handleChangeProcedureSelector = () => {
                         option.textContent = doctor.name;
                         option.value = doctor.id;
                     }, document.getElementById("consultation-doctors"), 'option');
-                }, baseUrl + "medicos/" + doctorId);
+                }, apiBaseUrl + "medicos/" + doctorId);
             });
-        }, baseUrl + "procedimentos/" + procedureId)
+        }, apiBaseUrl + "procedimentos/" + procedureId)
     } else {
         document.getElementById("consultation-doctors").disabled = true
     }
@@ -106,7 +106,7 @@ const handleSaveConsultation = () => {
     requestFromApi(() => {
         window.alert("Consulta salva com sucesso!")
         window.location.href='/'
-    }, `${baseUrl}consultas/`, requestBody, 'POST');
+    }, `${apiBaseUrl}consultas/`, requestBody, 'POST');
 }
 
 document.onreadystatechange = () => {
@@ -129,8 +129,8 @@ document.onreadystatechange = () => {
                             option.value = patient.id;
                         }, document.getElementById("consultation-patients"), 'option');
                     });
-                }, baseUrl + "pacientes/");
-            }, baseUrl + "procedimentos/");
+                }, apiBaseUrl + "pacientes/");
+            }, apiBaseUrl + "procedimentos/");
         }
     }
 }
