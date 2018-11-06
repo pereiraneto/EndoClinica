@@ -73,3 +73,8 @@ class NewContultationView(LoginRequiredMixin, views.View):
                 procedures = request.user.doctor.procedure_set.all()
 
         return render(request, 'schedule/create-consultation.html', {'doctor_id': doctor_id, 'doctor': doctor, 'procedures': procedures})
+
+class NewPatientView(LoginRequiredMixin, views.View):
+    
+    def get(self, request):
+        return render(request, 'patient/create-patient.html', {})
