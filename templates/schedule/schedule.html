@@ -1,11 +1,49 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static "CSS/components/square-status-color.css" %}">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
 
     <h2 class="mb-5">
         <strong>Agendamentos</strong>
     </h2>
+
+    <div class="row mb-4">
+        <div class="col-md-2">
+            <div class="square-container">
+                <div class="square"></div>
+                Agendado
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="square-container">
+                <div class="square table-warning"></div>
+                Confirmado
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="square-container">
+                <div class="square table-danger"></div>
+                Chegou
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="square-container">
+                <div class="square table-success"></div>
+                Realizado
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="square-container">
+                <div class="square table-info"></div>
+                Desmarcado
+            </div>
+        </div>
+    </div>
 
     <div class="row mb-3">
         <div class="col-md-5">
