@@ -6,14 +6,14 @@ STATUS_NAMES = [
 ]
 
 PRIORITIES_NAMES = [
-    "Normal", "Ambulatorio", "Internado", "Isolamento", "Urgencia", 
+    "Normal", "Ambulatorio", "Internado", "Isolamento", "Urgencia",
     "Idoso", "Criança", "Deficiente"
 ]
 
 
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
-    
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -29,14 +29,29 @@ class Procedure(models.Model):
         return self.name
 
 
-class Patient(models.Model): 
+class Patient(models.Model):
     name = models.CharField(max_length=100)
 
-    cell_phone = models.CharField(max_length=25)
-
-    phone = models.CharField(max_length=25, blank=True)
-
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
+    gender = models.CharField(choices=(("M", "M"), ("F", "F")), max_length=1)
+    allergies = models.CharField(max_length=150)
+
+    cell_phone = models.CharField(max_length=25, blank=True)
+    phone = models.CharField(max_length=25, blank=True)
+    email = models.EmailField(blank=True)
+
+    insurance = models.CharField(max_length=50, blank=True)
+    insurance_number = models.CharField(max_length=30, blank=True)
+
+    address = models.CharField(max_length=150, blank=True)
+    neighborhood = models.CharField(max_length=70, blank=True)
+    city = models.CharField(max_length=70, blank=True)
+
+    job = models.CharField(max_length=70, blank=True)
+    marital_status = models.CharField(max_length=15, blank=True, choices=(("Solteiro(a)", "Solteiro(a)"), ("Casado(a)", "Casado(a)"), ("Separado(a)", "Separado(a)"), ("Divorciado(a)", "Divorciado(a)"), ("Viúvo(a)", "Viúvo(a)")))
+
+    cpf = models.CharField(max_length=15, blank=True)
+    rg = models.CharField(max_length=15, blank=True)
 
     def __str__(self):
         return self.name
@@ -71,7 +86,8 @@ class Consultation(models.Model):
         (prioritie, prioritie)
         for prioritie in PRIORITIES_NAMES
     )
-    priority = models.CharField(choices=PRIORITIES, max_length=15, default="Normal")
+    priority = models.CharField(
+        choices=PRIORITIES, max_length=15, default="Normal")
 
     prepare = models.TextField(blank=True)
 
@@ -92,4 +108,4 @@ class Consultation(models.Model):
     requester = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return "{patient} > {date}".format(patient= self.patient.name, date= self.date)
+        return "{patient} > {date}".format(patient=self.patient.name, date=self.date)
