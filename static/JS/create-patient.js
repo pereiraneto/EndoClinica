@@ -37,7 +37,15 @@ const handleSavePatient = () => {
         name: document.getElementById("patient-name").value,
         cell_phone: document.getElementById("patient-cell-phone").value,
         phone: document.getElementById("patient-phone").value,
-        birth_date: document.getElementById("patient-birth-date").value
+        birth_date: document.getElementById("patient-birth-date").value,
+        email: document.getElementById("patient-email").value,
+        marital_status: document.getElementById("patient-maritualstate").value,
+        gender: document.getElementById("patient-gender").value,
+        job: document.getElementById("patient-job").value,
+        insurance: document.getElementById("patient-insurance").value,
+        insurance_number: document.getElementById("patient-insurancenumber").value,
+        cpf: document.getElementById("patient-cpf").value,
+        rg: document.getElementById("patient-rg").value
     };
     
     console.log(requestBody);
