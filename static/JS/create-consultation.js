@@ -45,6 +45,7 @@ const handleChangePatientSelector = () => {
             document.getElementById("consultation-cell-phone").value = patient.cell_phone
             document.getElementById("consultation-phone").value = patient.phone
             document.getElementById("consultation-birth-date").value = patient.birth_date
+            document.getElementById("consultation-insurance").value = patient.insurance            
         }, apiBaseUrl + "pacientes/" + patientId)
     } else {
         document.getElementById("consultation-cell-phone").value = ""
