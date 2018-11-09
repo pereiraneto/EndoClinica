@@ -45,12 +45,17 @@ const handleChangePatientSelector = () => {
             document.getElementById("consultation-cell-phone").value = patient.cell_phone
             document.getElementById("consultation-phone").value = patient.phone
             document.getElementById("consultation-birth-date").value = patient.birth_date
-            document.getElementById("consultation-insurance").value = patient.insurance            
+            document.getElementById("consultation-insurance").value = patient.insurance
+            document.getElementById("consultation-insurancenumber").value = patient.insurance_number
+            document.getElementById("consultation-email").value = patient.email      
         }, apiBaseUrl + "pacientes/" + patientId)
     } else {
         document.getElementById("consultation-cell-phone").value = ""
         document.getElementById("consultation-phone").value = ""
         document.getElementById("consultation-birth-date").value = ""
+        document.getElementById("consultation-insurance").value = ""
+        document.getElementById("consultation-insurancenumber").value = ""
+        document.getElementById("consultation-email").value = ""
     }
 }
 
