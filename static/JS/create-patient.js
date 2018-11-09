@@ -45,7 +45,11 @@ const handleSavePatient = () => {
         insurance: document.getElementById("patient-insurance").value,
         insurance_number: document.getElementById("patient-insurancenumber").value,
         cpf: document.getElementById("patient-cpf").value,
-        rg: document.getElementById("patient-rg").value
+        rg: document.getElementById("patient-rg").value,
+        address: document.getElementById("patient-address").value,
+        neighborhood: document.getElementById("patient-neighborhood").value,
+        city: document.getElementById("patient-city").value,
+        notes: document.getElementById("patient-notes").value
     };
     
     console.log(requestBody);

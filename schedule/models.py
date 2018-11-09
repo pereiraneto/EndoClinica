@@ -44,6 +44,7 @@ class Patient(models.Model):
     POSSIBLE_GENDER = ((gender, gender) for gender in GENDERS)
     gender = models.CharField(choices=POSSIBLE_GENDER, max_length=10)
     allergies = models.CharField(max_length=150, blank=True)
+    notes = models.TextField(blank=True)
 
     cell_phone = models.CharField(max_length=25, blank=True)
     phone = models.CharField(max_length=25, blank=True)
