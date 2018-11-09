@@ -10,6 +10,14 @@ PRIORITIES_NAMES = [
     "Idoso", "Criança", "Deficiente"
 ]
 
+MARITAL_STATES = [
+    "Solteiro(a)", "Casado(a)", "Separado(a)", "Divorciado(a)", "Viúvo(a)"
+]
+
+GENDERS = [
+    "Masculino", "Feminino"
+]
+
 
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
@@ -33,7 +41,8 @@ class Patient(models.Model):
     name = models.CharField(max_length=100)
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
-    gender = models.CharField(choices=(("M", "M"), ("F", "F")), max_length=1)
+    POSSIBLE_GENDER = ((gender, gender) for gender in GENDERS)
+    gender = models.CharField(choices=POSSIBLE_GENDER, max_length=1)
     allergies = models.CharField(max_length=150)
 
     cell_phone = models.CharField(max_length=25, blank=True)
@@ -48,7 +57,8 @@ class Patient(models.Model):
     city = models.CharField(max_length=70, blank=True)
 
     job = models.CharField(max_length=70, blank=True)
-    marital_status = models.CharField(max_length=15, blank=True, choices=(("Solteiro(a)", "Solteiro(a)"), ("Casado(a)", "Casado(a)"), ("Separado(a)", "Separado(a)"), ("Divorciado(a)", "Divorciado(a)"), ("Viúvo(a)", "Viúvo(a)")))
+    POSSIBLE_MARITAL_STATE = ((state, state) for state in MARITAL_STATES)
+    marital_status = models.CharField(max_length=15, blank=True, choices=POSSIBLE_MARITAL_STATE)
 
     cpf = models.CharField(max_length=15, blank=True)
     rg = models.CharField(max_length=15, blank=True)
