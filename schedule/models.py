@@ -82,7 +82,6 @@ class Consultation(models.Model):
     )
 
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
-
     duration = models.CharField(
         max_length=2,
         choices=[
@@ -99,23 +98,22 @@ class Consultation(models.Model):
     )
     priority = models.CharField(
         choices=PRIORITIES, max_length=15, default="Normal")
-
-    prepare = models.TextField(blank=True)
-
-    insurance = models.CharField(max_length=50)
-
-    cell_phone = models.CharField(max_length=25)
-
-    phone = models.CharField(max_length=25, blank=True)
-
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
 
+    insurance = models.CharField(max_length=50)
+    insurance_number = models.CharField(max_length=30, blank=True)
+
+    cell_phone = models.CharField(max_length=25)
+    phone = models.CharField(max_length=25, blank=True)
+    email = models.EmailField(blank=True)
+
+
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     procedure = models.ForeignKey(Procedure, on_delete=models.CASCADE)
 
+    prepare = models.TextField(blank=True)
     details = models.TextField(blank=True)
-
     requester = models.CharField(max_length=100, blank=True)
 
     def __str__(self):

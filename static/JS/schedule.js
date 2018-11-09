@@ -91,6 +91,14 @@ const fillInfoModal = (consultationObj) => {
         {
             id: "consultation-details",
             value: consultationObj.details
+        },
+        {
+            id: "consultation-email",
+            value: consultationObj.email
+        },
+        {
+            id: "consultation-insurancenumber",
+            value: consultationObj.insurance_number
         }
     ];
 
