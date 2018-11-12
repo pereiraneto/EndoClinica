@@ -59,7 +59,8 @@ class Patient(models.Model):
 
     job = models.CharField(max_length=70, blank=True)
     POSSIBLE_MARITAL_STATE = ((state, state) for state in MARITAL_STATES)
-    marital_status = models.CharField(max_length=15, blank=True, choices=POSSIBLE_MARITAL_STATE)
+    marital_status = models.CharField(
+        max_length=15, blank=True, choices=POSSIBLE_MARITAL_STATE)
 
     cpf = models.CharField(max_length=15, blank=True)
     rg = models.CharField(max_length=15, blank=True)
@@ -100,14 +101,12 @@ class Consultation(models.Model):
         choices=PRIORITIES, max_length=15, default="Normal")
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
 
-
     insurance = models.CharField(max_length=50)
     insurance_number = models.CharField(max_length=30, blank=True)
 
     cell_phone = models.CharField(max_length=25)
     phone = models.CharField(max_length=25, blank=True)
     email = models.EmailField(blank=True)
-
 
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     procedure = models.ForeignKey(Procedure, on_delete=models.CASCADE)
@@ -118,3 +117,10 @@ class Consultation(models.Model):
 
     def __str__(self):
         return "{patient} > {date}".format(patient=self.patient.name, date=self.date)
+
+
+class MedicalRecord (models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.patient.name
