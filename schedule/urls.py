@@ -11,6 +11,7 @@ router.register('api/consultas', views.ConsultationViewSet,
 router.register('api/medicos', views.DoctorViewSet, base_name='doctor')
 router.register('api/procedimentos', views.ProcedureViewSet, base_name='procedure')
 router.register('api/pacientes', views.PatientViewSet, base_name='patient')
+router.register('api/fichas-medicas', views.MedicalRecordViewSet, base_name='medical-record')
 
 urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                 path('consultas/nova', views.NewContultationView.as_view(), name='create-consultation'),

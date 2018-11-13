@@ -3,8 +3,8 @@ from django import views
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Consultation, Doctor, Patient, Procedure
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer
 
 
 class ConsultationViewSet(viewsets.ModelViewSet):
@@ -29,6 +29,11 @@ class ProcedureViewSet(viewsets.ModelViewSet):
     queryset = Procedure.objects.all()
     serializer_class = ProcedureSerializer
     permission_classes = (permissions.IsAuthenticated, )
+
+class MedicalRecordViewSet(viewsets.ModelViewSet):
+    queryset = MedicalRecord.objects.all()
+    serializer_class = MedicalRecordSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
 class ConsultationFilter(generics.ListAPIView):
     serializer_class = ConsultationSerializer
