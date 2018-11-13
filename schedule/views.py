@@ -1,6 +1,6 @@
 from rest_framework import permissions, viewsets, generics
 from django import views
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord
@@ -30,10 +30,12 @@ class ProcedureViewSet(viewsets.ModelViewSet):
     serializer_class = ProcedureSerializer
     permission_classes = (permissions.IsAuthenticated, )
 
+
 class MedicalRecordViewSet(viewsets.ModelViewSet):
     queryset = MedicalRecord.objects.all()
     serializer_class = MedicalRecordSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
 
 class ConsultationFilter(generics.ListAPIView):
     serializer_class = ConsultationSerializer
@@ -48,8 +50,10 @@ class ConsultationFilter(generics.ListAPIView):
         if doctor != '0':
             objects = objects.filter(doctor=doctor)
         if initial_date != '0' and final_date != '0':
-            objects = objects.filter(date__range=[initial_date+" 00:00:01+00:00", final_date+" 23:59:59+00:00"])
+            objects = objects.filter(
+                date__range=[initial_date+" 00:00:01+00:00", final_date+" 23:59:59+00:00"])
         return objects
+
 
 class ScheduleView(LoginRequiredMixin, views.View):
 
@@ -63,6 +67,7 @@ class ScheduleView(LoginRequiredMixin, views.View):
                 doctor = request.user.doctor
 
         return render(request, 'schedule/schedule.html', {'doctor_id': doctor_id, 'doctor': doctor})
+
 
 class NewContultationView(LoginRequiredMixin, views.View):
 
@@ -79,7 +84,22 @@ class NewContultationView(LoginRequiredMixin, views.View):
 
         return render(request, 'schedule/create-consultation.html', {'doctor_id': doctor_id, 'doctor': doctor, 'procedures': procedures})
 
+
 class NewPatientView(LoginRequiredMixin, views.View):
-    
+
     def get(self, request):
         return render(request, 'patient/create-patient.html', {})
+
+
+class MedicalRecordView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+
+        data = {
+            'medical_record': medical_record,
+            'patient': medical_record.patient,
+            'patient_age': medical_record.patient.birth_date.today().year - medical_record.patient.birth_date.year
+        }
+
+        return render(request, 'medical-record/medical-record.html', data)
