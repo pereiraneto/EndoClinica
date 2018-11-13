@@ -114,7 +114,12 @@ class Consultation(models.Model):
 
 
 class MedicalRecord (models.Model):
-    patient = models.OneToOneField(Patient, on_delete=models.SET_NULL, null=True)
+    patient = models.OneToOneField(
+        Patient, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.patient.name
+        if hasattr(self.patient, 'name'):
+            if type(self.patient.name) is str:
+                return self.patient.name
+        else:
+            return 'paciente desconhecido'
