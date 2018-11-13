@@ -23,7 +23,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     def create(self, request):
         patient_instance = super(PatientSerializer, self).create(request)
-        medical_record_instance = Medical_Record.objects.create()
+        medical_record_instance = MedicalRecord.objects.create()
         medical_record_instance.patient = patient_instance
         medical_record_instance.save()
 
