@@ -14,3 +14,7 @@
 .bg-green {
     background-color: #4b8f38 !important;
 }
+
+.row-line {
+    border-bottom: 1px solid lightgray;
+}
