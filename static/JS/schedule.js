@@ -132,6 +132,7 @@ const setButtonOnClickFunction = (consultationId, buttonId) => {
 
 const handleClickInfoModal = (consultationObj) => {
     fillInfoModal(consultationObj);
+    if(document.getElementById("medical-record-button-div").children.length != 0) document.getElementById("medical-record-button").href = window.location.origin + "/ficha-medica/" + consultationObj.medicalRecord
     $("#consultation-form").modal('show');
 }
 
@@ -152,11 +153,9 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
     }
 
     request.onerror = () => {
-        console.log("On Error API Request")
         callback(null);
     }
 
-    console.log("request obj > ", request);
 
     if (['PUT', 'POST'].includes(method)) {
         const csrftoken = Cookies.get('csrftoken');
@@ -219,31 +218,34 @@ const fillTable = (tableBody, consultations) => {
     }, tableBody, "tr"));
 }
 
-const handleIdFromConsultations = (consultations, callback = () => {}) => {
-    const consultationPropertiesUrls = [{
-            property: "patient",
-            url: `${apiBaseUrl}pacientes/`
-        },
-        {
-            property: "doctor",
-            url: `${apiBaseUrl}medicos/`
-        },
-        {
-            property: "procedure",
-            url: `${apiBaseUrl}procedimentos/`
-        }
-    ];
+const getExtraData = (consultations, callback = () => {}) => {
+    let requestList
     if(consultations.length == 0) {
         callback([])
     } else {
         consultations.forEach(consultation => {
-            consultationPropertiesUrls.forEach(pu => {
+                requestList = [{
+                    property: [{apiName: 'name', newName: 'patientName'}, {apiName: 'medical_record', newName: 'medicalRecord'}],
+                    url: `${apiBaseUrl}pacientes/${consultation.patient}`
+                },
+                {
+                    property: [{apiName: 'name', newName: 'doctorName'}],
+                    url: `${apiBaseUrl}medicos/${consultation.doctor}`
+                },
+                {
+                    property: [{apiName: 'name', newName: 'procedureName'}],
+                    url: `${apiBaseUrl}procedimentos/${consultation.procedure}`
+                }
+            ];
+            requestList.forEach(request => {
                 requestFromApi(response => {
-                    consultation[`${pu.property}Name`] = response.name
-                    callback(consultations)
-                }, pu.url + consultation[pu.property])
+                    request.property.forEach(property => {
+                        consultation[property.newName] = response[property.apiName]
+                    });
+                }, request.url)
             })
-        })
+        });
+        callback(consultations)
     }
 }
 
@@ -270,7 +272,7 @@ const handleFilter = () => {
 
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
-        handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
+        getExtraData(consultations, consultations => fillTable(scheduleEl, consultations))
         loadDataFilterDate(consultations)
     }, urlRequest);
 }
@@ -300,7 +302,6 @@ const handleSaveConsultationModal = (consultationId) => {
         requester: document.getElementById("consultation-requester").value,
         patient: document.getElementById("consultation-patients").value 
     };
-    console.log(requestBody);
     requestFromApi(() => {
         $('#consultation-form').modal('hide');
         handleFilter();
