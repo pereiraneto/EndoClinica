@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.decorators import action
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord
+from .models import Consultation, Doctor, MedicalRecord, Patient, Procedure
 
 
 class ConsultationSerializer(serializers.ModelSerializer):
@@ -24,8 +24,8 @@ class PatientSerializer(serializers.ModelSerializer):
     def create(self, request):
         patient_instance = super(PatientSerializer, self).create(request)
         medical_record_instance = MedicalRecord.objects.create()
-        medical_record_instance.patient = patient_instance
-        medical_record_instance.save()
+        patient_instance.medical_record = medical_record_instance
+        patient_instance.save()
 
         return patient_instance
 

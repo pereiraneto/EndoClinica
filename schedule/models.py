@@ -43,6 +43,13 @@ class Procedure(models.Model):
         return self.name
 
 
+class MedicalRecord (models.Model):
+    weight = models.CharField(max_length = 10, blank= True)
+
+    def __str__(self):
+        return "ficha id = " + str(self.id)
+
+
 class Patient(models.Model):
     name = models.CharField(max_length=100)
 
@@ -68,6 +75,9 @@ class Patient(models.Model):
 
     cpf = models.CharField(max_length=15, blank=True)
     rg = models.CharField(max_length=15, blank=True)
+
+    medical_record = models.OneToOneField(
+        MedicalRecord, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -98,7 +108,7 @@ class Consultation(models.Model):
     insurance = models.CharField(max_length=50)
     insurance_number = models.CharField(max_length=30, blank=True)
 
-    cell_phone = models.CharField(max_length=25)
+    cell_phone = models.CharField(max_length=25, blank=True)
     phone = models.CharField(max_length=25, blank=True)
     email = models.EmailField(blank=True)
 
@@ -111,15 +121,3 @@ class Consultation(models.Model):
 
     def __str__(self):
         return "{patient} > {date}".format(patient=self.patient.name, date=self.date)
-
-
-class MedicalRecord (models.Model):
-    patient = models.OneToOneField(
-        Patient, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        if hasattr(self.patient, 'name'):
-            if type(self.patient.name) is str:
-                return self.patient.name
-        else:
-            return 'paciente desconhecido'
