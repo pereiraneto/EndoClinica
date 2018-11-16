@@ -14,3 +14,14 @@
 .bg-green {
     background-color: #4b8f38 !important;
 }
+
+.row-line {
+    border-bottom: 1px solid lightgray;
+}
+
+.close-red {
+    color: #ff0000;
+    font-weight: bolder;
+    font-size: 2em;
+    margin-right: 0.01em !important;
+}

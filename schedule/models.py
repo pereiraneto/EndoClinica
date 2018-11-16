@@ -18,6 +18,12 @@ GENDERS = [
     "Masculino", "Feminino"
 ]
 
+DURATIONS = [n for n in range(5, 61, 5)]
+
+
+def format_choices(choices): return map(
+    lambda choice: (choice, choice), choices)
+
 
 class Doctor(models.Model):
     name = models.CharField(max_length=100)
@@ -37,12 +43,18 @@ class Procedure(models.Model):
         return self.name
 
 
+class MedicalRecord (models.Model):
+    weight = models.CharField(max_length = 10, blank= True)
+
+    def __str__(self):
+        return "ficha id = " + str(self.id)
+
+
 class Patient(models.Model):
     name = models.CharField(max_length=100)
 
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
-    POSSIBLE_GENDER = ((gender, gender) for gender in GENDERS)
-    gender = models.CharField(choices=POSSIBLE_GENDER, max_length=10)
+    gender = models.CharField(choices=format_choices(GENDERS), max_length=10)
     allergies = models.CharField(max_length=150, blank=True)
     notes = models.TextField(blank=True)
 
@@ -58,11 +70,14 @@ class Patient(models.Model):
     city = models.CharField(max_length=70, blank=True)
 
     job = models.CharField(max_length=70, blank=True)
-    POSSIBLE_MARITAL_STATE = ((state, state) for state in MARITAL_STATES)
-    marital_status = models.CharField(max_length=15, blank=True, choices=POSSIBLE_MARITAL_STATE)
+    marital_status = models.CharField(
+        max_length=15, blank=True, choices=format_choices(MARITAL_STATES))
 
     cpf = models.CharField(max_length=15, blank=True)
     rg = models.CharField(max_length=15, blank=True)
+
+    medical_record = models.OneToOneField(
+        MedicalRecord, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -71,12 +86,8 @@ class Patient(models.Model):
 class Consultation(models.Model):
     class Meta:
         ordering = ('date', )
-    POSSIBLE_STATUS = (
-        (status, status)
-        for status in STATUS_NAMES
-    )
     status = models.CharField(
-        choices=POSSIBLE_STATUS,
+        choices=format_choices(STATUS_NAMES),
         max_length=15,
         default="Agendado"
     )
@@ -84,30 +95,22 @@ class Consultation(models.Model):
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
     duration = models.CharField(
         max_length=2,
-        choices=[
-            (str(n), str(n)) for n in range(5, 61, 5)
-        ],
+        choices=format_choices(DURATIONS),
         default=15
     )
 
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
-    PRIORITIES = (
-        (prioritie, prioritie)
-        for prioritie in PRIORITIES_NAMES
-    )
     priority = models.CharField(
-        choices=PRIORITIES, max_length=15, default="Normal")
+        choices=format_choices(PRIORITIES_NAMES), max_length=15, default="Normal")
     birth_date = models.DateField(auto_now=False, auto_now_add=False)
-
 
     insurance = models.CharField(max_length=50)
     insurance_number = models.CharField(max_length=30, blank=True)
 
-    cell_phone = models.CharField(max_length=25)
+    cell_phone = models.CharField(max_length=25, blank=True)
     phone = models.CharField(max_length=25, blank=True)
     email = models.EmailField(blank=True)
-
 
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     procedure = models.ForeignKey(Procedure, on_delete=models.CASCADE)
