@@ -21,8 +21,8 @@ GENDERS = [
 DURATIONS = [n for n in range(5, 61, 5)]
 
 
-def format_choices(choices): return map(
-    lambda choice: (choice, choice), choices)
+def format_choices(choices): 
+    return [(str(choice), str(choice)) for choice in choices]
 
 
 class Doctor(models.Model):
