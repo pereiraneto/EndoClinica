@@ -1,43 +1,5 @@
 const apiBaseUrl = window.location.origin + "/api/";
 
-const addTag = (callback, parent, tag = "td") => {
-    const newEl = document.createElement(tag);
-    callback(newEl);
-    parent.appendChild(newEl);
-}
-
-const requestFromApi = (callback, url, body = {}, method = 'GET') => {
-    const request = new XMLHttpRequest();
-
-    request.open(method, url);
-
-    request.onload = () => {
-        if (request.status == 200 || request.status == 201) {
-            if (request.response) {
-                const response = request.response;
-                console.log("request response", response);
-                callback(JSON.parse(response));
-            } else {
-                callback(null);
-            }
-        }
-    }
-
-    request.onerror = () => {
-        console.log("On Error API Request")
-        callback(null);
-    }
-
-    console.log("request obj > ", request);
-
-    if (['PUT', 'POST'].includes(method)) {
-        const csrftoken = Cookies.get('csrftoken');
-        request.setRequestHeader("X-CSRFToken", csrftoken);
-        request.setRequestHeader("Content-type", "application/json")
-    }
-    request.send(JSON.stringify(body));
-}
-
 const handleChangePatientSelector = () => {
     const patientId = document.getElementById("consultation-patients").value
     if (patientId != 0) {
