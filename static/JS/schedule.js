@@ -136,42 +136,8 @@ const handleClickInfoModal = (consultationObj) => {
     $("#consultation-form").modal('show');
 }
 
-const requestFromApi = (callback, url, body = {}, method = 'GET') => {
-
-    const request = new XMLHttpRequest();
-    request.open(method, url);
-
-    request.onload = () => {
-        if (request.status == 200 || request.status == 201) {
-            if (request.response) {
-                const response = request.response;
-                callback(JSON.parse(response));
-            } else {
-                callback(null);
-            }
-        }
-    }
-
-    request.onerror = () => {
-        callback(null);
-    }
-
-
-    if (['PUT', 'POST'].includes(method)) {
-        const csrftoken = Cookies.get('csrftoken');
-        request.setRequestHeader("X-CSRFToken", csrftoken);
-        request.setRequestHeader("Content-type", "application/json")
-    }
-    request.send(JSON.stringify(body));
-}
-
-const addTag = (callback, parent, tag = "td") => {
-    const newEl = document.createElement(tag);
-    callback(newEl);
-    parent.appendChild(newEl);
-}
-
 const fillTable = (tableBody, consultations) => {
+
     tableBody.innerHTML = '';
 
     consultations.forEach(consultation => addTag(rowEl => {
@@ -237,15 +203,18 @@ const getExtraData = (consultations, callback = () => {}) => {
                     url: `${apiBaseUrl}procedimentos/${consultation.procedure}`
                 }
             ];
+            let dataCounter = 0
             requestList.forEach(request => {
                 requestFromApi(response => {
                     request.property.forEach(property => {
                         consultation[property.newName] = response[property.apiName]
                     });
+                    dataCounter++
+                    if (dataCounter == requestList.length)
+                        callback(consultations)
                 }, request.url)
             })
         });
-        callback(consultations)
     }
 }
 
