@@ -137,6 +137,7 @@ const handleClickInfoModal = (consultationObj) => {
 }
 
 const fillTable = (tableBody, consultations) => {
+
     tableBody.innerHTML = '';
 
     consultations.forEach(consultation => addTag(rowEl => {
@@ -202,15 +203,18 @@ const getExtraData = (consultations, callback = () => {}) => {
                     url: `${apiBaseUrl}procedimentos/${consultation.procedure}`
                 }
             ];
+            let dataCounter = 0
             requestList.forEach(request => {
                 requestFromApi(response => {
                     request.property.forEach(property => {
                         consultation[property.newName] = response[property.apiName]
                     });
+                    dataCounter++
+                    if (dataCounter == requestList.length)
+                        callback(consultations)
                 }, request.url)
             })
         });
-        callback(consultations)
     }
 }
 
