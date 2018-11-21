@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <h2 class="mb-5"><strong>Pacientes</strong></h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Idade</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="patients-table-body"></tbody>
+
+        </table>
+
+        <button type="button" class="btn btn-success bg-green mt-3" onclick="window.location.href='/pacientes/novo'">
+            Novo Paciente
+        </button>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script src="{% static "JS/list-patients.js" %}"></script>
+{% endblock %}
