@@ -56,15 +56,17 @@
                 <option value="{{ doctor_id }}">{{ doctor }}</option>
             </select>
         </div>
-      <div class="col-md-3">
-         <h6>Data</h6>
-         <select id="filter-dates" class="form-control">
-            <option value="0">Selecione a data</option>
-         </select>
-      </div>
-      <div class="col-md-2">
-         <a class="default-link" style="line-height: 85px; text-decoration: none" onclick="handleFilter()">Filtrar</a>
-      </div>
+        <div class="col-md-2">
+            <h6>De</h6>
+            <input id="filter-initial-date" class="form-control" type="date" value="{{this_week_monday}}">
+        </div>
+        <div class="col-md-2">
+            <h6>Até</h6>
+            <input id="filter-final-date" class="form-control" type="date" value="{{this_week_sunday}}">
+        </div>
+        <div class="col-md-2">
+            <a class="default-link" style="line-height: 85px; text-decoration: none" onclick="handleFilter()">Filtrar</a>
+        </div>
    </div>
    <table class="table table-striped">
       <thead>
