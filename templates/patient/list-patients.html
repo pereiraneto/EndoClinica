@@ -3,7 +3,23 @@
 
 {% block content %}
 
-<h1>hello nhe</h1>
+    <div class="container mt-5">
+        <h2 class="mb-5"><strong>Pacientes</strong></h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Idade</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="patients-table-body"></tbody>
+
+        </table>
+    </div>
 
 {% endblock %}
 
