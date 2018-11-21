@@ -130,7 +130,7 @@ class Consultation(models.Model):
         return "{patient} > {date}".format(patient=self.patient.name, date=self.date)
 
 
-class ComplementayExam(models.Model):
+class ComplementaryExam(models.Model):
     date = models.DateTimeField(auto_now=False, auto_now_add=False)
     exam_type = models.CharField(
         max_length=30, blank=False, choices=format_choices(COMPLMENENTARY_EXAM_TYPES))
