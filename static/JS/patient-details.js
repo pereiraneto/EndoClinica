@@ -18,8 +18,11 @@ const handleSavePatient = (patientId) => {
         address: document.getElementById("patient-address").value,
         neighborhood: document.getElementById("patient-neighborhood").value,
         city: document.getElementById("patient-city").value,
-        notes: document.getElementById("patient-notes").value
+        notes: document.getElementById("patient-notes").value,
+        allergies: document.getElementById("patient-allergies").value
     };
+
+    console.log(requestBody)
 
     if (patientId == undefined) {
         requestFromApi(response => {
@@ -45,7 +48,6 @@ const handleSavePatient = (patientId) => {
 const deletePatient = patientId => {
 
     requestFromApi(response => {
-        console.log("nhe > ", response)
         if (response == null) {
             window.alert("Paciente deletado SEM sucesso!")
         } else {
@@ -77,6 +79,7 @@ document.onreadystatechange = () => {
                 document.getElementById("patient-neighborhood").value = patient.neighborhood
                 document.getElementById("patient-city").value = patient.city
                 document.getElementById("patient-notes").value = patient.notes
+                document.getElementById("patient-allergies").value = patient.allergies
             }, `${apiBaseUrl}pacientes/${patientId}/`)
         }
     }
