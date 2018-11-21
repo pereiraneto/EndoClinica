@@ -19,6 +19,11 @@ document.onreadystatechange = () => {
                         addTag(a => {
                             a.textContent = 'Editar'
                             a.href = window.location.origin + '/pacientes/' + patient.id
+                            a.classList = 'default-link mr-2'
+                        }, td, 'a')
+                        addTag(a => {
+                            a.textContent = 'Abrir Ficha'
+                            a.href = window.location.origin + '/ficha-medica/' + patient.medical_record
                             a.classList = 'default-link'
                         }, td, 'a')
                     }, tr)
