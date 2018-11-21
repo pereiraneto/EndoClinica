@@ -3,13 +3,16 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
     request.open(method, url);
 
     request.onload = () => {
+        console.log('request > ', request)
         if (request.status == 200 || request.status == 201) {
             if (request.response) {
                 const response = request.response;
                 callback(JSON.parse(response));
             } else {
-                callback(null);
+                callback(null)
             }
+        } else if (request.status == 204) {
+            callback({});
         }
     }
 
@@ -17,7 +20,7 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
         callback(null);
     }
 
-    if (['PUT', 'POST'].includes(method)) {
+    if (['PUT', 'POST', 'DELETE'].includes(method)) {
         const csrftoken = Cookies.get('csrftoken');
         request.setRequestHeader("X-CSRFToken", csrftoken);
         request.setRequestHeader("Content-type", "application/json")

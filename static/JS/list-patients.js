@@ -18,7 +18,7 @@ document.onreadystatechange = () => {
                     addTag(td => {
                         addTag(a => {
                             a.textContent = 'Editar'
-                            a.onclick = () =>  console.log('editar', patient)
+                            a.href = window.location.origin + '/pacientes/' + patient.id
                             a.classList = 'default-link'
                         }, td, 'a')
                     }, tr)

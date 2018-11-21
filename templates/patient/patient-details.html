@@ -6,7 +6,13 @@
     <div class="container mt-5">
 
         <h2 class="mb-4">
-            <strong>Novo paciente</strong>
+            <strong id="page-title">
+                {% if edit_patient %}
+                    Editar paciente
+                {% else %}
+                    Novo paciente
+                {% endif %}
+            </strong>
         </h2>
         <form>
             <div class="row mt-5">
@@ -101,17 +107,48 @@
                     </div>
                     <div class="mt-4 mb-5 float-right">
                         <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancelar</button>
-                        <button type="button" class="btn btn-success bg-green" id="savePatient" onclick="handleSavePatient()">Salvar</button>
+                        {% if edit_patient %}
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                Deletar
+                            </button>
+                        {% endif %}
+                        <button type="button" class="btn btn-success bg-green" id="savePatient" onclick="handleSavePatient({{patient.id}})">Salvar</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 
+
+    {% if edit_patient %}
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Deletar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza que deseja deletar este paciente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                        <button type="button" class="btn btn-danger" onclick="deletePatient({{patient.id}})" data-dismiss="modal">Sim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        var patientId = {{patient.id}}
+    </script>
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
-    <script src="{% static "JS/create-patient.js" %}"></script>
+    <script src="{% static "JS/patient-details.js" %}"></script>
 {% endblock %}

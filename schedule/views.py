@@ -94,13 +94,37 @@ class PatientsView(LoginRequiredMixin, views.View):
 class NewPatientView(LoginRequiredMixin, views.View):
 
     def get(self, request):
-        return render(request, 'patient/create-patient.html', {})
+
+        user_is_doctor = False
+
+        if request.user.is_authenticated:
+            if hasattr(request.user, 'doctor'):
+                user_is_doctor = True
+
+        return render(request, 'patient/patient-details.html',
+                      {'edit_patient': False, 'user_is_doctor': user_is_doctor})
+
+
+class EditPatientView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+        patient = get_object_or_404(Patient, pk=kwargs['patient'])
+
+        user_is_doctor = False
+
+        if request.user.is_authenticated:
+            if hasattr(request.user, 'doctor'):
+                user_is_doctor = True
+
+        return render(request, 'patient/patient-details.html',
+                      {'edit_patient': True, 'user_is_doctor': user_is_doctor, 'patient': patient})
 
 
 class MedicalRecordView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
-        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        medical_record = get_object_or_404(
+            MedicalRecord, pk=kwargs['medical_record_id'])
 
         data = {
             'medical_record': medical_record,
