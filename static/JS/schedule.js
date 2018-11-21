@@ -235,9 +235,10 @@ const handleChangePatientSelector = () => {
 
 const handleFilter = () => {
     const initialDate = document.getElementById("filter-initial-date").value
+    const finalDate = document.getElementById("filter-final-date").value
     const doctor = document.getElementById("filter-doctors").value
 
-    const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${initialDate}&data_final=${initialDate}`
+    const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${initialDate}&data_final=${finalDate}`
 
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
