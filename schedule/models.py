@@ -20,7 +20,9 @@ GENDERS = [
 
 COMPLMENENTARY_EXAM_TYPES = [
     "Antigliadina/Antiendomisio", "Bilirrubina total e frações", "Cápsula Endoscópica", 
-    "COLONOSCOPIA", "CPRE", "Creatinina/Ureia", "EDA", "Hemograma"
+    "COLONOSCOPIA", "CPRE", "Creatinina/Ureia", "EDA", "Hemograma", "LARINGOSCOPIA", 
+    "Outros", "Retossigmoidoscopia", "RMN", "RX contrastado", "RX simples", "TAP/TTPA", 
+    "TC", "TGO/TGP", "US Endoscopico", "USG abdomen", "USG PÉLVICO", "VHS"
 ]
 
 DURATIONS = [n for n in range(5, 61, 5)]
