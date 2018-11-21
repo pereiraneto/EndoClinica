@@ -45,4 +45,4 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
 class ComplementayExamSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComplementayExam
-        filter = '__all__'
+        fields = '__all__'
