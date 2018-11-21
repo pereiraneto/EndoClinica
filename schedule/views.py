@@ -1,10 +1,14 @@
-from rest_framework import permissions, viewsets, generics
-from django import views
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+import datetime
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer
+from django import views
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
+from rest_framework import generics, permissions, viewsets
+
+from .models import Consultation, Doctor, MedicalRecord, Patient, Procedure
+from .serializers import (ConsultationSerializer, DoctorSerializer,
+                          MedicalRecordSerializer, PatientSerializer,
+                          ProcedureSerializer)
 
 
 class ConsultationViewSet(viewsets.ModelViewSet):
@@ -49,7 +53,7 @@ class ConsultationFilter(generics.ListAPIView):
 
         if doctor != '0':
             objects = objects.filter(doctor=doctor)
-        if initial_date != '0' and final_date != '0':
+        if initial_date != '' and final_date != '':
             objects = objects.filter(
                 date__range=[initial_date+" 00:00:01+00:00", final_date+" 23:59:59+00:00"])
         return objects
@@ -61,12 +65,20 @@ class ScheduleView(LoginRequiredMixin, views.View):
         doctor_id = '0'
         doctor = 'Selecione o médico'
 
+        today = datetime.date.today()
+        this_week = {'monday': None, 'sunday': None}
+        this_week_monday = today - datetime.timedelta(today.weekday())
+        this_week_sunday = this_week_monday + datetime.timedelta(6)
+
+        this_week_monday = str(this_week_monday.year) + "-" + str(this_week_monday.month) + "-" + str(this_week_monday.day)
+        this_week_sunday = str(this_week_sunday.year) + "-" + str(this_week_sunday.month) + "-" + str(this_week_sunday.day)
+
         if request.user.is_authenticated:
             if hasattr(request.user, 'doctor'):
                 doctor_id = request.user.doctor.id
                 doctor = request.user.doctor
 
-        return render(request, 'schedule/schedule.html', {'doctor_id': doctor_id, 'doctor': doctor})
+        return render(request, 'schedule/schedule.html', {'doctor_id': doctor_id, 'doctor': doctor, 'this_week_monday': this_week_monday, "this_week_sunday": this_week_sunday})
 
 
 class NewContultationView(LoginRequiredMixin, views.View):
