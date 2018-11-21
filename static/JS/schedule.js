@@ -234,15 +234,14 @@ const handleChangePatientSelector = () => {
 }
 
 const handleFilter = () => {
-    const date = document.getElementById("filter-dates").value
+    const initialDate = document.getElementById("filter-initial-date").value
     const doctor = document.getElementById("filter-doctors").value
 
-    const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${date}&data_final=${date}`
+    const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${initialDate}&data_final=${initialDate}`
 
     requestFromApi(consultations => {
         const scheduleEl = document.getElementById("schedule-body")
         getExtraData(consultations, consultations => fillTable(scheduleEl, consultations))
-        loadDataFilterDate(consultations)
     }, urlRequest);
 }
 
@@ -275,28 +274,6 @@ const handleSaveConsultationModal = (consultationId) => {
         $('#consultation-form').modal('hide');
         handleFilter();
     }, `${apiBaseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
-}
-
-const loadDataFilterDate = (consultations) => {
-    const filterDateEl = document.getElementById("filter-dates")
-    const dates = []
-
-    filterDateEl.innerHTML = ''
-    addTag(option => {
-        option.textContent = 'Selecione a data'
-        option.value = '0'
-    }, filterDateEl, 'option')
-    
-    consultations.forEach(consultation => {
-        const date = consultation.date.slice(0, 10)
-        if(! dates.includes(date)){ 
-            dates.push(date)
-            addTag(option => {
-                option.textContent = date
-                option.value = date
-            }, filterDateEl, 'option')
-        }
-    })
 }
 
 // const renderScreen = () => {
