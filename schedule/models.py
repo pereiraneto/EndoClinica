@@ -18,6 +18,11 @@ GENDERS = [
     "Masculino", "Feminino"
 ]
 
+COMPLMENENTARY_EXAM_TYPES = [
+    "Antigliadina/Antiendomisio", "Bilirrubina total e frações", "Cápsula Endoscópica", 
+    "COLONOSCOPIA", "CPRE", "Creatinina/Ureia", "EDA", "Hemograma"
+]
+
 DURATIONS = [n for n in range(5, 61, 5)]
 
 
@@ -123,3 +128,13 @@ class Consultation(models.Model):
 
     def __str__(self):
         return "{patient} > {date}".format(patient=self.patient.name, date=self.date)
+
+
+class ComplementaryExam(models.Model):
+    date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    exam_type = models.CharField(
+        max_length=30, blank=False, choices=format_choices(COMPLMENENTARY_EXAM_TYPES))
+    result = models.TextField()
+
+    def __str__(self):
+        return self.exam_type

@@ -12,6 +12,7 @@ router.register('api/medicos', views.DoctorViewSet, base_name='doctor')
 router.register('api/procedimentos', views.ProcedureViewSet, base_name='procedure')
 router.register('api/pacientes', views.PatientViewSet, base_name='patient')
 router.register('api/fichas-medicas', views.MedicalRecordViewSet, base_name='medical-record')
+router.register('api/exames-complementares', views.ComplementaryExamViewSet, base_name='complementary-exam')
 
 urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                path('pacientes/', views.PatientsView.as_view(), name='list-patients'),
