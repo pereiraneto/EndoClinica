@@ -78,114 +78,19 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-6">
                 <h5><strong>Histórico</strong></h5>
                 <div class="history-table-body mt-4">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Data e Horário</th>
-                            <th scope="col">Procedimento</th>
-                            <th scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                        <tbody>
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <th scope="row">16/10 - 10h30</th>
-                                <td>Endoscopia</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
+                                <th scope="col">Data e Horário</th>
+                                <th scope="col">Procedimento</th>
+                                <th scope="col">Ações</th>
                             </tr>
-                            <tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr><tr>
-                                <th scope="row">16/10 - 11h25</th>
-                                <td>Consulta</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">17/10 - 14h00</th>
-                                <td>Retorno</td>
-                                <td><a href="#">Editar</a> / <a href="#">Vizualizar</a></td>
-                            </tr>
-                        </tbody>
+                        </thead>
+                        <tbody id="history-body"> </tbody>
                     </table>
                 </div>
             </div>
@@ -233,11 +138,20 @@
 {% block scripts %}
     <script type="text/javascript">
         var medicalRecordId = "{{ medical_record_id }}"
-
+        
+        var patientId =  "{{ patient.id }}"
+        
         $('#myTab a').on('click', function (e) {
             e.preventDefault()
             $(this).tab('show')
         })
     </script>
-    <!-- <script src="{% static "JS/schedule.js" %}"></script> -->
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+
+    <script src="{% static "JS/medical-record.js" %}"></script>
+
+    <script src="{% static "JS/helpers/consultation-filter.js" %}"></script>
+
 {% endblock %}
