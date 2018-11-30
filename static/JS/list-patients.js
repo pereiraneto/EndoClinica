@@ -3,7 +3,7 @@ const apiBaseUrl = window.location.origin + "/api/"
 
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        requestFromApi(patients => {
+        requestFromApi(apiBaseUrl + 'pacientes/', patients => {
             const patientsTableBody = document.getElementById('patients-table-body')
 
             patients.forEach(patient => {
@@ -29,6 +29,6 @@ document.onreadystatechange = () => {
                     }, tr)
                 }, patientsTableBody, 'tr')
             });
-        }, apiBaseUrl + 'pacientes/')
+        })
     }
 }

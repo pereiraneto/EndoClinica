@@ -25,36 +25,36 @@ const handleSavePatient = (patientId) => {
     console.log(requestBody)
 
     if (patientId == undefined) {
-        requestFromApi(response => {
+        requestFromApi(`${apiBaseUrl}pacientes/`, response => {
             if (response == null)
                 window.alert("Paciente salvo sem sucesso!")
             else {
                 window.alert("Paciente salvo com sucesso!")
                 window.history.back()
             }
-        }, `${apiBaseUrl}pacientes/`, requestBody, 'POST')
+        }, undefined, requestBody, 'POST')
     } else {
-        requestFromApi(response => {
+        requestFromApi(`${apiBaseUrl}pacientes/${patientId}/`, response => {
             if (response == null)
                 window.alert("Paciente atualizado SEM sucesso!")
             else {
                 window.alert("Paciente atualizado com sucesso!")
                 window.history.back()
             }
-        }, `${apiBaseUrl}pacientes/${patientId}/`, requestBody, 'PUT')
+        }, undefined, requestBody, 'PUT')
     }
 }
 
 const deletePatient = patientId => {
 
-    requestFromApi(response => {
+    requestFromApi(`${apiBaseUrl}pacientes/${patientId}/`, response => {
         if (response == null) {
             window.alert("Paciente deletado SEM sucesso!")
         } else {
             window.alert("Paciente deletado com sucesso!")
             window.history.back()
         }
-    }, `${apiBaseUrl}pacientes/${patientId}/`, null, 'DELETE')
+    }, undefined, undefined, 'DELETE')
 }
 
 document.onreadystatechange = () => {
@@ -62,7 +62,7 @@ document.onreadystatechange = () => {
         const isEditionPage = document.getElementById('page-title').innerText == 'Editar paciente'
 
         if (isEditionPage) {
-            requestFromApi(patient => {
+            requestFromApi(`${apiBaseUrl}pacientes/${patientId}/`, patient => {
                 document.getElementById("patient-name").value = patient.name
                 document.getElementById("patient-cell-phone").value = patient.cell_phone
                 document.getElementById("patient-phone").value = patient.phone
@@ -80,7 +80,7 @@ document.onreadystatechange = () => {
                 document.getElementById("patient-city").value = patient.city
                 document.getElementById("patient-notes").value = patient.notes
                 document.getElementById("patient-allergies").value = patient.allergies
-            }, `${apiBaseUrl}pacientes/${patientId}/`)
+            })
         }
     }
 }

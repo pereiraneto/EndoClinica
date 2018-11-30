@@ -152,7 +152,9 @@
 
 {% block scripts %}
     <script>
-        var patientId = {{patient.id}}
+        {% if patient %}
+            var patientId = {{patient.id}}
+        {% endif %}
     </script>
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
