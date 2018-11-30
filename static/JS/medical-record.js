@@ -9,7 +9,6 @@ const fillConsultationHistoryTable = (tableBody, consultations) => {
             const hour = `${consultation.date.slice(11,13)}h${consultation.date.slice(14,16)}`;
             th.textContent = `${date} - ${hour}`;
         }, rowEl, "th");
-        console.log(consultation.procedureName)
         addTag(td => td.textContent = consultation.procedureName, rowEl);
         addTag(td => {
             addTag(a => {

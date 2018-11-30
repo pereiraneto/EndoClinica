@@ -10,7 +10,7 @@ const handleChangePatientSelector = () => {
             document.getElementById("consultation-insurance").value = patient.insurance
             document.getElementById("consultation-insurancenumber").value = patient.insurance_number
             document.getElementById("consultation-email").value = patient.email      
-        }, apiBaseUrl + "pacientes/" + patientId)
+        }, () => {console.log("bad request!")},apiBaseUrl + "pacientes/" + patientId)
     } else {
         document.getElementById("consultation-cell-phone").value = ""
         document.getElementById("consultation-phone").value = ""
@@ -28,15 +28,14 @@ const handleChangeProcedureSelector = () => {
         document.getElementById("consultation-doctors").disabled = false
         requestFromApi( consultation => {
             consultation.doctors.forEach(doctorId => {
-                console.log("MEDIQUINHO", doctorId)
                 requestFromApi(doctor => {
                     addTag(option => {
                         option.textContent = doctor.name;
                         option.value = doctor.id;
                     }, document.getElementById("consultation-doctors"), 'option');
-                }, apiBaseUrl + "medicos/" + doctorId);
+                }, () => {console.log("bad request!")}, apiBaseUrl + "medicos/" + doctorId);
             });
-        }, apiBaseUrl + "procedimentos/" + procedureId)
+        }, () => {console.log("bad request!")}, apiBaseUrl + "procedimentos/" + procedureId)
     } else {
         document.getElementById("consultation-doctors").disabled = true
     }
@@ -47,7 +46,6 @@ const handleSaveConsultation = () => {
 
     document.getElementsByName("statusOptions").forEach(option => {
         if (option.checked) {
-            console.log("Status", option.value, option)
             consultationStatus = option.value;
         }
     });
@@ -70,12 +68,26 @@ const handleSaveConsultation = () => {
         requester: document.getElementById("consultation-requester").value,
         patient: document.getElementById("consultation-patients").value
     };
-    
-    console.log(requestBody);
 
     requestFromApi(() => {
         window.alert("Consulta salva com sucesso!")
         window.location.href='/'
+    }, (response) => {
+        console.log("bad request!", response)
+
+        // selecionar todos os inputs da requisição e remover o estilo de preechimento incorreto
+
+        const consultationInputs = document.getElementsByClassName("consultation-input")
+
+        consultationInputs.forEach(consultationInput => {
+            while (consultationInput.className.indexOf("is-invalid") != -1) {
+                consultationInput.className = consultationInput.className.replace("is-invalid", "")
+            }
+        });
+
+        // selecionar todas as mensagens dos inputs de erro e esconder
+        // marcar novos erros
+
     }, `${apiBaseUrl}consultas/`, requestBody, 'POST');
 }
 
@@ -99,8 +111,8 @@ document.onreadystatechange = () => {
                             option.value = procedure.id;
                         }, document.getElementById("consultation-procedures"), 'option');
                     });
-                }, apiBaseUrl + "procedimentos/");
+                }, () => {console.log("bad request!")}, apiBaseUrl + "procedimentos/");
             }
-        }, apiBaseUrl + "pacientes/");
+        }, () => {console.log("bad request!")}, apiBaseUrl + "pacientes/");
     }
 }
