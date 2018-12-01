@@ -140,3 +140,21 @@ class ComplementaryExam(models.Model):
 
     def __str__(self):
         return self.exam_type
+
+class Anamnese(models.Model):
+    date = models.DateField(auto_now=True)
+    main_complaint = models.CharField(max_length=50)
+    hda = models.TextField()
+    pathology = models.TextField()
+    comorbidities = models.TextField()
+    medications = models.TextField()
+    alergies = models.CharField(max_length=50)
+    habits = models.TextField()
+    family_history = models.TextField()
+    fisical_exam = models.TextField()
+    diagnostical_hypothesis = models.TextField()
+    conduct = models.TextField()
+    adicional_info = models.TextField()
+    fisical_exams = models.TextField()
+    insurance = models.CharField(max_length=30)
+    executed_exams = models.ManyToManyField(ComplementaryExam)
