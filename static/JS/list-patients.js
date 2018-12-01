@@ -21,11 +21,12 @@ document.onreadystatechange = () => {
                             a.href = window.location.origin + '/pacientes/' + patient.id
                             a.classList = 'default-link mr-2'
                         }, td, 'a')
-                        addTag(a => {
-                            a.textContent = 'Abrir Ficha'
-                            a.href = window.location.origin + '/ficha-medica/' + patient.medical_record
-                            a.classList = 'default-link'
-                        }, td, 'a')
+                        if (userIsDoctor)
+                            addTag(a => {
+                                a.textContent = 'Abrir Ficha'
+                                a.href = window.location.origin + '/ficha-medica/' + patient.medical_record
+                                a.classList = 'default-link'
+                            }, td, 'a')
                     }, tr)
                 }, patientsTableBody, 'tr')
             });

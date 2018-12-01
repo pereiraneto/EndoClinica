@@ -292,8 +292,6 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        const u = apiBaseUrl + "medicos/"
-        console.log(u)
         requestFromApi(apiBaseUrl + "medicos/", doctors => {
             doctors.forEach(doctor => {
                 addTag(option => {
@@ -318,6 +316,6 @@ document.onreadystatechange = () => {
                 });
                 handleFilter();
             });
-        }, u);
+        });
     }
 }

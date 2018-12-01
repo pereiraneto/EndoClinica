@@ -28,6 +28,13 @@
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        {% if user_is_doctor %}
+            var userIsDoctor = true
+        {% else %}
+            var userIsDoctor = false
+        {% endif %}
+    </script>
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
     <script src="{% static "JS/list-patients.js" %}"></script>

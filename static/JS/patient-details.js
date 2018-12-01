@@ -22,8 +22,6 @@ const handleSavePatient = (patientId) => {
         allergies: document.getElementById("patient-allergies").value
     };
 
-    console.log(requestBody)
-
     if (patientId == undefined) {
         requestFromApi(`${apiBaseUrl}pacientes/`, response => {
             if (response == null)
