@@ -1,4 +1,8 @@
-const requestFromApi = (callback, url, body = {}, method = 'GET') => {
+const requestFromApi = (url, onsuccess = () => {}, onbadrequest = response => {console.log("bad request!", response)}, body = {}, method = 'GET') => {
+
+    console.log("nhe > ", url);
+    
+
     const request = new XMLHttpRequest();
     request.open(method, url);
 
@@ -6,13 +10,14 @@ const requestFromApi = (callback, url, body = {}, method = 'GET') => {
         console.log('request > ', request)
         if (request.status == 200 || request.status == 201) {
             if (request.response) {
-                const response = request.response;
-                callback(JSON.parse(response));
+                onsuccess(JSON.parse(request.response));
             } else {
-                callback(null)
+                onsuccess(null)
             }
         } else if (request.status == 204) {
-            callback({});
+            onsuccess({});
+        } else if (request.status == 400) {
+            onbadrequest(JSON.parse(request.response));
         }
     }
 

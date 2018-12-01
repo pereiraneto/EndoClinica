@@ -42,15 +42,21 @@
                         <div class="col-md-12">
                             <h6>Procedimento</h6>
                             {% if doctor %}
-                                <select id="consultation-procedures" class="form-control">
+                                <select id="consultation-procedures" class="form-control consultation-input">
                                     {% for procedure in procedures %}
                                         <option value="{{ procedure.id }}">{{ procedure }}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback error-feedback">
+                                    Selecione um procedimento válido
+                                </div>
                             {% else %}
-                                <select id="consultation-procedures" class="form-control" onchange="handleChangeProcedureSelector()">
+                                <select id="consultation-procedures" class="form-control consultation-input" onchange="handleChangeProcedureSelector()">
                                     <option value="0">Selecione o procedimento</option>
                                 </select>
+                                <div class="invalid-feedback error-feedback">
+                                    Selecione um procedimento válido
+                                </div>
                             {% endif %}
                         </div>
                     </div>
@@ -58,9 +64,12 @@
                     <div class="row">
                         <h6 class="mt-4 col-md-12">Paciente</h6>
                         <div class="col-md-9">    
-                            <select id="consultation-patients" class="form-control" onchange="handleChangePatientSelector()">
+                            <select id="consultation-patients" class="form-control consultation-input" onchange="handleChangePatientSelector()">
                                 <option value="0">Selecione o paciente</option>
                             </select>
+                            <div class="invalid-feedback error-feedback">
+                                Selecione um paciente válido
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <a href="../pacientes/novo" style="line-height: 35px; text-decoration: none">Novo paciente</a>
@@ -71,33 +80,39 @@
                         <div class="row">
                             <div class="col">
                                 <h6 class="mt-3">Celular</h6>
-                                <input id="consultation-cell-phone" class="form-control" type="text" disabled readonly>
+                                <input id="consultation-cell-phone" class="form-control consultation-input" type="text" disabled readonly>
                             </div>
                             <div class="col">
                                 <h6 class="mt-3">Telefone Fixo</h6>
-                                <input id="consultation-phone" class="form-control" type="text" disabled readonly>
+                                <input id="consultation-phone" class="form-control consultation-input" type="text" disabled readonly>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-8">
                                 <h6 class="mt-3">Email</h6>
-                                <input id="consultation-email" type="email" class="form-control" disabled readonly>
+                                <input id="consultation-email" type="email" class="form-control consultation-input" disabled readonly>
                             </div>
                             <div class="col-md-4">
                                 <h6 class="mt-3">Data de Nascimento</h6>
-                                <input id="consultation-birth-date" class="form-control" type="date" disabled readonly>
+                                <input id="consultation-birth-date" class="form-control consultation-input" type="date" disabled readonly>
+                            </div>
+                            <div class="invalid-feedback error-feedback">
+                                Selecione uma data de nascimento válida
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-5">
                                 <h6 class="mt-3">Convênio</h6>
-                                <input id="consultation-insurance" type="text" class="form-control">
+                                <input id="consultation-insurance" type="text" class="form-control consultation-input">
+                            </div>
+                            <div class="invalid-feedback error-feedback">
+                                Insira um plano de saúde válido
                             </div>
                             <div class="col-md-7">
                                 <h6 class="mt-3">Número de Convênio</h6>
-                                <input id="consultation-insurancenumber" class="form-control" type="text">
+                                <input id="consultation-insurancenumber" class="form-control consultation-input" type="text">
                             </div>
                         </div>
                     </div>
@@ -106,15 +121,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h6>Data</h6>
-                            <input id="consultation-date" type="date" class="form-control">
+                            <input id="consultation-date" type="date" class="form-control consultation-input">
+                            <div class="invalid-feedback error-feedback">
+                                Selecione uma data válido
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <h6>Hora (00:00)</h6>
-                            <input id="consultation-hour" class="form-control" type="text">
+                            <input id="consultation-hour" class="form-control consultation-input" type="text">
+                            <div class="invalid-feedback error-feedback">
+                                Insira uma hora válida no formato como 12:35 ou 07:00
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <h6>Duração</h6>
-                            <select id="consultation-duration" class="form-control">
+                            <select id="consultation-duration" class="form-control consultation-input">
                                 <option value="5">5 min</option>
                                 <option value="10">10 min</option>
                                 <option value="15">15 min</option>
@@ -135,11 +156,17 @@
                         <div class="col-md-12">
                             <h6>Médico</h6>
                             {% if doctor %}
-                                <select id="consultation-doctors" class="form-control">
+                                <select id="consultation-doctors" class="form-control consultation-input">
                                     <option value="{{ doctor.id }}">{{ doctor }}</option>
                                 </select>
+                                <div class="invalid-feedback error-feedback">
+                                    Selecione um médico válido
+                                </div>
                             {% else %}
-                                <select id="consultation-doctors" class="form-control" disabled></select>
+                                <select id="consultation-doctors" class="form-control consultation-input" disabled></select>
+                                <div class="invalid-feedback error-feedback">
+                                    Selecione um médico válido
+                                </div>
                             {% endif %} 
                         </div>
                     </div>
@@ -147,7 +174,7 @@
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <h6>Prioridade</h6>
-                            <select id="consultation-priority" class="form-control">
+                            <select id="consultation-priority" class="form-control consultation-input">
                                 <option value="Normal">Normal</option>
                                 <option value="Ambulatorio">Ambulatorio</option>
                                 <option value="Internado">Internado</option>
@@ -160,13 +187,13 @@
                         </div>
                         <div class="col-md-6">
                             <h6>Solicitante</h6>
-                            <input id="consultation-requester" class="form-control" type="text">
+                            <input id="consultation-requester" class="form-control consultation-input" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <h6 class="mt-4">Preparo</h6>
-                        <textarea id="consultation-prepare" class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                        <textarea id="consultation-prepare" class="form-control consultation-input" id="exampleFormControlTextarea1" rows="4"></textarea>
                     </div>
 
                 </div>
@@ -175,7 +202,10 @@
                 <div class="col">
                     <div class="form-group">
                         <h6 class="mt-4">Detalhes</h6>
-                        <textarea class="form-control" id="consultation-details" rows="3"></textarea>
+                        <textarea class="form-control consultation-input" id="consultation-details" rows="3"></textarea>
+                        <div class="invalid-feedback error-feedback">
+                            Insira detalhes válidos
+                        </div>
                     </div>
                 </div>
             </div>

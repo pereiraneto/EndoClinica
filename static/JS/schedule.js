@@ -205,14 +205,14 @@ const getExtraData = (consultations, callback = () => {}) => {
             ];
             let dataCounter = 0
             requestList.forEach(request => {
-                requestFromApi(response => {
+                requestFromApi(request.url, response => {
                     request.property.forEach(property => {
                         consultation[property.newName] = response[property.apiName]
                     });
                     dataCounter++
                     if (dataCounter == requestList.length)
                         callback(consultations)
-                }, request.url)
+                })
             })
         });
     }
@@ -221,11 +221,11 @@ const getExtraData = (consultations, callback = () => {}) => {
 const handleChangePatientSelector = () => {
     const patientId = document.getElementById("consultation-patients").value
     if (patientId != 0) {
-        requestFromApi( patient => {
+        requestFromApi(apiBaseUrl + "pacientes/" + patientId, patient => {
             document.getElementById("consultation-cell-phone").value = patient.cell_phone
             document.getElementById("consultation-phone").value = patient.phone
             document.getElementById("consultation-birth-date").value = patient.birth_date
-        }, apiBaseUrl + "pacientes/" + patientId)
+        })
     } else {
         document.getElementById("consultation-cell-phone").value = ""
         document.getElementById("consultation-phone").value = ""
@@ -240,10 +240,10 @@ const handleFilter = () => {
 
     const urlRequest = `${apiBaseUrl}consultas/filtrar?medico=${doctor}&data_inicial=${initialDate}&data_final=${finalDate}`
 
-    requestFromApi(consultations => {
+    requestFromApi(urlRequest, consultations => {
         const scheduleEl = document.getElementById("schedule-body")
         getExtraData(consultations, consultations => fillTable(scheduleEl, consultations))
-    }, urlRequest);
+    });
 }
 
 const handleSaveConsultationModal = (consultationId) => {
@@ -271,10 +271,10 @@ const handleSaveConsultationModal = (consultationId) => {
         requester: document.getElementById("consultation-requester").value,
         patient: document.getElementById("consultation-patients").value 
     };
-    requestFromApi(() => {
+    requestFromApi(`${apiBaseUrl}consultas/${consultationId}/`, requestBody, 'PUT' ,() => {
         $('#consultation-form').modal('hide');
         handleFilter();
-    }, `${apiBaseUrl}consultas/${consultationId}/`, requestBody, 'PUT');
+    });
 }
 
 // const renderScreen = () => {
@@ -292,7 +292,9 @@ document.onreadystatechange = () => {
         window.alert("Atualize seu navegador para usar este site.");
     }
     if (document.readyState == "interactive") {
-        requestFromApi(doctors => {
+        const u = apiBaseUrl + "medicos/"
+        console.log(u)
+        requestFromApi(apiBaseUrl + "medicos/", doctors => {
             doctors.forEach(doctor => {
                 addTag(option => {
                     option.textContent = doctor.name
@@ -307,7 +309,7 @@ document.onreadystatechange = () => {
                     }, filterDoctorsEl, 'option')
                 }
             });
-            requestFromApi(procedures => {
+            requestFromApi(apiBaseUrl + "procedimentos/", procedures => {
                 procedures.forEach(procedure => {
                     addTag(option => {
                         option.textContent = procedure.name;
@@ -315,7 +317,7 @@ document.onreadystatechange = () => {
                     }, document.getElementById("consultation-procedures"), 'option');
                 });
                 handleFilter();
-            }, apiBaseUrl + "procedimentos/");
-        }, apiBaseUrl + "medicos/");
+            });
+        }, u);
     }
 }

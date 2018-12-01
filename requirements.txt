@@ -11,9 +11,11 @@ pycodestyle==2.4.0
 pydocstyle==3.0.0
 pyflakes==2.0.0
 pylama==7.6.6
+python-decouple==3.1
 python-mimeparse==1.6.0
 pytz==2018.5
 RestAuthCommon==0.7.0
 six==1.11.0
 snowballstemmer==1.2.1
 South==1.0.2
+whitenoise==4.1.2
