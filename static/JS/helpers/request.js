@@ -1,8 +1,5 @@
 const requestFromApi = (url, onsuccess = () => {}, onbadrequest = response => {console.log("bad request!", response)}, body = {}, method = 'GET') => {
-
-    console.log("nhe > ", url);
     
-
     const request = new XMLHttpRequest();
     request.open(method, url);
 

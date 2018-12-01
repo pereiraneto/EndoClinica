@@ -114,7 +114,14 @@ class NewContultationView(LoginRequiredMixin, views.View):
 class PatientsView(LoginRequiredMixin, views.View):
 
     def get(self, request):
-        return render(request, 'patient/list-patients.html', {})
+
+        user_is_doctor = False
+
+        if request.user.is_authenticated:
+            if hasattr(request.user, 'doctor'):
+                user_is_doctor = True
+
+        return render(request, 'patient/list-patients.html', {"user_is_doctor": user_is_doctor})
 
 
 class NewPatientView(LoginRequiredMixin, views.View):
