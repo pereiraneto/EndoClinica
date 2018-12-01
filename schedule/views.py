@@ -1,6 +1,8 @@
 import datetime
 
 from django import views
+from django.http import HttpResponse
+from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, permissions, viewsets
@@ -147,6 +149,14 @@ class EditPatientView(LoginRequiredMixin, views.View):
 class MedicalRecordView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
+
+        if request.user.is_authenticated:
+            if not hasattr(request.user, 'doctor'):
+
+                t = loader.get_template('misc/http-response-401.html')
+
+                return HttpResponse(t.render(), status=401)
+
         medical_record = get_object_or_404(
             MedicalRecord, pk=kwargs['medical_record_id'])
 
