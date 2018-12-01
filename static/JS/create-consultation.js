@@ -42,6 +42,17 @@ const handleChangeProcedureSelector = () => {
 }
 
 const handleSaveConsultation = () => {
+
+    const consultationInputs = document.getElementsByClassName("consultation-input")
+
+    for(let i = 0; i < consultationInputs.length; i++) {
+        const consultationInput = consultationInputs[i]
+
+        if (consultationInput.className.indexOf("is-invalid") != -1) {
+            consultationInput.className = consultationInput.className.replace("is-invalid", "")
+        }
+    }
+
     let consultationStatus;
 
     document.getElementsByName("statusOptions").forEach(option => {
@@ -75,25 +86,23 @@ const handleSaveConsultation = () => {
     }, (response) => {
         console.log("bad request!", response)
 
-        // selecionar todos os inputs da requisição e remover o estilo de preechimento incorreto
-
-        const consultationInputs = document.getElementsByClassName("consultation-input")
-
-        consultationInputs.forEach(consultationInput => {
-            if (consultationInput.className.indexOf("is-invalid") != -1) {
-                consultationInput.className = consultationInput.className.replace("is-invalid", "")
-            }
-        });
-
-        // selecionar todas as mensagens dos inputs de erro e esconder
-
-        const errorFeedbacks = document.getElementsByClassName("error-feedback")
-
-        errorFeedbacks.forEach(errorFeedback => {
-            
-        });
-
         // marcar novos erros
+
+        const possibleWrongInputs = [
+            {modelField: "birth_date", elementId: "consultation-birth-date"},
+            {modelField: "date", elementId: "consultation-date"},
+            {modelField: "date", elementId: "consultation-hour"},
+            {modelField: "doctor", elementId: "consultation-doctors"},
+            {modelField: "insurance", elementId: "consultation-insurance"},
+            {modelField: "patient", elementId: "consultation-patients"},
+            {modelField: "procedure", elementId: "consultation-procedures"},
+        ]
+
+        possibleWrongInputs.forEach(pwi => {
+
+            if (response[pwi.modelField] !== undefined)
+                document.getElementById(pwi.elementId).className = "form-control consultation-input is-invalid"
+        });
 
     }, requestBody, 'POST');
 }

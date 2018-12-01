@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <h6>Procedimento</h6>
                             {% if doctor %}
-                                <select id="consultation-procedures" class="form-control consultation-input is-invalid">
+                                <select id="consultation-procedures" class="form-control consultation-input">
                                     {% for procedure in procedures %}
                                         <option value="{{ procedure.id }}">{{ procedure }}</option>
                                     {% endfor %}
@@ -122,9 +122,9 @@
                         <div class="col-md-6">
                             <h6>Data</h6>
                             <input id="consultation-date" type="date" class="form-control consultation-input">
-                        </div>
-                        <div class="invalid-feedback error-feedback">
-                            Selecione uma data válido
+                            <div class="invalid-feedback error-feedback">
+                                Selecione uma data válido
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <h6>Hora (00:00)</h6>
