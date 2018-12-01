@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, permissions, viewsets
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer
 
 
 
@@ -45,6 +45,12 @@ class MedicalRecordViewSet(viewsets.ModelViewSet):
 class ComplementaryExamViewSet(viewsets.ModelViewSet):
     queryset = ComplementaryExam.objects.all()
     serializer_class = ComplementaryExamSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class AnamneseViewSet(viewsets.ModelViewSet):
+    queryset = Anamnese.objects.all()
+    serializer_class = AnamneseSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
