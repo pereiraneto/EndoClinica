@@ -14,14 +14,14 @@ const getExtraData = (consultations, callback = () => {}) => {
             ]
             let dataCounter = 0
             requestList.forEach(request => {
-                requestFromApi(response => {
+                requestFromApi(request.url, response => {
                     request.property.forEach(property => {
                         consultation[property.newName] = response[property.apiName]
                     })
                     dataCounter++
                     if (dataCounter == requestList.length)
                         callback(consultations)
-                }, request.url)
+                })
             })
         })
     }
@@ -30,8 +30,8 @@ const getExtraData = (consultations, callback = () => {}) => {
 const filterPatient = (patient) => {
     const urlRequest = `${apiBaseUrl}consultas/filtrar?paciente=${patient}`
 
-    requestFromApi(consultations => {
+    requestFromApi(urlRequest, consultations => {
         const historyEl = document.getElementById("history-body")
         getExtraData(consultations, consultations => fillConsultationHistoryTable(historyEl, consultations))
-    }, urlRequest);
+    });
 }
