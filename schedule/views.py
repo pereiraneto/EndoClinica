@@ -140,8 +140,7 @@ class NewPatientView(LoginRequiredMixin, views.View):
             if hasattr(request.user, 'doctor'):
                 user_is_doctor = True
 
-        return render(request, 'patient/patient-details.html',
-                      {'edit_patient': False, 'user_is_doctor': user_is_doctor})
+        return render(request, 'patient/patient-details.html', {'user_is_doctor': user_is_doctor})
 
 
 class EditPatientView(LoginRequiredMixin, views.View):
@@ -155,8 +154,7 @@ class EditPatientView(LoginRequiredMixin, views.View):
             if hasattr(request.user, 'doctor'):
                 user_is_doctor = True
 
-        return render(request, 'patient/patient-details.html',
-                      {'edit_patient': True, 'user_is_doctor': user_is_doctor, 'patient': patient})
+        return render(request, 'patient/patient-details.html', {'user_is_doctor': user_is_doctor, 'patient': patient})
 
 
 class MedicalRecordView(LoginRequiredMixin, views.View):
