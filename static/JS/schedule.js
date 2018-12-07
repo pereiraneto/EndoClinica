@@ -123,6 +123,7 @@ const fillInfoModal = (consultationObj) => {
     setElsInputs(idInputList);
     setElsOption(idSelectList);
     setButtonOnClickFunction(consultationObj.id, "saveConsultation");
+    document.getElementById("consultation-procedures").onchange()
 }
 
 const setButtonOnClickFunction = (consultationId, buttonId) => {
@@ -271,34 +272,18 @@ const handleSaveConsultationModal = (consultationId) => {
         requester: document.getElementById("consultation-requester").value,
         patient: document.getElementById("consultation-patients").value 
     };
-    requestFromApi(`${apiBaseUrl}consultas/${consultationId}/`, requestBody, 'PUT' ,() => {
+    requestFromApi(`${apiBaseUrl}consultas/${consultationId}/`, () => {
         $('#consultation-form').modal('hide');
         handleFilter();
-    });
+    }, undefined, requestBody, 'PUT');
 }
-
-// const renderScreen = () => {
-//     handleFilter()
-//     requestFromApi(consultations => {
-//         const scheduleEl = document.getElementById("schedule-body")
-//         handleIdFromConsultations(consultations, consultations => fillTable(scheduleEl, consultations))
-//     }, `${baseUrl}consultas/`);
-// }
 
 const apiBaseUrl = window.location.origin + "/api/";
 
 document.onreadystatechange = () => {
-    if (!window.indexedDB) {
-        window.alert("Atualize seu navegador para usar este site.");
-    }
     if (document.readyState == "interactive") {
         requestFromApi(apiBaseUrl + "medicos/", doctors => {
             doctors.forEach(doctor => {
-                addTag(option => {
-                    option.textContent = doctor.name
-                    option.value = doctor.id
-                }, document.getElementById("consultation-doctors"), 'option')
-
                 const filterDoctorsEl = document.getElementById("filter-doctors")
                 if (filterDoctorsEl.value == '0') {
                     addTag(option => {
