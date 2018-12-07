@@ -90,8 +90,8 @@ class ScheduleView(LoginRequiredMixin, views.View):
         this_week_monday = today - datetime.timedelta(today.weekday())
         this_week_sunday = this_week_monday + datetime.timedelta(6)
 
-        this_week_monday = str(this_week_monday.year) + "-" + str(this_week_monday.month) + "-" + str(this_week_monday.day)
-        this_week_sunday = str(this_week_sunday.year) + "-" + str(this_week_sunday.month) + "-" + str(this_week_sunday.day)
+        this_week_monday = this_week_monday.isoformat()
+        this_week_sunday = this_week_sunday.isoformat()
 
         if request.user.is_authenticated:
             if hasattr(request.user, 'doctor'):
