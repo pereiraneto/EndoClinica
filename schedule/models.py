@@ -151,14 +151,13 @@ class Anamnese(models.Model):
     alergies = models.CharField(max_length=50, blank=True)
     habits = models.TextField(blank=True)
     family_history = models.TextField(blank=True)
-    fisical_exam = models.TextField(blank=True)
+    physical_exam = models.TextField(blank=True)
     diagnostical_hypothesis = models.TextField(blank=True)
     conduct = models.TextField(blank=True)
     adicional_info = models.TextField(blank=True)
-    fisical_exams = models.TextField(blank=True)
     insurance = models.CharField(max_length=30, blank=True)
     executed_exams = models.ManyToManyField(ComplementaryExam, blank=True)
-    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL)
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
