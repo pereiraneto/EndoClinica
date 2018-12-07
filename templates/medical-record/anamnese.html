@@ -71,7 +71,7 @@
             <div class="row mt-3">
                 <div class="col">
                     <h6>Hipotesi Diagnostica</h6>
-                    <textarea id="anamnese-diagnostical-hypothesism" class="form-control"></textarea>
+                    <textarea id="anamnese-diagnostical-hypothesis" class="form-control"></textarea>
                 </div>
             </div>
             <div class="row mt-3">
@@ -89,7 +89,7 @@
             <div class="row mt-3">
                 <div class="col">
                     <h6>Plano de Saúde</h6>
-                    <input id="anamnese-insurance" type="text" class="form-control">
+                    <input id="anamnese-insurance" type="text" class="form-control" value="{{insurance}}">
                 </div>
             </div>
             <div class="row mt-3">
@@ -99,6 +99,22 @@
                 </div>
                 <div class="col-md-3">
                     <a style="line-height: 35px; text-decoration: none" href="#">Novo Exame Complementar</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Paciente</h6>
+                    <select id="anamnese-madical-record" class="form-control" disabled>
+                        <option value="{{madical_record_id}}">{{patient_name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Médico</h6>
+                    <select id="anamnese-doctor" class="form-control" disabled>
+                        <option value="{{doctor_id}}">{{doctor_name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="row mt-5">
@@ -117,5 +133,6 @@
 
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script src="{% static "JS/anamnese-details.js" %}"></script>
 
 {% endblock %}

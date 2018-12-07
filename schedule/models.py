@@ -51,7 +51,6 @@ class Procedure(models.Model):
 
 
 class MedicalRecord (models.Model):
-    weight = models.CharField(max_length = 10, blank= True)
 
     def __str__(self):
         return "ficha id = " + str(self.id)
@@ -161,4 +160,4 @@ class Anamnese(models.Model):
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f'{self.patient} - {self.date}'
+        return f'{self.medical_record} - {self.date}'
