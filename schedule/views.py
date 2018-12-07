@@ -180,3 +180,9 @@ class MedicalRecordView(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/medical-record.html', data)
+
+
+class NewAnamneseView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+        return render(request, 'medical-record/anamnese.html', {'today': datetime.date.today().isoformat()})

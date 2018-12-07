@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+        <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
+
+        <form>
+            <div class="row mt-5">
+                <div class="col-md-9">    
+                    <h6>Principal queixa</h6>
+                    <input id="anamnese-maincomplaint" class="form-control" type="text">
+                </div>
+                <div class="col-md-3">    
+                    <h6>Data</h6>
+                    <input id="anamnese-date" class="form-control" type="date" value="{{ today }}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>HDA</h6>
+                    <textarea id="anamnese-hda" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Patologia</h6>
+                    <textarea id="anamnese-pathology" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Comorbidades</h6>
+                    <textarea id="anamnese-comorbidities" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Medicamentos</h6>
+                    <textarea id="anamnese-medications" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Alergías</h6>
+                    <input id="anamnese-alergies" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Hábitos</h6>
+                    <textarea id="anamnese-habits" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Histórioco Familiar</h6>
+                    <textarea id="anamnese-family-history" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Exame Físico</h6>
+                    <textarea id="anamnese-physical-exam" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Hipotesi Diagnostica</h6>
+                    <textarea id="anamnese-diagnostical-hypothesism" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Conduta</h6>
+                    <textarea id="anamnese-conduct" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Informação Adicional</h6>
+                    <textarea id="anamnese-adicional-info" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Plano de Saúde</h6>
+                    <input id="anamnese-insurance" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <h6 class="col-md-12">Exames Executados</h6>
+                <div class="col-md-9">
+                    <select id="anamnese-executed-exams" type="text" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <a style="line-height: 35px; text-decoration: none" href="#">Novo Exame Complementar</a>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-success bg-green" id="saveAnamnese" onclick="handleSaveAnamnese()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+
+{% endblock %}
