@@ -33,14 +33,15 @@ const handleSaveAnamnese = () => {
             anamneseData[field.modelField] = el.value
     });
 
-    requestFromApi(baseApiUrl+'anamneses/', undefined, undefined, anamneseData, 'POST')
+    const method = isEditionView ? 'PUT' : 'POST'
+    const url = isEditionView ? baseApiUrl+'anamneses/'+anamneseId+'/' : baseApiUrl+'anamneses/'
+
+    requestFromApi(url, undefined, undefined, anamneseData, method)
 }
 
+const isEditionView = typeof anamneseId !== 'undefined'
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        
-        const isEditionView = typeof anamneseId !== 'undefined'
-
         requestFromApi(`${baseApiUrl}fichas-medicas/${medicalRecordId}`, medicalRecord => {
             medicalRecord.complementary_exams.forEach(complementaryExamId => {
                 requestFromApi(`${baseApiUrl}exames-complementares/${complementaryExamId}`, complementaryExam => {
@@ -48,14 +49,24 @@ document.onreadystatechange = () => {
                         option.value = complementaryExamId
                         option.innerText = `${complementaryExam.exam_type} - ${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
                     }, document.getElementById('anamnese-executed-exams'), 'option')
+                    if (isEditionView){
+                        requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
+                            anamneseModelElRelation.forEach(field => {
+                                const elField = document.getElementById(field.elementId)
+                                if (elField.tagName == 'SELECT' && elField.multiple) {
+                                    elField.childNodes.forEach(option => {
+                                        console.log('> ', anamnese[field.modelField], option)
+                                        if (anamnese[field.modelField].indexOf(parseInt(option.value)) != -1)
+                                            option.selected = true
+                                    })
+                                } else {
+                                    elField.value = anamnese[field.modelField]
+                                }
+                            })
+                        })
+                    }
                 })
             })
         })
-        if (isEditionView)
-            requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
-                anamneseModelElRelation.forEach(field => {
-                    document.getElementById(field.elementId).value = anamnese[field.modelField]
-                })
-            })
     }
 }
