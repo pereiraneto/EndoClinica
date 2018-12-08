@@ -20,32 +20,38 @@
                     <div class="row">
                         <div class="col-md-8">    
                             <h6>Nome</h6>
-                            <input id="patient-name" class="form-control" type="text" >
+                            <input id="patient-name" class="form-control consultation-input" type="text" >
+                            <div class="invalid-feedback error-feedback">
+                                Selecione um nome válido
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <h6>Data de Nascimento</h6>
-                            <input id="patient-birth-date" type="date" class="form-control">
+                            <input id="patient-birth-date" type="date" class="form-control consultation-input">
+                            <div class="invalid-feedback error-feedback">
+                                Selecione uma data de nascimento válida
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-4">
                             <h6>Celular</h6>
-                            <input id="patient-cell-phone" class="form-control" type="text">
+                            <input id="patient-cell-phone" class="form-control consultation-input" type="text">
                         </div>
                         <div class="col-md-4">
                             <h6>Telefone Fixo</h6>
-                            <input id="patient-phone" class="form-control" type="text">
+                            <input id="patient-phone" class="form-control consultation-input" type="text">
                         </div>
                         <div class="col-md-4">
                             <h6>Email</h6>
-                            <input id="patient-email" class="form-control" type="email">
+                            <input id="patient-email" class="form-control consultation-input" type="email">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-4">
                             <h6>Estado Civíl</h6>
-                            <select id="patient-maritualstate" class="form-control">
-                                <option>--------</option>
+                            <select id="patient-maritualstate" class="form-control consultation-input">
+                                <option value="">--------</option>
                                 <option value="Solteiro(a)">Solteiro(a)</option>
                                 <option value="Casado(a)">Casado(a)</option>
                                 <option value="Separado(a)">Separado(a)</option>
@@ -55,60 +61,60 @@
                         </div>
                         <div class="col-4">
                             <h6>Gênero</h6>
-                            <select id="patient-gender" class="form-control">
+                            <select id="patient-gender" class="form-control consultation-input">
                                 <option value="Masculino">Masculino</option>
                                 <option value="Feminino">Feminino</option>
                             </select>
                         </div>
                         <div class="col-4">
                             <h6>Trabalho</h6>
-                            <input id="patient-job" class="form-control" type="text">
+                            <input id="patient-job" class="form-control consultation-input" type="text">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <h6>Convênio</h6>
-                            <input id="patient-insurance" class="form-control" type="text">
+                            <input id="patient-insurance" class="form-control consultation-input" type="text">
                         </div>
                         <div class="col-md-6">
                             <h6>Número do convênio</h6>
-                            <input id="patient-insurancenumber" class="form-control" type="text">
+                            <input id="patient-insurancenumber" class="form-control consultation-input" type="text">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <h6>CPF</h6>
-                            <input id="patient-cpf" class="form-control" type="text">
+                            <input id="patient-cpf" class="form-control consultation-input" type="text">
                         </div>
                         <div class="col-md-6">
                             <h6>RG</h6>
-                            <input id="patient-rg" class="form-control" type="text">
+                            <input id="patient-rg" class="form-control consultation-input" type="text">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-4">
                             <h6>Cidade</h6>
-                            <input id="patient-city" type="text" class="form-control">
+                            <input id="patient-city" type="text" class="form-control consultation-input">
                         </div>
                         <div class="col-md-4">
                             <h6>Bairro</h6>
-                            <input id="patient-neighborhood" type="text" class="form-control">
+                            <input id="patient-neighborhood" type="text" class="form-control consultation-input">
                         </div>
                         <div class="col-md-4">
                             <h6>Endereço</h6>
-                            <input id="patient-address" type="text" class="form-control">
+                            <input id="patient-address" type="text" class="form-control consultation-input">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <h6>Alergias</h6>
-                            <input id="patient-allergies" type="text" class="form-control"/>
+                            <input id="patient-allergies" type="text" class="form-control consultation-input"/>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             <h6>Notas</h6>
-                            <textarea id="patient-notes" class="form-control" rows="4"></textarea>
+                            <textarea id="patient-notes" class="form-control consultation-input" rows="4"></textarea>
                         </div>
                     </div>
                     <div class="mt-4 mb-5 float-right">

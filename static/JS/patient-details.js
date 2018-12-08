@@ -2,6 +2,16 @@ const apiBaseUrl = window.location.origin + "/api/";
 
 const handleSavePatient = (patientId) => {
 
+    const consultationInputs = document.getElementsByClassName("consultation-input")
+
+    for(let i = 0; i < consultationInputs.length; i++) {
+        const consultationInput = consultationInputs[i]
+
+        if (consultationInput.className.indexOf("is-invalid") != -1) {
+            consultationInput.className = consultationInput.className.replace("is-invalid", "")
+        }
+    }
+
     const requestBody = {
         name: document.getElementById("patient-name").value,
         cell_phone: document.getElementById("patient-cell-phone").value,
@@ -20,7 +30,7 @@ const handleSavePatient = (patientId) => {
         city: document.getElementById("patient-city").value,
         notes: document.getElementById("patient-notes").value,
         allergies: document.getElementById("patient-allergies").value
-    };
+    };    
 
     if (patientId == undefined) {
         requestFromApi(`${apiBaseUrl}pacientes/`, response => {
@@ -30,7 +40,19 @@ const handleSavePatient = (patientId) => {
                 window.alert("Paciente salvo com sucesso!")
                 window.history.back()
             }
-        }, undefined, requestBody, 'POST')
+        }, response => {
+            console.log("bad request!", response)
+
+            const possibleWrongInputs = [
+                {modelField: "birth_date", elementId: "patient-birth-date"},
+                {modelField: "name", elementId: "patient-name"},
+            ]
+
+            possibleWrongInputs.forEach(pwi => {
+                if (response[pwi.modelField] !== undefined)
+                    document.getElementById(pwi.elementId).className = "form-control consultation-input is-invalid"
+            });
+        }, requestBody, 'POST')
     } else {
         requestFromApi(`${apiBaseUrl}pacientes/${patientId}/`, response => {
             if (response == null)

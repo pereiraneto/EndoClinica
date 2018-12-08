@@ -66,8 +66,6 @@ const handleSaveConsultation = () => {
     }, (response) => {
         console.log("bad request!", response)
 
-        // marcar novos erros
-
         const possibleWrongInputs = [
             {modelField: "birth_date", elementId: "consultation-birth-date"},
             {modelField: "date", elementId: "consultation-date"},
@@ -79,7 +77,6 @@ const handleSaveConsultation = () => {
         ]
 
         possibleWrongInputs.forEach(pwi => {
-
             if (response[pwi.modelField] !== undefined)
                 document.getElementById(pwi.elementId).className = "form-control consultation-input is-invalid"
         });
