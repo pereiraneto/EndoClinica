@@ -13,11 +13,17 @@
             <div class="row mt-5">
                 <div class="col-md-9">    
                     <h6>Principal queixa</h6>
-                    <input id="anamnese-maincomplaint" class="form-control" type="text">
+                    <input id="anamnese-maincomplaint" class="form-control consultation-input" type="text">
+                    <div class="invalid-feedback error-feedback">
+                        Insira a queixa principal
+                    </div>
                 </div>
                 <div class="col-md-3">    
                     <h6>Data</h6>
                     <input id="anamnese-date" class="form-control" type="date" value="{{ today }}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira a data válida
+                    </div>
                 </div>
             </div>
             <div class="row mt-3">

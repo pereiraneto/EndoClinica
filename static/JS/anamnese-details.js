@@ -43,7 +43,13 @@ const handleSaveAnamnese = () => {
     }, response => {
         console.log('erro ao salvar:', response)
         
-        window.alert('erro ao salvar anamnese')
+        anamneseModelElRelation.forEach(field => {
+            if (response.hasOwnProperty(field.modelField)) {
+                document.getElementById(field.elementId).className = "form-control consultation-input is-invalid"
+            } else {
+                document.getElementById(field.elementId).className = "form-control consultation-input"
+            }
+        })
     }, anamneseData, method)
 }
 
