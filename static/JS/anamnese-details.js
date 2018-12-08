@@ -47,6 +47,22 @@ const handleSaveAnamnese = () => {
     }, anamneseData, method)
 }
 
+const fillAnamnesefields = () => {
+    requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
+        anamneseModelElRelation.forEach(field => {
+            const elField = document.getElementById(field.elementId)
+            if (elField.tagName == 'SELECT' && elField.multiple) {
+                elField.childNodes.forEach(option => {
+                    if (anamnese[field.modelField].indexOf(parseInt(option.value)) != -1)
+                        option.selected = true
+                })
+            } else {
+                elField.value = anamnese[field.modelField]
+            }
+        })
+    })
+}
+
 const isEditionView = typeof anamneseId !== 'undefined'
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
@@ -58,19 +74,7 @@ document.onreadystatechange = () => {
                         option.innerText = `${complementaryExam.exam_type} - ${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
                     }, document.getElementById('anamnese-executed-exams'), 'option')
                     if (isEditionView){
-                        requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
-                            anamneseModelElRelation.forEach(field => {
-                                const elField = document.getElementById(field.elementId)
-                                if (elField.tagName == 'SELECT' && elField.multiple) {
-                                    elField.childNodes.forEach(option => {
-                                        if (anamnese[field.modelField].indexOf(parseInt(option.value)) != -1)
-                                            option.selected = true
-                                    })
-                                } else {
-                                    elField.value = anamnese[field.modelField]
-                                }
-                            })
-                        })
+                        fillAnamnesefields()
                     }
                 })
             })
