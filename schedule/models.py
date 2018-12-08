@@ -143,7 +143,7 @@ class ComplementaryExam(models.Model):
         return self.exam_type
 
 class Anamnese(models.Model):
-    date = models.DateField(auto_now=True)
+    date = models.DateField()
     main_complaint = models.CharField(max_length=50)
     hda = models.TextField(blank=True)
     pathology = models.TextField(blank=True)
