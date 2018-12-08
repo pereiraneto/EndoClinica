@@ -17,6 +17,7 @@ anamneseModelElRelation = [
     {element_id:"anamnese-insurance", model_field:"insurance"},
     {element_id:"anamnese-madical-record", model_field:"medical_record"},
     {element_id:"anamnese-doctor", model_field:"doctor"},
+    {element_id:"anamnese-executed-exams", model_field:"executed_exams"}
 ]
 
 const handleSaveAnamnese = () => {
@@ -30,8 +31,19 @@ const handleSaveAnamnese = () => {
 
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        const isEditionView = anamneseId != undefined
+        
+        const isEditionView = typeof anamneseId !== 'undefined'
 
+        requestFromApi(`${baseApiUrl}fichas-medicas/${medicalRecordId}`, medicalRecord => {
+            medicalRecord.complementary_exams.forEach(complementaryExamId => {
+                requestFromApi(`${baseApiUrl}exames-complementares/${complementaryExamId}`, complementaryExam => {
+                    addTag(option => {
+                        option.value = complementaryExamId
+                        option.innerText = `${complementaryExam.exam_type} - ${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
+                    }, document.getElementById('anamnese-executed-exams'), 'option')
+                })
+            })
+        })
         if (isEditionView)
             requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
                 anamneseModelElRelation.forEach(field => {

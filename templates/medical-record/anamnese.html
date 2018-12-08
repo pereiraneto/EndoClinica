@@ -95,7 +95,7 @@
             <div class="row mt-3">
                 <h6 class="col-md-12">Exames Executados</h6>
                 <div class="col-md-9">
-                    <select id="anamnese-executed-exams" type="text" class="form-control"></select>
+                    <select multiple id="anamnese-executed-exams" type="text" class="form-control"></select>
                 </div>
                 <div class="col-md-3">
                     <a style="line-height: 35px; text-decoration: none" href="#">Novo Exame Complementar</a>
@@ -137,6 +137,7 @@
         {% if anamnese_id %}
             var anamneseId = {{anamnese_id}}
         {% endif %}
+        var medicalRecordId = {{madical_record_id}}
     </script>
     <script src="{% static "JS/anamnese-details.js" %}"></script>
 
