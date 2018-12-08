@@ -36,7 +36,15 @@ const handleSaveAnamnese = () => {
     const method = isEditionView ? 'PUT' : 'POST'
     const url = isEditionView ? baseApiUrl+'anamneses/'+anamneseId+'/' : baseApiUrl+'anamneses/'
 
-    requestFromApi(url, undefined, undefined, anamneseData, method)
+    requestFromApi(url, response => {
+        window.alert('Anamnese salva com sucessso')
+
+        window.location.href = document.referrer
+    }, response => {
+        console.log('erro ao salvar:', response)
+        
+        window.alert('erro ao salvar anamnese')
+    }, anamneseData, method)
 }
 
 const isEditionView = typeof anamneseId !== 'undefined'
@@ -55,7 +63,6 @@ document.onreadystatechange = () => {
                                 const elField = document.getElementById(field.elementId)
                                 if (elField.tagName == 'SELECT' && elField.multiple) {
                                     elField.childNodes.forEach(option => {
-                                        console.log('> ', anamnese[field.modelField], option)
                                         if (anamnese[field.modelField].indexOf(parseInt(option.value)) != -1)
                                             option.selected = true
                                     })
