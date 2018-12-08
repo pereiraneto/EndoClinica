@@ -30,6 +30,13 @@ const handleSaveAnamnese = () => {
 
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        requestFromApi()
+        const isEditionView = anamneseId != undefined
+
+        if (isEditionView)
+            requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
+                anamneseModelElRelation.forEach(field => {
+                    document.getElementById(field.element_id).value = anamnese[field.model_field]
+                })
+            })
     }
 }

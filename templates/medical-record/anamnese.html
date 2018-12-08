@@ -133,6 +133,11 @@
 
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script>
+        {% if anamnese_id %}
+            var anamneseId = {{anamnese_id}}
+        {% endif %}
+    </script>
     <script src="{% static "JS/anamnese-details.js" %}"></script>
 
 {% endblock %}

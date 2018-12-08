@@ -197,3 +197,24 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/anamnese.html', data)
+
+
+class EditAnamneseView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        anamnese = get_object_or_404(Anamnese, pk=kwargs['anamnese_id'])
+        madical_record = anamnese.medical_record
+        patient = madical_record.patient
+
+        data = {
+            'today': datetime.date.today().isoformat(),
+            'doctor_id': request.user.doctor.id,
+            'doctor_name': request.user.doctor.name,
+            'madical_record_id': madical_record.id,
+            'patient_name': patient.name,
+            'insurance': patient.insurance,
+            'anamnese_id': kwargs['anamnese_id']
+        }
+
+        return render(request, 'medical-record/anamnese.html', data)
