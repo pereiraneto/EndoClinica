@@ -136,8 +136,8 @@ class ComplementaryExam(models.Model):
     exam_type = models.CharField(
         max_length=30, blank=False, choices=format_choices(COMPLMENENTARY_EXAM_TYPES))
     result = models.TextField()
-    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
-    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    doctor = models.ForeignKey(Doctor, null=True, related_name='complementary_exams', on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, related_name='complementary_exams', null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.exam_type
