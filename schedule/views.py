@@ -178,3 +178,57 @@ class MedicalRecordView(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/medical-record.html', data)
+
+
+class NewAnamneseView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if request.user.is_authenticated:
+            if not hasattr(request.user, 'doctor'):
+
+                t = loader.get_template('misc/http-response-401.html')
+
+                return HttpResponse(t.render(), status=401)
+
+        madical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        patient = madical_record.patient
+
+        data = {
+            'today': datetime.date.today().isoformat(),
+            'doctor_id': request.user.doctor.id,
+            'doctor_name': request.user.doctor.name,
+            'madical_record_id': madical_record.id,
+            'patient_name': patient.name,
+            'insurance': patient.insurance
+        }
+
+        return render(request, 'medical-record/anamnese.html', data)
+
+
+class EditAnamneseView(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if request.user.is_authenticated:
+            if not hasattr(request.user, 'doctor'):
+
+                t = loader.get_template('misc/http-response-401.html')
+
+                return HttpResponse(t.render(), status=401)
+
+        anamnese = get_object_or_404(Anamnese, pk=kwargs['anamnese_id'])
+        madical_record = anamnese.medical_record
+        patient = madical_record.patient
+
+        data = {
+            'today': datetime.date.today().isoformat(),
+            'doctor_id': request.user.doctor.id,
+            'doctor_name': request.user.doctor.name,
+            'madical_record_id': madical_record.id,
+            'patient_name': patient.name,
+            'insurance': patient.insurance,
+            'anamnese_id': kwargs['anamnese_id']
+        }
+
+        return render(request, 'medical-record/anamnese.html', data)
