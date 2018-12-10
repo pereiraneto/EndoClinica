@@ -138,8 +138,7 @@
 {% block scripts %}
     <script type="text/javascript">
         var medicalRecordId = "{{ medical_record_id }}"
-        
-        var patientId =  "{{ patient.id }}"
+        var patientId =  "{{ patient_id }}"
         
         $('#myTab a').on('click', function (e) {
             e.preventDefault()

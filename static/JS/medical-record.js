@@ -1,4 +1,3 @@
-
 const fillConsultationHistoryTable = (tableBody, consultations) => {
     tableBody.innerHTML = '';
 
@@ -20,12 +19,18 @@ const fillConsultationHistoryTable = (tableBody, consultations) => {
     }, tableBody, "tr"));
 }
 
+const baseApiUrl = window.location.origin+'/api/'
 
 document.onreadystatechange = () => {
-    if (!window.indexedDB) {
-        window.alert("Atualize seu navegador para usar este site.");
-    }
     if (document.readyState == "interactive") {
         filterPatient(patientId)
+
+        requestFromApi(`${baseApiUrl}fichas-medicas/${medicalRecordId}/`, medicalRecord => {
+            medicalRecord.anamneses.forEach(anamneseId => {
+                requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
+                    console.log('nhe > ', anamnese);
+                })
+            })
+        })
     }
 }
