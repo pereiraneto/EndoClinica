@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5 row-line">
+        <div class="row mt-5 mb-4 row-line">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="anamnese-tab" data-toggle="tab" href="#anamnese" role="tab" aria-controls="anamnese" aria-selected="true">Anamnese</a>
@@ -119,17 +119,32 @@
               </ul>
         </div>
         <div class="row">
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="anamnese" role="tabpanel" aria-labelledby="anamnese-tab">
-                    <h3>"Anamnese tab"</h3>
+            <div class="col">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="anamnese" role="tabpanel" aria-labelledby="anamnese-tab">
+                        
+                        <a class="btn btn-success text-white mb-2" onclick="window.location.href += '/anamnese/nova'">+</a>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Queixa Principal</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anamnese-table-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="complementary-exams" role="tabpanel" aria-labelledby="complementary-exams-tab">
+                        <h3>"Exames Complementares tab"</h3>
+                    </div>
+                    <div class="tab-pane fade" id="procedures" role="tabpanel" aria-labelledby="procedures-tab">
+                        <h3>"Procedimentos e Laudos tab"</h3>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="complementary-exams" role="tabpanel" aria-labelledby="complementary-exams-tab">
-                    <h3>"Exames Complementares tab"</h3>
-                </div>
-                <div class="tab-pane fade" id="procedures" role="tabpanel" aria-labelledby="procedures-tab">
-                    <h3>"Procedimentos e Laudos tab"</h3>
-                </div>
-              </div>
+            </div>
         </div>
     </div>
 
