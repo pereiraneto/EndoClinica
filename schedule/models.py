@@ -158,7 +158,8 @@ class Anamnese(models.Model):
     adicional_info = models.TextField(blank=True)
     insurance = models.CharField(max_length=30, blank=True)
     executed_exams = models.ManyToManyField(ComplementaryExam, blank=True)
-    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, related_name='anamneses',
+                                       null=True, on_delete=models.SET_NULL)
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
