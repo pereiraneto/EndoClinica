@@ -42,6 +42,8 @@ const handleSaveAnamnese = () => {
         window.location.href = document.referrer
     }, response => {
         console.log('erro ao salvar:', response)
+
+        window.alert("Erro ao salvar anamnse. Verifique os campos preenchidos.")
         
         anamneseModelElRelation.forEach(field => {
             if (response.hasOwnProperty(field.modelField)) {
