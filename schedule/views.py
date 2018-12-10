@@ -240,6 +240,13 @@ class NewComplementaryExam(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
+        if request.user.is_authenticated:
+            if not hasattr(request.user, 'doctor'):
+
+                t = loader.get_template('misc/http-response-401.html')
+
+                return HttpResponse(t.render(), status=401)
+
         data = {
             'edition_view': False,
         }
