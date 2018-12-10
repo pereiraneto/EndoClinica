@@ -7,7 +7,12 @@
 {% block content %}
 
     <div class="container mt-5 mb-5">
-        <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
+
+        {% if edition_view %}
+            <h2 class="mt-5"><strong>Editar Anamnese</strong></h2>
+        {% else %}
+            <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
+        {% endif %}
 
         <form>
             <div class="row mt-5">
