@@ -11,6 +11,15 @@ from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, Com
 from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer
 
 
+def is_doctor(user):
+    if user.is_authenticated:
+        return hasattr(user, 'doctor')
+
+
+def render_not_allowed_view():
+    t = loader.get_template('misc/http-response-401.html')
+    return HttpResponse(t.render(), status=401)
+
 
 class ConsultationViewSet(viewsets.ModelViewSet):
     queryset = Consultation.objects.all()
@@ -161,12 +170,8 @@ class MedicalRecordView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         medical_record = get_object_or_404(
             MedicalRecord, pk=kwargs['medical_record_id'])
@@ -184,12 +189,8 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         madical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
         patient = madical_record.patient
@@ -211,12 +212,8 @@ class EditAnamneseView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         anamnese = get_object_or_404(Anamnese, pk=kwargs['anamnese_id'])
         madical_record = anamnese.medical_record
@@ -240,12 +237,8 @@ class NewComplementaryExam(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         data = {
             'edition_view': False,
