@@ -72,20 +72,12 @@ const fillAnamnesefields = () => {
 }
 
 const isEditionView = typeof anamneseId !== 'undefined'
+
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        requestFromApi(`${baseApiUrl}fichas-medicas/${medicalRecordId}`, medicalRecord => {
-            medicalRecord.complementary_exams.forEach(complementaryExamId => {
-                requestFromApi(`${baseApiUrl}exames-complementares/${complementaryExamId}`, complementaryExam => {
-                    addTag(option => {
-                        option.value = complementaryExamId
-                        option.innerText = `${complementaryExam.exam_type} - ${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
-                    }, document.getElementById('anamnese-executed-exams'), 'option')
-                    if (isEditionView){
-                        fillAnamnesefields()
-                    }
-                })
-            })
-        })
+        const isEditionView = anamneseId != undefined
+
+        if (isEditionView)
+            fillAnamnesefields()
     }
 }
