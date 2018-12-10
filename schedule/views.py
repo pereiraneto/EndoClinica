@@ -240,8 +240,35 @@ class NewComplementaryExam(LoginRequiredMixin, views.View):
         if (not is_doctor(request.user)):
             return render_not_allowed_view()
 
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        patient = medical_record.patient
+
         data = {
             'edition_view': False,
+            'today': datetime.date.today().isoformat(),
+            'doctor_id': request.user.doctor.id,
+            'doctor_name': request.user.doctor.name,
+            'medical_record_id': medical_record.id,
+            'patient_name': patient.name,
+            'insurance': patient.insurance
+        }
+
+        return render(request, 'medical-record/complementary-exams.html', data)
+
+
+class EditComplementaryExam(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        exam = get_object_or_404(ComplementaryExam, pk=kwargs['complementary_exam_id'])
+
+        data = {
+            'edition_view': True,
+            'patient_id': exam.medical_record.patient.id,
+            'complementary_exam_id': kwargs['complementary_exam_id']
         }
 
         return render(request, 'medical-record/complementary-exams.html', data)
