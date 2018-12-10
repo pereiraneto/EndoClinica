@@ -40,7 +40,7 @@ const fillComplementaryExamRow = (complementaryExam, tableBody) => {
     addTag(tr => {
         addTag(th => {
             th.scope = 'row'
-            th.innerText = `${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)}`
+            th.innerText = `${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
         }, tr, 'th')
         addTag(td => td.innerText = complementaryExam.exam_type, tr, 'td')
         addTag(td => {
