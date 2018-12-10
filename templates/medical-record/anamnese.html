@@ -116,7 +116,7 @@
                 <div class="col">
                     <h6>Paciente</h6>
                     <select id="anamnese-madical-record" class="form-control" disabled>
-                        <option value="{{madical_record_id}}">{{patient_name}}</option>
+                        <option value="{{medical_record_id}}">{{patient_name}}</option>
                     </select>
                 </div>
             </div>
@@ -148,7 +148,7 @@
         {% if anamnese_id %}
             var anamneseId = {{anamnese_id}}
         {% endif %}
-        var medicalRecordId = {{madical_record_id}}
+        var medicalRecordId = {{medical_record_id}}
     </script>
     <script src="{% static "JS/anamnese-details.js" %}"></script>
 

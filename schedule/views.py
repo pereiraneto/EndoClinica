@@ -192,15 +192,15 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
         if (not is_doctor(request.user)):
             return render_not_allowed_view()
 
-        madical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
-        patient = madical_record.patient
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        patient = medical_record.patient
 
         data = {
             'edition_view': False,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,
-            'madical_record_id': madical_record.id,
+            'medical_record_id': medical_record.id,
             'patient_name': patient.name,
             'insurance': patient.insurance
         }
@@ -216,15 +216,15 @@ class EditAnamneseView(LoginRequiredMixin, views.View):
             return render_not_allowed_view()
 
         anamnese = get_object_or_404(Anamnese, pk=kwargs['anamnese_id'])
-        madical_record = anamnese.medical_record
-        patient = madical_record.patient
+        medical_record = anamnese.medical_record
+        patient = medical_record.patient
 
         data = {
             'edition_view': True,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,
-            'madical_record_id': madical_record.id,
+            'medical_record_id': medical_record.id,
             'patient_name': patient.name,
             'insurance': patient.insurance,
             'anamnese_id': kwargs['anamnese_id']
