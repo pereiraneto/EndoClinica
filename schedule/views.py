@@ -175,9 +175,11 @@ class MedicalRecordView(LoginRequiredMixin, views.View):
 
         medical_record = get_object_or_404(
             MedicalRecord, pk=kwargs['medical_record_id'])
+        
 
         data = {
             'medical_record_id': medical_record.id,
+            'patient': medical_record.patient,
             'patient_id': medical_record.patient.id,
             'patient_age': medical_record.patient.birth_date.today().year - medical_record.patient.birth_date.year
         }
