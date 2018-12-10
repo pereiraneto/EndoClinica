@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+
+        {% if edition_view %}
+            <h2 class="mt-5"><strong>Editar Exame Complementar</strong></h2>
+        {% else %}
+            <h2 class="mt-5"><strong>Nova Exame Complementar</strong></h2>
+        {% endif %}
+
+        <form>
+            
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+
+{% endblock %}

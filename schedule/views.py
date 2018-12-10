@@ -234,3 +234,14 @@ class EditAnamneseView(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/anamnese.html', data)
+
+
+class NewComplementaryExam(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        data = {
+            'edition_view': False,
+        }
+
+        return render(request, 'medical-record/complementary-exams.html', data)
