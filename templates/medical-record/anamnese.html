@@ -109,7 +109,7 @@
                     <select multiple id="anamnese-executed-exams" type="text" class="form-control">
                         {% for complementary_exam in complementary_exams %}
                             <option value="{{complementary_exam.id}}">
-                                {{complementary_exam.exam_type}} - {{complementary_exam.date.day}}/{{complementary_exam.date.month}}/{{complementary_exam.date.year}}
+                                {{complementary_exam.exam_type}} - {{complementary_exam.date.day}}/{{complementary_exam.date.month}}/{{complementary_exam.date.year}} {{complementary_exam.date.hour}}h{{complementary_exam.date.minute}}
                             </option>
                         {% endfor %}
                     </select>
