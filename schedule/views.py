@@ -223,14 +223,15 @@ class EditAnamneseView(LoginRequiredMixin, views.View):
         patient = medical_record.patient
 
         data = {
-            'edition_view': True,
+            'is_edition_view': True,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,
             'medical_record_id': medical_record.id,
             'patient_name': patient.name,
             'insurance': patient.insurance,
-            'anamnese_id': kwargs['anamnese_id']
+            'anamnese_id': kwargs['anamnese_id'],
+            'complementary_exams': medical_record.complementary_exams.all()
         }
 
         return render(request, 'medical-record/anamnese.html', data)
