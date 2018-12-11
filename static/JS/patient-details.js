@@ -88,7 +88,7 @@ document.onreadystatechange = () => {
                 document.getElementById("patient-phone").value = patient.phone
                 document.getElementById("patient-birth-date").value = patient.birth_date
                 document.getElementById("patient-email").value = patient.email
-                document.getElementById("patient-maritualstate").value = patient.maritual_state
+                document.getElementById("patient-maritualstate").value = patient.marital_status
                 document.getElementById("patient-gender").value = patient.gender
                 document.getElementById("patient-job").value = patient.job
                 document.getElementById("patient-insurance").value = patient.insurance
