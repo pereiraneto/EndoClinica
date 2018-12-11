@@ -204,7 +204,8 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
             'doctor_name': request.user.doctor.name,
             'medical_record_id': medical_record.id,
             'patient_name': patient.name,
-            'insurance': patient.insurance
+            'insurance': patient.insurance,
+            'complementary_exams': medical_record.complementary_exams.all()
         }
 
         return render(request, 'medical-record/anamnese.html', data)

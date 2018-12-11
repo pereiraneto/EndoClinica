@@ -106,7 +106,13 @@
             <div class="row mt-3">
                 <h6 class="col-md-12">Exames Executados</h6>
                 <div class="col-md-9">
-                    <select multiple id="anamnese-executed-exams" type="text" class="form-control"></select>
+                    <select multiple id="anamnese-executed-exams" type="text" class="form-control">
+                        {% for complementary_exam in complementary_exams %}
+                            <option value="{{complementary_exam.id}}">
+                                {{complementary_exam.exam_type}} - {{complementary_exam.date.day}}/{{complementary_exam.date.month}}/{{complementary_exam.date.year}}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="col-md-3">
                     <a style="line-height: 35px; text-decoration: none" href="#">Novo Exame Complementar</a>
