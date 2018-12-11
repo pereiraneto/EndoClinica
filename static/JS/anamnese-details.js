@@ -71,13 +71,8 @@ const fillAnamnesefields = () => {
     })
 }
 
-const isEditionView = typeof anamneseId !== 'undefined'
-
 document.onreadystatechange = () => {
-    if (document.readyState == 'interactive') {
-        const isEditionView = anamneseId != undefined
-
-        if (isEditionView)
-            fillAnamnesefields()
+    if (document.readyState == 'interactive' && isEditionView) {
+        fillAnamnesefields()
     }
 }

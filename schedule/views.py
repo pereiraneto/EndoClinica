@@ -198,7 +198,7 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
         patient = medical_record.patient
 
         data = {
-            'edition_view': False,
+            'is_edition_view': False,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,

@@ -8,7 +8,7 @@
 
     <div class="container mt-5 mb-5">
 
-        {% if edition_view %}
+        {% if is_edition_view %}
             <h2 class="mt-5"><strong>Editar Anamnese</strong></h2>
         {% else %}
             <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
@@ -145,6 +145,11 @@
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
     <script>
+        {% if is_edition_view %}
+            var isEditionView = true
+        {% else %}
+            var isEditionView = false
+        {% endif %}
         {% if anamnese_id %}
             var anamneseId = {{anamnese_id}}
         {% endif %}
