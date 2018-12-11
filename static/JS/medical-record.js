@@ -36,6 +36,23 @@ const fillAnamneseRow = (anamnese, tableBody) => {
     }, tableBody, 'tr')
 }
 
+const fillComplementaryExamRow = (complementaryExam, tableBody) => {
+    addTag(tr => {
+        addTag(th => {
+            th.scope = 'row'
+            th.innerText = `${complementaryExam.date.slice(8,10)}/${complementaryExam.date.slice(5,7)}/${complementaryExam.date.slice(0,4)} - ${complementaryExam.date.slice(11,16)}`
+        }, tr, 'th')
+        addTag(td => td.innerText = complementaryExam.exam_type, tr, 'td')
+        addTag(td => {
+            addTag(a => {
+                a.innerText = 'Editar'
+                a.className = 'default-link'
+                a.href = `${window.location.origin}/ficha-medica/exames-complementares/${complementaryExam.id}`
+            }, td, 'a')
+        }, tr, 'td')
+    }, tableBody, 'tr')
+}
+
 const baseApiUrl = window.location.origin+'/api/'
 
 document.onreadystatechange = () => {
@@ -46,6 +63,12 @@ document.onreadystatechange = () => {
             medicalRecord.anamneses.forEach(anamneseId => {
                 requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
                     fillAnamneseRow(anamnese, document.getElementById("anamnese-table-body"))
+                })
+            })
+
+            medicalRecord.complementary_exams.forEach(complementaryExamId => {
+                requestFromApi(baseApiUrl+'exames-complementares/'+complementaryExamId, complementaryExam => {
+                    fillComplementaryExamRow(complementaryExam, document.getElementById("complementary-exam-table-body"))
                 })
             })
         })

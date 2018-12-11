@@ -11,6 +11,15 @@ from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, Com
 from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer
 
 
+def is_doctor(user):
+    if user.is_authenticated:
+        return hasattr(user, 'doctor')
+
+
+def render_not_allowed_view():
+    t = loader.get_template('misc/http-response-401.html')
+    return HttpResponse(t.render(), status=401)
+
 
 class ConsultationViewSet(viewsets.ModelViewSet):
     queryset = Consultation.objects.all()
@@ -161,18 +170,16 @@ class MedicalRecordView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         medical_record = get_object_or_404(
             MedicalRecord, pk=kwargs['medical_record_id'])
+        
 
         data = {
             'medical_record_id': medical_record.id,
+            'patient': medical_record.patient,
             'patient_id': medical_record.patient.id,
             'patient_age': medical_record.patient.birth_date.today().year - medical_record.patient.birth_date.year
         }
@@ -184,23 +191,21 @@ class NewAnamneseView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
-
-        madical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
-        patient = madical_record.patient
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        patient = medical_record.patient
 
         data = {
+            'is_edition_view': False,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,
-            'madical_record_id': madical_record.id,
+            'medical_record_id': medical_record.id,
             'patient_name': patient.name,
-            'insurance': patient.insurance
+            'insurance': patient.insurance,
+            'complementary_exams': medical_record.complementary_exams.all()
         }
 
         return render(request, 'medical-record/anamnese.html', data)
@@ -210,25 +215,64 @@ class EditAnamneseView(LoginRequiredMixin, views.View):
 
     def get(self, request, **kwargs):
 
-        if request.user.is_authenticated:
-            if not hasattr(request.user, 'doctor'):
-
-                t = loader.get_template('misc/http-response-401.html')
-
-                return HttpResponse(t.render(), status=401)
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
 
         anamnese = get_object_or_404(Anamnese, pk=kwargs['anamnese_id'])
-        madical_record = anamnese.medical_record
-        patient = madical_record.patient
+        medical_record = anamnese.medical_record
+        patient = medical_record.patient
 
         data = {
+            'is_edition_view': True,
             'today': datetime.date.today().isoformat(),
             'doctor_id': request.user.doctor.id,
             'doctor_name': request.user.doctor.name,
-            'madical_record_id': madical_record.id,
+            'medical_record_id': medical_record.id,
             'patient_name': patient.name,
             'insurance': patient.insurance,
-            'anamnese_id': kwargs['anamnese_id']
+            'anamnese_id': kwargs['anamnese_id'],
+            'complementary_exams': medical_record.complementary_exams.all()
         }
 
         return render(request, 'medical-record/anamnese.html', data)
+
+
+class NewComplementaryExam(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        patient = medical_record.patient
+
+        data = {
+            'edition_view': False,
+            'today': datetime.date.today().isoformat(),
+            'doctor_id': request.user.doctor.id,
+            'doctor_name': request.user.doctor.name,
+            'medical_record_id': medical_record.id,
+            'patient_name': patient.name,
+            'insurance': patient.insurance
+        }
+
+        return render(request, 'medical-record/complementary-exams.html', data)
+
+
+class EditComplementaryExam(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        exam = get_object_or_404(ComplementaryExam, pk=kwargs['complementary_exam_id'])
+
+        data = {
+            'edition_view': True,
+            'patient_id': exam.medical_record.patient.id,
+            'complementary_exam_id': kwargs['complementary_exam_id']
+        }
+
+        return render(request, 'medical-record/complementary-exams.html', data)

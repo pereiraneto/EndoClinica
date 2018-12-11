@@ -120,7 +120,6 @@
         </div>
         <div class="row">
             <div class="col">
-
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="anamnese" role="tabpanel" aria-labelledby="anamnese-tab">
                         
@@ -138,7 +137,20 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="complementary-exams" role="tabpanel" aria-labelledby="complementary-exams-tab">
-                        <h3>"Exames Complementares tab"</h3>
+                    
+                        <a class="btn btn-success text-white mb-2" onclick="window.location.href += '/exame-complementar/novo'">+</a>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="complementary-exam-table-body"></tbody>
+                        </table>
+                        
                     </div>
                     <div class="tab-pane fade" id="procedures" role="tabpanel" aria-labelledby="procedures-tab">
                         <h3>"Procedimentos e Laudos tab"</h3>

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+
+        {% if edition_view %}
+            <h2 class="mt-5"><strong>Editar Exame Complementar</strong></h2>
+        {% else %}
+            <h2 class="mt-5"><strong>Nova Exame Complementar</strong></h2>
+        {% endif %}
+
+        <form>
+            <div class="row mt-5">
+                <div class="col-md-7">
+                    <h6>Tipo de Exame</h6>
+                    <select id="exam-type" class="form-control exam-input">
+                        <option>Antigliadina/Antiendomisio</option>
+                        <option>Bilirrubina total e frações</option>
+                        <option>Cápsula Endoscópica</option>
+                        <option>COLONOSCOPIA</option>
+                        <option>CPRE</option>
+                        <option>Creatinina/Ureia</option>
+                        <option>EDA</option>
+                        <option>Hemograma</option>
+                        <option>LARINGOSCOPIA</option>
+                        <option>Outros</option>
+                        <option>Retossigmoidoscopia</option>
+                        <option>RMN</option>
+                        <option>RX contrastado</option>
+                        <option>RX simples</option>
+                        <option>TAP/TTPA</option>
+                        <option>TC</option>
+                        <option>TGO/TGP</option>
+                        <option>US Endoscopico</option>
+                        <option>USG abdomen</option>
+                        <option>USG PÉLVICO</option>
+                        <option>VHS</option>
+                    </select>
+                    <div class="invalid-feedback error-feedback">
+                        Selecione um tipo válido
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h6>Data</h6>
+                    <input id="exam-date" type="date" class="form-control exam-input" value="{{today}}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma data válida
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <h6>Hora</h6>
+                    <input id="exam-time" type="time" class="form-control exam-input">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma hora válida
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <h6>Paciente</h6>
+                    <select id="exam-medical-record" class="form-control exam-input" disabled>
+                        <option value="{{medical_record_id}}">{{patient_name}}</option>
+                    </select>
+                    <div class="invalid-feedback error-feedback">
+                        Selecione um paciente válido
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h6>Médico</h6>
+                    <select id="exam-doctor" class="form-control exam-input" disabled>
+                        <option value="{{doctor_id}}">{{doctor_name}}</option>
+                    </select>
+                    <div class="invalid-feedback error-feedback">
+                        Selecione um paciente válido
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <h6>Resultado</h6>
+                    <textarea id="exam-result" class="form-control exam-input" rows="9"></textarea>
+                    <div class="invalid-feedback error-feedback">
+                        Insira um resultado válido
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-success bg-green" id="handleSaveAnamnese" onclick="handleSaveExam()">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script>
+        {% if edition_view %}
+            var complementaryExamId = {{complementary_exam_id}}
+            var patientId = "{{patient_id}}"
+        {% else %}
+            var medicalRecordId = {{medical_record_id}}
+        {% endif %}
+
+        {% if edition_view %}
+            var isEditionView = true
+        {% else %}
+            var isEditionView = false
+        {% endif %}
+    </script>
+    <script src="{% static "JS/complementary-exams.js" %}"></script>
+
+{% endblock %}

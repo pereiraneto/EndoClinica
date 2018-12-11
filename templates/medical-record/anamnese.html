@@ -7,7 +7,12 @@
 {% block content %}
 
     <div class="container mt-5 mb-5">
-        <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
+
+        {% if is_edition_view %}
+            <h2 class="mt-5"><strong>Editar Anamnese</strong></h2>
+        {% else %}
+            <h2 class="mt-5"><strong>Nova Anamnese</strong></h2>
+        {% endif %}
 
         <form>
             <div class="row mt-5">
@@ -101,17 +106,23 @@
             <div class="row mt-3">
                 <h6 class="col-md-12">Exames Executados</h6>
                 <div class="col-md-9">
-                    <select multiple id="anamnese-executed-exams" type="text" class="form-control"></select>
+                    <select multiple id="anamnese-executed-exams" type="text" class="form-control">
+                        {% for complementary_exam in complementary_exams %}
+                            <option value="{{complementary_exam.id}}">
+                                {{complementary_exam.exam_type}} - {{complementary_exam.date.day}}/{{complementary_exam.date.month}}/{{complementary_exam.date.year}} {{complementary_exam.date.hour}}h{{complementary_exam.date.minute}}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
                 <div class="col-md-3">
-                    <a style="line-height: 35px; text-decoration: none" href="#">Novo Exame Complementar</a>
+                    <a style="line-height: 35px; text-decoration: none" href="/ficha-medica/{{medical_record_id}}/exame-complementar/novo">Novo Exame Complementar</a>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
                     <h6>Paciente</h6>
                     <select id="anamnese-madical-record" class="form-control" disabled>
-                        <option value="{{madical_record_id}}">{{patient_name}}</option>
+                        <option value="{{medical_record_id}}">{{patient_name}}</option>
                     </select>
                 </div>
             </div>
@@ -140,10 +151,15 @@
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
     <script>
+        {% if is_edition_view %}
+            var isEditionView = true
+        {% else %}
+            var isEditionView = false
+        {% endif %}
         {% if anamnese_id %}
             var anamneseId = {{anamnese_id}}
         {% endif %}
-        var medicalRecordId = {{madical_record_id}}
+        var medicalRecordId = {{medical_record_id}}
     </script>
     <script src="{% static "JS/anamnese-details.js" %}"></script>
 
