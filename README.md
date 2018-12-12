@@ -1,4 +1,4 @@
-# EndoClinica
+# Configurar Sistema Localmente
 Sistema EndoClinica
 
 
@@ -84,6 +84,22 @@ Sistema EndoClinica
   python manage runserver
   ```
   
+# Copiar server do heroku
+
+
+## Faça um novo servidor
+Crie o novo servidor utilizando a branch que está sendo usada no servidor a ser copiado.
   
-  
-  
+## Copie o Banco
+### Faça um backup do servidor
+Crie um backup do DB, entrando no terminal de admin do Postgresql. Entre na aba Durability e crie uma cópia manual do DB.
+    
+### Instancie o backup no novo server
+    
+Vá ao terminal do seu SO e faça login.
+    
+Agora execute o comando
+    
+```
+heroku pg:backups:restore {{nome do app heroku que será copiado}}::{{nome do backup}} DATABASE_URL --app {{nome do novo servidor}}
+```
