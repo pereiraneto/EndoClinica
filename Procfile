@@ -1,0 +1,1 @@
+web: gunicorn EndoClinica.wsgi --log-file -

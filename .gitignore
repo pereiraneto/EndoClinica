@@ -114,3 +114,5 @@ dmypy.json
 
 # arquivo chato
 *.DS_Store
+
+Prototype/
