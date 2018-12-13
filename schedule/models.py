@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 
 STATUS_NAMES = [
     "Agendado", "Confirmado", "Chegou", "Realizado", "Desmarcado"
@@ -168,7 +169,7 @@ class Anamnese(models.Model):
 
 class MedicalReportTemplate(models.Model):
     name = models.CharField(max_length=70)
-    json_template = models.TextField()
+    json_template = JSONField()
 
     def __str__(self):
         return self.name
@@ -182,7 +183,7 @@ class MedicalReport(models.Model):
     requester = models.CharField(max_length=100)
     report_type = models.CharField(max_length=70)
 
-    json_medical_report = models.TextField()
+    json_medical_report = JSONField()
 
     def __str__(self):
         return self.medical_record.patient.name + ' - ' + self.report_type
