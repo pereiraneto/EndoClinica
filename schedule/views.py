@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, permissions, viewsets
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer, MedicalReportTemplateSerializer
 
 
 def is_doctor(user):
@@ -60,6 +60,12 @@ class ComplementaryExamViewSet(viewsets.ModelViewSet):
 class AnamneseViewSet(viewsets.ModelViewSet):
     queryset = Anamnese.objects.all()
     serializer_class = AnamneseSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class MedicalReportTemplateViewSet(viewsets.ModelViewSet):
+    queryset = MedicalReportTemplate.objects.all()
+    serializer_class = MedicalReportTemplateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 

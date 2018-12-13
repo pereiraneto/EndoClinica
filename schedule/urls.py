@@ -14,6 +14,7 @@ router.register('api/pacientes', views.PatientViewSet, base_name='patient')
 router.register('api/fichas-medicas', views.MedicalRecordViewSet, base_name='medical-record')
 router.register('api/exames-complementares', views.ComplementaryExamViewSet, base_name='complementary-exam')
 router.register('api/anamneses', views.AnamneseViewSet, base_name='anamnese')
+router.register('api/modelos-laudos', views.MedicalReportTemplateViewSet, base_name='medcail-report-template')
 
 urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                path('pacientes/', views.PatientsView.as_view(), name='list-patients'),

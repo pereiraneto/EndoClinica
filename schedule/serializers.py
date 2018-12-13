@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.decorators import action
 
-from .models import Consultation, Doctor, MedicalRecord, Patient, Procedure, ComplementaryExam, Anamnese
+from .models import Consultation, Doctor, MedicalRecord, Patient, Procedure, ComplementaryExam, Anamnese, MedicalReportTemplate
 
 
 class ConsultationSerializer(serializers.ModelSerializer):
@@ -47,7 +47,14 @@ class ComplementaryExamSerializer(serializers.ModelSerializer):
         model = ComplementaryExam
         fields = '__all__'
 
+
 class AnamneseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Anamnese
+        fields = '__all__'
+
+
+class MedicalReportTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicalReportTemplate
         fields = '__all__'
