@@ -170,5 +170,5 @@ class MedicalReportTemplate(models.Model):
     name = models.CharField(max_length=70)
     json_template = models.TextField()
 
-    deff __str__(self):
+    def __str__(self):
         return self.name
