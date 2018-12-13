@@ -172,3 +172,17 @@ class MedicalReportTemplate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class MedicalReport(models.Model):
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL)
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+
+    date = models.DateTimeField()
+    requester = models.CharField(max_length=100)
+    report_type = models.CharField(max_length=70)
+
+    json_medical_report = models.TextField()
+
+    def __str__(self):
+        return self.medical_record.patient.name + ' - ' + self.report_type
