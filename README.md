@@ -1,4 +1,4 @@
-# Configurar Sistema Localmente
+# Configurar Sistema para uso Local
 Sistema EndoClinica
 
 
@@ -35,7 +35,7 @@ Sistema EndoClinica
   pip install -r requirements.txt
   ```
   
-### Configurar Servidor
+### Configurar Banco de dados
   Entre no ambiente de gerenciamento de db do postgressql
   ```
   sudo su - postgres
@@ -73,8 +73,23 @@ Sistema EndoClinica
   ```
   python manage migrate
   ```
+
+## Crie as configurações de ambiente
+
+  crie um arquivo chamado de .env e insira
   
-### Fim
+  ```
+  SECRET_KEY=3_yn6j@bb*ve$rup*9nl+7b#*ijj_m+9!!t4*lcc8+=ie1#2p& # A secret key a ser utilizada no projeto Django
+  DEBUG=True # True ou False para se o projeto está sendo em desenvolvimento/testes
+  DB_NAME=endoclinica # nome do banco de dados
+  DB_USER=endosisuser # nome de usuário do banco de dados
+  DB_PASSWORD=bananatastico3516 # senha do usuario do banco de dados
+  DB_HOST=127.0.0.1 # onde seu servidor está sendo hospedado
+  DB_PORT=5432 # porta para acessar o servidor
+  ```
+
+  
+## Fim
   Todo já deve estar funcionando, execute o servidor com o comando abaixo para criar um super user e preencha como o console pedir
   ```
   python manage createsuperuser
