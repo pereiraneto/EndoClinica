@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+
+        <h2 class="mt-5 mb-3"><strong>Novo Laudo</strong></h2>
+
+        <h6>Selecione Modelo de Laudo</h6>
+        <select class="form-control" id="select-medical-report-model"></select>
+
+        <form id="medical-report-form">
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <h6>Data</h6>
+                    <input type="date" id="medical-report-date" class="form-control">
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <h6>Hora</h6>
+                    <input type="time" id="medical-report-time" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <h6>Paciente</h6>
+                    <select id="medical-report-patinet" class="form-control"></select>
+                </div>
+                
+                <div class="col-md-6 mt-3">
+                    <h6>Médico</h6>
+                    <select id="medical-report-doctor" class="form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" id="medical-report-custom-fields"></div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+
+{% endblock %}

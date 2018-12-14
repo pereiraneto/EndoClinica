@@ -288,3 +288,15 @@ class EditComplementaryExam(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/complementary-exams.html', data)
+
+
+class NewMedicalReport(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        data = {}
+
+        return render(request, 'medical-record/new-medical-report.html', data)
