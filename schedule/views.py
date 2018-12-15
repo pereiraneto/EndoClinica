@@ -297,6 +297,18 @@ class NewMedicalReport(LoginRequiredMixin, views.View):
         if (not is_doctor(request.user)):
             return render_not_allowed_view()
 
-        data = {}
+        now = datetime.datetime.now().isoformat()
+        today, time_now = now.split('T')
+        medical_report_templates = MedicalReportTemplate.objects.all()
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+
+        data = {
+            'medical_report_templates': medical_report_templates,
+            'today': today,
+            'time_now': time_now[:5],
+            'medical_record_id': kwargs['medical_record_id'],
+            'patient_name': medical_record.patient.name,
+            'doctor': request.user.doctor
+        }
 
         return render(request, 'medical-record/new-medical-report.html', data)

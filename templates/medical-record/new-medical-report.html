@@ -11,29 +11,37 @@
         <h2 class="mt-5 mb-3"><strong>Novo Laudo</strong></h2>
 
         <h6>Selecione Modelo de Laudo</h6>
-        <select class="form-control" id="select-medical-report-model"></select>
+        <select class="form-control" id="select-medical-report-model">
+            {% for template in medical_report_templates %}
+                <option value="{{template.id}}">{{template.name}}</option>
+            {% endfor %}
+        </select>
 
         <form id="medical-report-form">
             <div class="row">
                 <div class="col-md-6 mt-3">
                     <h6>Data</h6>
-                    <input type="date" id="medical-report-date" class="form-control">
+                    <input type="date" id="medical-report-date" class="form-control" value="{{today}}">
                 </div>
 
                 <div class="col-md-6 mt-3">
                     <h6>Hora</h6>
-                    <input type="time" id="medical-report-time" class="form-control">
+                    <input type="time" id="medical-report-time" class="form-control" value="{{time_now}}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mt-3">
                     <h6>Paciente</h6>
-                    <select id="medical-report-patinet" class="form-control"></select>
+                    <select id="medical-report-patinet" class="form-control" disabled>
+                        <option value="{{medical_record_id}}">{{patient_name}}</option>
+                    </select>
                 </div>
                 
                 <div class="col-md-6 mt-3">
                     <h6>Médico</h6>
-                    <select id="medical-report-doctor" class="form-control"></select>
+                    <select id="medical-report-doctor" class="form-control" disabled>
+                        <option value="{{doctor.id}}">{{doctor.name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
