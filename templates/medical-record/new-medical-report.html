@@ -10,14 +10,22 @@
 
         <h2 class="mt-5 mb-3"><strong>Novo Laudo</strong></h2>
 
-        <h6>Selecione Modelo de Laudo</h6>
-        <select class="form-control" id="select-medical-report-model">
-            {% for template in medical_report_templates %}
-                <option value="{{template.id}}">{{template.name}}</option>
-            {% endfor %}
-        </select>
-
         <form id="medical-report-form">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Selecione Modelo de Laudo</h6>
+                    <select class="form-control" id="select-medical-report-template">
+                        {% for template in medical_report_templates %}
+                            <option value="{{template.id}}">{{template.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <h6>Médico Solicitante</h6>
+                    <input id="medical-report-requester" type="text" class="form-control">
+                </div>        
+            </div>
             <div class="row">
                 <div class="col-md-6 mt-3">
                     <h6>Data</h6>
@@ -46,8 +54,12 @@
             </div>
 
             <div id="medical-report-custom-fields"></div>
-
         </form>
+        <div class="float-right">
+            <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalReport()">
+                Salvar
+            </button>
+        </div>
     </div>
 
 {% endblock %}
