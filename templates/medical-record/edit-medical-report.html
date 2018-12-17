@@ -53,9 +53,21 @@
                         <option value="{{medical_report.doctor}}">{{medical_report.doctor.name}}</option>
                     </select>
                 </div>
+
             </div>
 
-            <div id="medical-report-custom-fields"></div>
+            <div id="medical-report-custom-fields">
+                {% for json_key, json_value in medical_report.json_medical_report.items %}
+                    <div class="row mt-3">
+                        <div class="col">
+                            <h6>
+                                {{json_key.capitalize}}
+                            </h6>
+                            <textarea class="form-control" id={{json_key}}>{{json_value}}</textarea>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </form>
         <div class="float-right">
             <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalReport()">
