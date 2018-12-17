@@ -320,8 +320,12 @@ class EditMedicalReport(LoginRequiredMixin, views.View):
         if (not is_doctor(request.user)):
             return render_not_allowed_view()
 
+        medical_report = get_object_or_404(MedicalReport, pk=kwargs['medical_report_id'])
+        report_datetime = medical_report.date.isoformat()
         data = {
-            'medical_report': get_object_or_404(MedicalReport, pk=kwargs['medical_report_id'])
+            'medical_report': medical_report,
+            'report_date': report_datetime[:10],
+            'report_time': report_datetime[11:16],
         }
 
         return render(request, 'medical-record/edit-medical-report.html', data)
