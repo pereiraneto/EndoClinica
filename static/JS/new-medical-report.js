@@ -55,8 +55,17 @@ const handleSaveMedicalReport = () => {
         window.alert('Salvo com sucesso!')
         window.location.href = document.referrer
     }, response => {
-        window.alert('Salvo SEM sucesso!')
-        // mostrar campos
+        console.log('erro ao salvar:', response)
+
+        window.alert("Erro ao salvar o laudo. Verifique os campos preenchidos.")
+        
+        mrNonDinamicFields.forEach(field => {
+            if (response.hasOwnProperty(field.api)) {
+                document.getElementById(field.elId).className = "form-control consultation-input is-invalid"
+            } else {
+                document.getElementById(field.elId).className = "form-control consultation-input"
+            }
+        })
     }, requestBody, 'POST')
 }
 
