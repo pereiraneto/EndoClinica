@@ -312,3 +312,16 @@ class NewMedicalReport(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/new-medical-report.html', data)
+
+class EditMedicalReport(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        data = {
+            'medical_report': get_object_or_404(MedicalReport, pk=kwargs['medical_report_id'])
+        }
+
+        return render(request, 'medical-record/edit-medical-report.html', data)
