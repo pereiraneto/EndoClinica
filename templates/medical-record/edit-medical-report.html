@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+
+        <h2 class="mt-5 mb-3"><strong>Editar Laudo</strong></h2>
+
+        <form id="medical-report-form">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Tipo de Laudo</h6>
+                    <input id=medical-report-type type="text" class="form-control" value="{{medical_report.report_type}}">
+                </div>
+                <div class="col-md-6">
+                    <h6>Médico Solicitante</h6>
+                    <input id="medical-report-requester" type="text" class="form-control" value="{{medical_report.requester}}">
+                </div>        
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <h6>Data</h6>
+                    <input type="date" id="medical-report-date" class="form-control" value="{{report_date}}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma data e hora válida
+                    </div>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <h6>Hora</h6>
+                    <input type="time" id="medical-report-time" class="form-control" value="{{report_time}}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma data e hora válida
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <h6>Paciente</h6>
+                    <select id="medical-report-patient" class="form-control" disabled>
+                        <option value="{{medical_report.medical_record}}">{{medical_report.medical_record.patient.name}}</option>
+                    </select>
+                </div>
+                
+                <div class="col-md-6 mt-3">
+                    <h6>Médico</h6>
+                    <select id="medical-report-doctor" class="form-control" disabled>
+                        <option value="{{medical_report.doctor}}">{{medical_report.doctor.name}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div id="medical-report-custom-fields">
+                {% for json_key, json_value in medical_report.json_medical_report.items %}
+                    <div class="row mt-3">
+                        <div class="col">
+                            <h6>
+                                {{json_key.capitalize}}
+                            </h6>
+                            <textarea class="form-control" id={{json_key}}>{{json_value}}</textarea>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+        <div class="float-right">
+            <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalReport()">
+                Salvar
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{% static "JS/helpers/addTag.js" %}"></script>
+    <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script src='{% static "JS/edit-medical-report.js" %}'></script>
+
+{% endblock %}
