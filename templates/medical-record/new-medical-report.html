@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-md-6 mt-3">
                     <h6>Paciente</h6>
-                    <select id="medical-report-patinet" class="form-control" disabled>
+                    <select id="medical-report-patient" class="form-control" disabled>
                         <option value="{{medical_record_id}}">{{patient_name}}</option>
                     </select>
                 </div>
@@ -44,9 +44,9 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col" id="medical-report-custom-fields"></div>
-            </div>
+
+            <div id="medical-report-custom-fields"></div>
+
         </form>
     </div>
 
@@ -56,5 +56,6 @@
 
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
+    <script src='{% static "JS/new-medical-report.js" %}'></script>
 
 {% endblock %}
