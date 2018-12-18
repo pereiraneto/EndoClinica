@@ -1,6 +1,10 @@
-const handleChangeProcedureSelector = () => {
+const handleChangeProcedureSelector = (doctorToSelect) => {
     const procedureId = document.getElementById("consultation-procedures").value
     document.getElementById("consultation-doctors").innerHTML = ''
+
+    addTag(option => {
+        option.textContent = '--------------'
+    }, document.getElementById("consultation-doctors"), 'option');
     
     if (procedureId != 0) {
         document.getElementById("consultation-doctors").disabled = false
@@ -10,6 +14,7 @@ const handleChangeProcedureSelector = () => {
                     addTag(option => {
                         option.textContent = doctor.name;
                         option.value = doctor.id;
+                        if (doctor.id == doctorToSelect) option.selected = true
                     }, document.getElementById("consultation-doctors"), 'option');
                 });
             });

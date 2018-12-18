@@ -118,10 +118,9 @@ const fillInfoModal = (consultationObj) => {
     selectConsultationStatusEl(consultationObj.status);
     setElsInputs(idInputList);
     setElsOption(idSelectList);
-    handleChangeProcedureSelector();
+    handleChangeProcedureSelector(consultationObj.doctor)
     document.getElementById("consultation-doctors").value = consultationObj.doctor
     setButtonOnClickFunction(consultationObj.id, "saveConsultation");
-    document.getElementById("consultation-procedures").onchange()
 }
 
 const setButtonOnClickFunction = (consultationId, buttonId) => {
