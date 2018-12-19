@@ -41,7 +41,7 @@ const handleSaveMedicalReport = () => {
         requestBody[field.api] = document.getElementById(field.elId).value
     })
     requestBody.date += `T${document.getElementById('medical-report-time').value}:00Z`
-    if (!isEditionView) requestBody.report_type = document.getElementById('select-medical-report-template').innerText
+    if (!isEditionView) requestBody.report_type = document.getElementById('select-medical-report-template').selectedOptions[0].innerText
 
     const jsonMedicalReport = {}
 
