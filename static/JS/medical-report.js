@@ -36,12 +36,15 @@ const handleChangeMRTemplateChange = () => {
 }
 
 const handleSaveMedicalReport = () => {
+
+    console.log('nhe');
+    
+
     const requestBody = {}
     mrNonDinamicFields.forEach(field => {
         requestBody[field.api] = document.getElementById(field.elId).value
     })
     requestBody.date += `T${document.getElementById('medical-report-time').value}:00Z`
-    requestBody.report_type = document.getElementById('select-medical-report-template').selectedOptions[0].innerText
 
     const jsonMedicalReport = {}
 
@@ -52,7 +55,10 @@ const handleSaveMedicalReport = () => {
     }
     requestBody.json_medical_report = jsonMedicalReport
 
-    requestFromApi(`${apiBaseUrl}laudos/`, response => {
+    const url = isEditionView ? `${apiBaseUrl}laudos/${medicalReportId}/` : `${apiBaseUrl}laudos/`
+    const method = isEditionView ? 'PUT': 'POST'
+
+    requestFromApi(url, response => {
         window.alert('Salvo com sucesso!')
         window.location.href = document.referrer
     }, response => {
@@ -67,11 +73,13 @@ const handleSaveMedicalReport = () => {
                 document.getElementById(field.elId).className = "form-control consultation-input"
             }
         })
-    }, requestBody, 'POST')
+    }, requestBody, method)
 }
 
 document.onreadystatechange = () => {
     if (document.readyState == 'interactive') {
-        handleChangeMRTemplateChange()
+        if (!isEditionView) {
+            handleChangeMRTemplateChange()
+        }
     }
 }

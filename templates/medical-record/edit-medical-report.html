@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6>Tipo de Laudo</h6>
-                    <input id=medical-report-type type="text" class="form-control" value="{{medical_report.report_type}}">
+                    <input id="select-medical-report-template" type="text" class="form-control" value="{{medical_report.report_type}}" disabled>
                 </div>
                 <div class="col-md-6">
                     <h6>Médico Solicitante</h6>
@@ -43,14 +43,14 @@
                 <div class="col-md-6 mt-3">
                     <h6>Paciente</h6>
                     <select id="medical-report-patient" class="form-control" disabled>
-                        <option value="{{medical_report.medical_record}}">{{medical_report.medical_record.patient.name}}</option>
+                        <option value={{medical_report.medical_record.id}}>{{medical_report.medical_record.patient.name}}</option>
                     </select>
                 </div>
                 
                 <div class="col-md-6 mt-3">
                     <h6>Médico</h6>
                     <select id="medical-report-doctor" class="form-control" disabled>
-                        <option value="{{medical_report.doctor}}">{{medical_report.doctor.name}}</option>
+                        <option value={{medical_report.doctor.id}}>{{medical_report.doctor.name}}</option>
                     </select>
                 </div>
 
@@ -63,7 +63,7 @@
                             <h6>
                                 {{json_key.capitalize}}
                             </h6>
-                            <textarea class="form-control" id={{json_key}}>{{json_value}}</textarea>
+                            <textarea name="{{json_key}}" class="form-control mr-form-dynamicfield">{{json_value}}</textarea>
                         </div>
                     </div>
                 {% endfor %}
@@ -82,6 +82,12 @@
 
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
-    <script src='{% static "JS/edit-medical-report.js" %}'></script>
+
+    <script>
+        var isEditionView = true
+        var medicalReportId = "{{medical_report.id}}"
+    </script>
+
+    <script src='{% static "JS/medical-report.js" %}'></script>
 
 {% endblock %}
