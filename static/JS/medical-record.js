@@ -66,7 +66,7 @@ const fillMedicalReport = (medicalReport, tableBody) => {
             addTag(a => {
                 a.innerText = 'Editar'
                 a.className = 'default-link'
-                a.href = `${window.location.origin}/ficha-medica/exames-complementares/${medicalReport.id}`
+                a.href = `${window.location.origin}/ficha-medica/laudos/${medicalReport.id}`
             }, td, 'a')
         }, tr, 'td')
     }, tableBody, 'tr')
