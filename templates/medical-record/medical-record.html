@@ -153,7 +153,20 @@
                         
                     </div>
                     <div class="tab-pane fade" id="procedures" role="tabpanel" aria-labelledby="procedures-tab">
-                        <h3>"Procedimentos e Laudos tab"</h3>
+                            
+                        <a class="btn btn-success text-white mb-2" onclick="window.location.href += '/laudos/novo'">+</a>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medical-report-table-body"></tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
