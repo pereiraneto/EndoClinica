@@ -176,7 +176,7 @@ class MedicalReportTemplate(models.Model):
 
 
 class MedicalReport(models.Model):
-    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL, related_name='medical_reports')
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
 
     date = models.DateTimeField()
