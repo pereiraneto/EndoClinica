@@ -44,6 +44,7 @@
                     <h6>Paciente</h6>
                     <select id="medical-report-patient" class="form-control" disabled>
                         <option value={{medical_report.medical_record.id}}>{{medical_report.medical_record.patient.name}}</option>
+
                     </select>
                 </div>
                 
@@ -51,6 +52,7 @@
                     <h6>Médico</h6>
                     <select id="medical-report-doctor" class="form-control" disabled>
                         <option value={{medical_report.doctor.id}}>{{medical_report.doctor.name}}</option>
+
                     </select>
                 </div>
 
@@ -82,12 +84,10 @@
 
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
-
     <script>
         var isEditionView = true
         var medicalReportId = "{{medical_report.id}}"
     </script>
-
     <script src='{% static "JS/medical-report.js" %}'></script>
 
 {% endblock %}
