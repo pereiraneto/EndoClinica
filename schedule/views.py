@@ -288,3 +288,44 @@ class EditComplementaryExam(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/complementary-exams.html', data)
+
+
+class NewMedicalReport(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        now = datetime.datetime.now().isoformat()
+        today, time_now = now.split('T')
+        medical_report_templates = MedicalReportTemplate.objects.all()
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+
+        data = {
+            'medical_report_templates': medical_report_templates,
+            'today': today,
+            'time_now': time_now[:5],
+            'medical_record_id': kwargs['medical_record_id'],
+            'patient_name': medical_record.patient.name,
+            'doctor': request.user.doctor
+        }
+
+        return render(request, 'medical-record/new-medical-report.html', data)
+
+class EditMedicalReport(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        medical_report = get_object_or_404(MedicalReport, pk=kwargs['medical_report_id'])
+        report_datetime = medical_report.date.isoformat()
+        data = {
+            'medical_report': medical_report,
+            'report_date': report_datetime[:10],
+            'report_time': report_datetime[11:16],
+        }
+
+        return render(request, 'medical-record/edit-medical-report.html', data)

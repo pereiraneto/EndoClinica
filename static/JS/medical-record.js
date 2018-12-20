@@ -53,6 +53,25 @@ const fillComplementaryExamRow = (complementaryExam, tableBody) => {
     }, tableBody, 'tr')
 }
 
+const fillMedicalReport = (medicalReport, tableBody) => {
+    console.log(medicalReport);
+    
+    addTag(tr => {
+        addTag(th => {
+            th.scope = 'row'
+            th.innerText = `${medicalReport.date.slice(8,10)}/${medicalReport.date.slice(5,7)}/${medicalReport.date.slice(0,4)} - ${medicalReport.date.slice(11,16)}`
+        }, tr, 'th')
+        addTag(td => td.innerText = medicalReport.report_type, tr, 'td')
+        addTag(td => {
+            addTag(a => {
+                a.innerText = 'Editar'
+                a.className = 'default-link'
+                a.href = `${window.location.origin}/ficha-medica/laudos/${medicalReport.id}`
+            }, td, 'a')
+        }, tr, 'td')
+    }, tableBody, 'tr')
+}
+
 const baseApiUrl = window.location.origin+'/api/'
 
 document.onreadystatechange = () => {
@@ -69,6 +88,12 @@ document.onreadystatechange = () => {
             medicalRecord.complementary_exams.forEach(complementaryExamId => {
                 requestFromApi(baseApiUrl+'exames-complementares/'+complementaryExamId, complementaryExam => {
                     fillComplementaryExamRow(complementaryExam, document.getElementById("complementary-exam-table-body"))
+                })
+            })
+
+            medicalRecord.medical_reports.forEach(medicalReportId => {
+                requestFromApi(baseApiUrl+'laudos/'+medicalReportId, medicalReport => {
+                    fillMedicalReport(medicalReport, document.getElementById("medical-report-table-body"))
                 })
             })
         })
