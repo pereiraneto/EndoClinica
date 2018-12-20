@@ -27,5 +27,8 @@ urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                path('ficha-medica/<int:medical_record_id>/anamnese/nova', views.NewAnamneseView.as_view(), name='create-anamnese'),
                path('ficha-medica/anamneses/<int:anamnese_id>', views.EditAnamneseView.as_view(), name='edit-anamnese'),
                path('ficha-medica/<int:medical_record_id>/exame-complementar/novo', views.NewComplementaryExam.as_view(), name='create-complementary-exam'),
-               path('ficha-medica/exames-complementares/<int:complementary_exam_id>', views.EditComplementaryExam.as_view(), name='edit-complementary-exam')]
+               path('ficha-medica/exames-complementares/<int:complementary_exam_id>', views.EditComplementaryExam.as_view(), name='edit-complementary-exam'),
+               path('ficha-medica/<int:medical_record_id>/laudos/novo', views.NewMedicalReport.as_view(), name='create-medical-report'),
+               path('ficha-medica/laudos/<int:medical_report_id>', views.EditMedicalReport.as_view(), name='edit-medical-report')]
+
 urlpatterns += router.urls

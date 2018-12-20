@@ -176,11 +176,11 @@ class MedicalReportTemplate(models.Model):
 
 
 class MedicalReport(models.Model):
-    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL, related_name='medical_reports')
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
 
     date = models.DateTimeField()
-    requester = models.CharField(max_length=100)
+    requester = models.CharField(max_length=100, blank=True)
     report_type = models.CharField(max_length=70)
 
     json_medical_report = JSONField()
