@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6>Selecione Modelo de Laudo</h6>
-                    <select class="form-control" id="select-medical-report-template">
+                    <select class="form-control" id="select-medical-report-template" onchange="handleChangeMRTemplateChange()">
                         {% for template in medical_report_templates %}
                             <option value="{{template.id}}">{{template.name}}</option>
                         {% endfor %}
