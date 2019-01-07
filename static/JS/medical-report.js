@@ -13,6 +13,10 @@ const handleChangeMRTemplateChange = () => {
     const mrSelectEl = document.getElementById('select-medical-report-template')
 
     requestFromApi(`${apiBaseUrl}modelos-laudos/${mrSelectEl.value}`, mrTemplate => {
+        let customFieldsDivEl = document.getElementById('medical-report-custom-fields')
+
+        customFieldsDivEl.innerHTML = ""
+
         Object.keys(mrTemplate.json_template).forEach(field => {
             addTag(row => {
                 row.className = 'row mt-3'
@@ -30,7 +34,7 @@ const handleChangeMRTemplateChange = () => {
                         textarea.rows = 5
                     }, col, 'textarea')
                 }, row, 'div')
-            }, document.getElementById('medical-report-custom-fields'), 'div')
+            }, customFieldsDivEl, 'div')
         });
     })
 }
