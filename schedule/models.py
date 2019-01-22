@@ -187,3 +187,15 @@ class MedicalReport(models.Model):
 
     def __str__(self):
         return self.medical_record.patient.name + ' - ' + self.report_type
+
+
+class MedicalRecommendationTemplate(models.Model):
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    json_medical_recommendation = JSONField()
+
+
+class MedicalRecommendation(models.Model):
+    date = models.DateField()
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL, related_name='medical_recommendation')
+    json_medical_recommendation = JSONField()

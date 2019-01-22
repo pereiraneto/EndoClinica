@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, permissions, viewsets
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer, MedicalReportTemplateSerializer, MedicalReportSerializer
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport, MedicalRecommendation, MedicalRecommendationTemplate
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer, MedicalReportTemplateSerializer, MedicalReportSerializer, MedicalRecommendationSerializer, MedicalRecommendationTemplateSerializer
 
 
 def is_doctor(user):
@@ -72,6 +72,18 @@ class MedicalReportTemplateViewSet(viewsets.ModelViewSet):
 class MedicalReportViewSet(viewsets.ModelViewSet):
     queryset = MedicalReport.objects.all()
     serializer_class = MedicalReportSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class MedicalRecommendationViewSet(viewsets.ModelViewSet):
+    queryset = MedicalRecommendation.objects.all()
+    serializer_class = MedicalRecommendationSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class MedicalRecommendationTemplateViewSet(viewsets.ModelViewSet):
+    queryset = MedicalRecommendationTemplate.objects.all()
+    serializer_class = MedicalRecommendationTemplateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
