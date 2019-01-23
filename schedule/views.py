@@ -341,3 +341,41 @@ class EditMedicalReport(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/edit-medical-report.html', data)
+
+
+class NewMedicalRecommendation(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        now = datetime.datetime.now().isoformat()
+        today, time_now = now.split('T')
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+
+        data = {
+            'today': today,
+            'medical_record_id': kwargs['medical_record_id'],
+            'patient_name': medical_record.patient.name,
+            'doctor': request.user.doctor
+        }
+
+        return render(request, 'medical-record/new-medical-recommendation.html', data)
+
+
+class EditMedicalRecommendation(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        medical_recommendation = get_object_or_404(MedicalRecommendation, pk=kwargs['medical_recommendation_id'])
+        recommendation_datetime = medical_recommendation.date.isoformat()
+        data = {
+            'medical_recommendation': medical_recommendation,
+            'recommendation_date': recommendation_datetime[:10]
+        }
+
+        return render(request, 'medical-record/edit-medical-recommendation.html', data)
