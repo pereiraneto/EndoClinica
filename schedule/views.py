@@ -353,12 +353,14 @@ class NewMedicalRecommendation(LoginRequiredMixin, views.View):
         now = datetime.datetime.now().isoformat()
         today, time_now = now.split('T')
         medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        dorctors_recomendation_templates = MedicalRecommendationTemplate.objects.filter(doctor=request.user.doctor.id)
 
         data = {
             'today': today,
             'medical_record_id': kwargs['medical_record_id'],
             'patient_name': medical_record.patient.name,
-            'doctor': request.user.doctor
+            'doctor': request.user.doctor,
+            'dorctors_recomendation_templates': dorctors_recomendation_templates
         }
 
         return render(request, 'medical-record/new-medical-recommendation.html', data)
@@ -373,9 +375,12 @@ class EditMedicalRecommendation(LoginRequiredMixin, views.View):
 
         medical_recommendation = get_object_or_404(MedicalRecommendation, pk=kwargs['medical_recommendation_id'])
         recommendation_datetime = medical_recommendation.date.isoformat()
+        dorctors_recomendation_templates = MedicalRecommendationTemplate.objects.filter(doctor=request.user.doctor.id)
+
         data = {
             'medical_recommendation': medical_recommendation,
-            'recommendation_date': recommendation_datetime[:10]
+            'recommendation_date': recommendation_datetime[:10],
+            'dorctors_recomendation_templates': dorctors_recomendation_templates
         }
 
         return render(request, 'medical-record/edit-medical-recommendation.html', data)

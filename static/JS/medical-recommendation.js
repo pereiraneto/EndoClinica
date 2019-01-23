@@ -15,7 +15,7 @@ const handleSaveMedicalRecommendationTemplate = () => {
     }
 
     requestFromApi(`${apiBaseUrl}modelos-recomendacoes/`, (response) => {
-        window.alert('Modelo de Recomendação salva com sucessso')
+        window.alert('Modelo de Recomendação salva com sucessso.\nRecarreque esta página para usar o novo template!')
     }, (response) => {
         console.log('erro ao salvar:', response)
         window.alert("Erro ao salvar recomendação. Verifique os campos preenchidos.")

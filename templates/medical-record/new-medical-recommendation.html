@@ -32,6 +32,11 @@
                     <div class="row">
                         <div class="col">
                             <select class="form-control">
+                                {% for dorctors_recomendation_template in dorctors_recomendation_templates %}
+                                    <option value="{{dorctors_recomendation_template.pk}}">
+                                        {{dorctors_recomendation_template.name}}
+                                    </option>
+                                {% endfor %}
                             </select>
                         </div>
         
