@@ -49,7 +49,14 @@ const handleSaveMedicalRecommendation = () => {
             }
         })
     }, requestBody, 'POST');
+}
 
-    console.log("requestBody > ", requestBody)
-    console.log("recommendationQuill > ", recommendationQuill)
+const handleDeleteRecommendationTemplate = () => {
+    const recommendationId = document.getElementById('recommendation-template-select').value
+
+    requestFromApi(`${apiBaseUrl}modelos-recomendacoes/${recommendationId}`, response => {
+        window.alert("Modelo de Recomendação deletada com sucesso!\nQuando você voltar a esta página, o modelo não estará mais aqui.")
+    }, () => {
+        window.alert("Houve um erro ao tentar deletar esse modelo.")
+    }, undefined, "DELETE")
 }

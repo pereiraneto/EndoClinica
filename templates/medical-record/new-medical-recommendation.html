@@ -31,7 +31,7 @@
                     
                     <div class="row">
                         <div class="col">
-                            <select class="form-control">
+                            <select class="form-control" id="recommendation-template-select">
                                 {% for dorctors_recomendation_template in dorctors_recomendation_templates %}
                                     <option value="{{dorctors_recomendation_template.pk}}">
                                         {{dorctors_recomendation_template.name}}
@@ -41,7 +41,7 @@
                         </div>
         
                         <div class="col-md-auto">
-                            <button type="button" class="btn btn-danger">
+                            <button type="button" class="btn btn-danger" onclick="handleDeleteRecommendationTemplate()">
                                 Deletar
                             </button>
                         </div>
