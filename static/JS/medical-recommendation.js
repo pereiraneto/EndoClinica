@@ -7,7 +7,20 @@ const mrNonDinamicFields = [
 ]
 
 
-const handleSaveMedicalrecommendation = () => {
+const handleSaveMedicalRecommendationTemaplate = () => {
+    const requestBody = {
+        "json_medical_recommendation": recommendationTemplateQuill.getContents(),
+        "name": document.getElementById("recommendation-template-name").value,
+        "doctor": document.getElementById("medical-recommendation-doctor").value
+    }
+
+    requestFromApi(`${apiBaseUrl}modelos-recomendacoes/`, response => {
+        window.alert('Modelo de Recomendação salva com sucessso')
+    }, () => {window.alert('Escolha um nome menor')}, requestBody, 'POST')
+}
+
+
+const handleSaveMedicalRecommendation = () => {
     const requestBody = {}
     mrNonDinamicFields.forEach(field => {
         requestBody[field.api] = document.getElementById(field.elId).value
