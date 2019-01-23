@@ -90,12 +90,15 @@
                 <div class="modal-body">
                     <h6>Nome do Modelo</h6>
                     <input type="text" class="form-control mb-3" id="recommendation-template-name">
+                    <div class="invalid-feedback error-feedback">
+                        Insira um nome válido
+                    </div>
 
                     <div id="recommendationTemplateEditor" style="height: 50vh;"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" onclick="handleSaveMedicalRecommendationTemaplate()">Salvar</button>
+                    <button type="button" class="btn btn-success" onclick="handleSaveMedicalRecommendationTemplate()">Salvar</button>
                 </div>
             </div>
         </div>

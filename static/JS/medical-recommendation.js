@@ -7,16 +7,20 @@ const mrNonDinamicFields = [
 ]
 
 
-const handleSaveMedicalRecommendationTemaplate = () => {
+const handleSaveMedicalRecommendationTemplate = () => {
     const requestBody = {
         "json_medical_recommendation": recommendationTemplateQuill.getContents(),
         "name": document.getElementById("recommendation-template-name").value,
         "doctor": document.getElementById("medical-recommendation-doctor").value
     }
 
-    requestFromApi(`${apiBaseUrl}modelos-recomendacoes/`, response => {
+    requestFromApi(`${apiBaseUrl}modelos-recomendacoes/`, (response) => {
         window.alert('Modelo de Recomendação salva com sucessso')
-    }, () => {window.alert('Escolha um nome menor')}, requestBody, 'POST')
+    }, (response) => {
+        console.log('erro ao salvar:', response)
+        window.alert("Erro ao salvar recomendação. Verifique os campos preenchidos.")
+        document.getElementById("recommendation-template-name").className = "form-control consultation-input is-invalid"
+    }, requestBody, 'POST')
 }
 
 
