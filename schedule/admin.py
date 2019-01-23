@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport, MedicalRecommendation, MedicalRecommendationTemplate
 
 
 @admin.register(Consultation)
@@ -45,4 +45,14 @@ class MedicalReportTemplateAdmin(admin.ModelAdmin):
 
 @admin.register(MedicalReport)
 class MedicalReportAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(MedicalRecommendationTemplate)
+class MedicalRecommendationTemplateAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(MedicalRecommendation)
+class MedicalRecommendationAdmin(admin.ModelAdmin):
     pass
