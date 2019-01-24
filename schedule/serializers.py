@@ -39,7 +39,7 @@ class ProcedureSerializer(serializers.ModelSerializer):
 class MedicalRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalRecord
-        fields = ('id', 'complementary_exams', 'anamneses', 'medical_reports')
+        fields = ('id', 'complementary_exams', 'anamneses', 'medical_reports', 'medical_recommendation')
 
 
 class ComplementaryExamSerializer(serializers.ModelSerializer):

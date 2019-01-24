@@ -54,8 +54,6 @@ const fillComplementaryExamRow = (complementaryExam, tableBody) => {
 }
 
 const fillMedicalReport = (medicalReport, tableBody) => {
-    console.log(medicalReport);
-    
     addTag(tr => {
         addTag(th => {
             th.scope = 'row'
@@ -72,6 +70,22 @@ const fillMedicalReport = (medicalReport, tableBody) => {
     }, tableBody, 'tr')
 }
 
+const fillMedicalRecommendation = (medicalRecommendation, tableBody) => {
+    addTag(tr => {
+        addTag(th => {
+            th.scope = 'row'
+            th.innerText = `${medicalRecommendation.date.slice(8,10)}/${medicalRecommendation.date.slice(5,7)}/${medicalRecommendation.date.slice(0,4)}`
+        }, tr, 'th')
+        addTag(td => {
+            addTag(a => {
+                a.innerText = 'Editar'
+                a.className = 'default-link'
+                a.href = `${window.location.origin}/ficha-medica/recomendacao/${medicalRecommendation.id}`
+            }, td, 'a')
+        }, tr, 'td')
+    }, tableBody, 'tr')
+}
+
 const baseApiUrl = window.location.origin+'/api/'
 
 document.onreadystatechange = () => {
@@ -79,6 +93,7 @@ document.onreadystatechange = () => {
         filterPatient(patientId)
 
         requestFromApi(`${baseApiUrl}fichas-medicas/${medicalRecordId}/`, medicalRecord => {
+
             medicalRecord.anamneses.forEach(anamneseId => {
                 requestFromApi(baseApiUrl+'anamneses/'+anamneseId, anamnese => {
                     fillAnamneseRow(anamnese, document.getElementById("anamnese-table-body"))
@@ -94,6 +109,12 @@ document.onreadystatechange = () => {
             medicalRecord.medical_reports.forEach(medicalReportId => {
                 requestFromApi(baseApiUrl+'laudos/'+medicalReportId, medicalReport => {
                     fillMedicalReport(medicalReport, document.getElementById("medical-report-table-body"))
+                })
+            })
+
+            medicalRecord.medical_recommendation.forEach(medicalRecommendationId => {
+                requestFromApi(`${baseApiUrl}recomendacoes/${medicalRecommendationId}`, medicalRecommendation => {
+                    fillMedicalRecommendation(medicalRecommendation, document.getElementById("medical-recommedation-table-body"))
                 })
             })
         })
