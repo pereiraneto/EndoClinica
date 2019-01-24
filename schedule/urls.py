@@ -35,6 +35,8 @@ urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                path('ficha-medica/<int:medical_record_id>/laudos/novo', views.NewMedicalReport.as_view(), name='create-medical-report'),
                path('ficha-medica/laudos/<int:medical_report_id>', views.EditMedicalReport.as_view(), name='edit-medical-report'),
                path('ficha-medica/<int:medical_record_id>/recomendacao/nova', views.NewMedicalRecommendation.as_view(), name='create-medical-recommendation'),
-               path('ficha-medica/recomendacao/<int:medical_recommendation_id>', views.EditMedicalRecommendation.as_view(), name='edit-medical-recommendation')]
+               path('ficha-medica/recomendacao/<int:medical_recommendation_id>', views.EditMedicalRecommendation.as_view(), name='edit-medical-recommendation'),
+               path('ficha-medica/<int:medical_record_id>/declaracao/nova', views.NewMedicalStatement.as_view(), name='create-medical-statement'),
+               path('ficha-medica/declaracao/<int:medical_statement_id>', views.EditMedicalStatement.as_view(), name='edit-medical-statement')]
 
 urlpatterns += router.urls

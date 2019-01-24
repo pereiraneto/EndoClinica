@@ -396,3 +396,48 @@ class EditMedicalRecommendation(LoginRequiredMixin, views.View):
         }
 
         return render(request, 'medical-record/edit-medical-recommendation.html', data)
+
+
+class NewMedicalStatement(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        now = datetime.datetime.now().isoformat()
+        today, time_now = now.split('T')
+        medical_record = get_object_or_404(MedicalRecord, pk=kwargs['medical_record_id'])
+        dorctors_medical_statement_templates = MedicalStatementTemplate.objects.filter(doctor=request.user.doctor.id)
+
+        data = {
+            'today': today,
+            'time_now': time_now,
+            'medical_record_id': kwargs['medical_record_id'],
+            'patient_name': medical_record.patient.name,
+            'doctor': request.user.doctor,
+            'dorctors_medical_statement_templates': dorctors_medical_statement_templates
+        }
+
+        return render(request, 'medical-record/new-medical-statement.html', data)
+
+
+class EditMedicalStatement(LoginRequiredMixin, views.View):
+
+    def get(self, request, **kwargs):
+
+        if (not is_doctor(request.user)):
+            return render_not_allowed_view()
+
+        medical_statement = get_object_or_404(MedicalStatement, pk=kwargs['medical_recommendation_id'])
+        recommendation_datetime = medical_recommendation.date.isoformat()
+        dorctors_statement_templates = MedicalStatementTemplate.objects.filter(doctor=request.user.doctor.id)
+
+        data = {
+            'medical_statement': medical_statement,
+            'medical_statement_date': medica_statement_datetime[:10],
+            'medical_statement_time': report_datetime[11:16],
+            'dorctors_statement_templates': dorctors_statement_templates
+        }
+
+        return render(request, 'medical-record/edit-medical-statement.html', data)
