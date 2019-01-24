@@ -31,8 +31,10 @@ const handleSaveMedicalRecommendation = () => {
     })
 
     requestBody.json_medical_recommendation = recommendationQuill.getContents()
+    requestMethod = isEditionView ? 'PUT' : 'POST'
+    requestUrl = isEditionView ? `${apiBaseUrl}recomendacoes/${medicalRecommedationId}/` : `${apiBaseUrl}recomendacoes/`
 
-    requestFromApi(`${apiBaseUrl}recomendacoes/`, response => {
+    requestFromApi(requestUrl, response => {
         window.alert('Recomendação salva com sucessso')
 
         window.location.href = document.referrer
@@ -48,7 +50,7 @@ const handleSaveMedicalRecommendation = () => {
                 document.getElementById(field.elId).className = "form-control consultation-input"
             }
         })
-    }, requestBody, 'POST');
+    }, requestBody, requestMethod);
 }
 
 const handleDeleteRecommendationTemplate = () => {
@@ -68,5 +70,16 @@ const handleChangeSelectedRecommendationTemplate = () => {
         requestFromApi(`${apiBaseUrl}modelos-recomendacoes/${seletedRecommendationTemplateId}`, recommendationTemplate => {
             recommendationQuill.setContents(recommendationTemplate.json_medical_recommendation)
         })
+    }
+}
+
+
+document.onreadystatechange = () => {
+    if (document.readyState == "interactive") {
+        if (isEditionView) {
+            requestFromApi(`${apiBaseUrl}recomendacoes/${medicalRecommedationId}`, medicalRecommendation => {
+                recommendationQuill.setContents(medicalRecommendation.json_medical_recommendation)
+            })
+        }
     }
 }

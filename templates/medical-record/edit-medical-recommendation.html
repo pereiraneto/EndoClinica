@@ -78,7 +78,7 @@
             </div>
         </form>
         <div class="float-right">
-            <button class="btn-success btn mt-5 mb-5" onclick="">
+            <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalRecommendation()">
                 Salvar
             </button>
         </div>
@@ -129,7 +129,8 @@
     <script src="{% static "JS/helpers/addTag.js" %}"></script>
     <script src="{% static "JS/helpers/request.js" %}"></script>
     <script>
-        var isEditionView = false
+        var isEditionView = true
+        var medicalRecommedationId = {{ medical_recommendation.pk }}
     </script>
     
     <script src='{% static "JS/medical-recommendation.js" %}'></script>
