@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from rest_framework import generics, permissions, viewsets
 
-from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport, MedicalRecommendation, MedicalRecommendationTemplate
-from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer, MedicalReportTemplateSerializer, MedicalReportSerializer, MedicalRecommendationSerializer, MedicalRecommendationTemplateSerializer
+from .models import Consultation, Doctor, Patient, Procedure, MedicalRecord, ComplementaryExam, Anamnese, MedicalReportTemplate, MedicalReport, MedicalRecommendation, MedicalRecommendationTemplate, MedicalStatement, MedicalStatementTemplate
+from .serializers import ConsultationSerializer, DoctorSerializer, PatientSerializer, ProcedureSerializer, MedicalRecordSerializer, ComplementaryExamSerializer, AnamneseSerializer, MedicalReportTemplateSerializer, MedicalReportSerializer, MedicalRecommendationSerializer, MedicalRecommendationTemplateSerializer, MedicalStatementSerializer, MedicalStatementTemplateSerializer
 
 
 def is_doctor(user):
@@ -84,6 +84,18 @@ class MedicalRecommendationViewSet(viewsets.ModelViewSet):
 class MedicalRecommendationTemplateViewSet(viewsets.ModelViewSet):
     queryset = MedicalRecommendationTemplate.objects.all()
     serializer_class = MedicalRecommendationTemplateSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class MedicalStatementViewSet(viewsets.ModelViewSet):
+    queryset = MedicalStatement.objects.all()
+    serializer_class = MedicalStatementSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class MedicalStatementTemplateViewSet(viewsets.ModelViewSet):
+    queryset = MedicalStatementTemplate.objects.all()
+    serializer_class = MedicalStatementTemplateSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 

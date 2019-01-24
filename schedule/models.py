@@ -200,3 +200,16 @@ class MedicalRecommendation(models.Model):
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
     medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL, related_name='medical_recommendation')
     json_medical_recommendation = JSONField()
+
+
+class MedicalStatementTemplate(models.Model):
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=70)
+    json_medical_recommendation = JSONField()
+
+
+class MedicalStatement(models.Model):
+    date = models.DateTimeField()
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    medical_record = models.ForeignKey(MedicalRecord, null=True, on_delete=models.SET_NULL, related_name='medical_statement')
+    json_medical_statement = JSONField()

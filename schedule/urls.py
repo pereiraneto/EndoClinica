@@ -18,6 +18,8 @@ router.register('api/modelos-laudos', views.MedicalReportTemplateViewSet, base_n
 router.register('api/laudos', views.MedicalReportViewSet, base_name='medical-report')
 router.register('api/recomendacoes', views.MedicalRecommendationViewSet, base_name='medical-recommendation')
 router.register('api/modelos-recomendacoes', views.MedicalRecommendationTemplateViewSet, base_name='medical-recomendation-template')
+router.register('api/declaracoes', views.MedicalStatementViewSet, base_name='medical-statemente')
+router.register('api/modelos-declaracoes', views.MedicalStatementTemplateViewSet, base_name='medical-statement-template')
 
 urlpatterns = [path('', views.ScheduleView.as_view(), name='schedule'),
                path('pacientes/', views.PatientsView.as_view(), name='list-patients'),
