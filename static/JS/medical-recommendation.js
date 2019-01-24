@@ -60,3 +60,13 @@ const handleDeleteRecommendationTemplate = () => {
         window.alert("Houve um erro ao tentar deletar esse modelo.")
     }, undefined, "DELETE")
 }
+
+const handleChangeSelectedRecommendationTemplate = () => {
+    const seletedRecommendationTemplateId = document.getElementById('recommendation-template-select').value
+
+    if (seletedRecommendationTemplateId != 0) {
+        requestFromApi(`${apiBaseUrl}modelos-recomendacoes/${seletedRecommendationTemplateId}`, recommendationTemplate => {
+            recommendationQuill.setContents(recommendationTemplate.json_medical_recommendation)
+        })
+    }
+}
