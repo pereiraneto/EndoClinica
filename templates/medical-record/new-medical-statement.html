@@ -33,29 +33,29 @@
                 <div class="col-md-7">
                     <div class="row">
                         <div class="col">
-                            <h6>Modelos de Recomendação</h6>
+                            <h6>Modelos de Declaração</h6>
                         </div>
                     </div>
                     
                     <div class="row">
                         <div class="col">
-                            <select class="form-control" id="statement-template-select" onchange="handleChangeSelectedstatementTemplate()">
+                            <select class="form-control" id="statement-template-select" onchange="handleChangeSelectedStatementTemplate()">
                                 <option value="0">Selecione um Modelo</option>
-                                {% for dorctors_recomendation_template in dorctors_recomendation_templates %}
-                                    <option value="{{dorctors_recomendation_template.pk}}">
-                                        {{dorctors_recomendation_template.name}}
+                                {% for dorctors_statement_template in dorctors_statement_templates %}
+                                    <option value="{{dorctors_statement_template.pk}}">
+                                        {{dorctors_statement_template.name}}
                                     </option>
                                 {% endfor %}
                             </select>
                         </div>
         
                         <div class="col-md-auto">
-                            <button type="button" class="btn btn-danger" onclick="handleDeletestatementTemplate()">
+                            <button type="button" class="btn btn-danger" onclick="handleDeleteStatementTemplate()">
                                 Deletar
                             </button>
                         </div>
                         <div class="col-md-auto">
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createstatementModal">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createStatementModal">
                                 Criar
                             </button>
                         </div>
@@ -86,17 +86,17 @@
             </div>
         </form>
         <div class="float-right">
-            <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalstatement()">
+            <button class="btn-success btn mt-5 mb-5" onclick="handleSaveMedicalStatement()">
                 Salvar
             </button>
         </div>
     </div>
 
-    <div class="modal fade" id="createstatementModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="createStatementModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xlg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Criar Modelo de Recomendação</h5>
+                    <h5 class="modal-title" id="modalLabel">Criar Modelo de Declaração</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" onclick="handleSaveMedicalstatementTemplate()">Salvar</button>
+                    <button type="button" class="btn btn-success" onclick="handleSaveMedicalStatementTemplate()">Salvar</button>
                 </div>
             </div>
         </div>
