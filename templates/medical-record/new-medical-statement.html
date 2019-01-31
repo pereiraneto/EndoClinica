@@ -41,9 +41,9 @@
                         <div class="col">
                             <select class="form-control" id="statement-template-select" onchange="handleChangeSelectedStatementTemplate()">
                                 <option value="0">Selecione um Modelo</option>
-                                {% for dorctors_statement_template in dorctors_statement_templates %}
-                                    <option value="{{dorctors_statement_template.pk}}">
-                                        {{dorctors_statement_template.name}}
+                                {% for dorctor_statement_template in dorctors_medical_statement_templates %}
+                                    <option value="{{dorctor_statement_template.pk}}">
+                                        {{dorctor_statement_template.name}}
                                     </option>
                                 {% endfor %}
                             </select>

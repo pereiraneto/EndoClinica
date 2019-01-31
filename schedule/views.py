@@ -433,6 +433,8 @@ class EditMedicalStatement(LoginRequiredMixin, views.View):
         medical_statement_datetime = medical_statement.date.isoformat()
         dorctors_statement_templates = MedicalStatementTemplate.objects.filter(doctor=request.user.doctor.id)
 
+        print(dorctors_statement_templates)
+
         data = {
             'medical_statement': medical_statement,
             'medical_statement_date': medical_statement_datetime[:10],
