@@ -8,21 +8,21 @@ const mrNonDinamicFields = [
 ]
 
 
-// const handleSaveMedicalStatementTemplate = () => {
-//     const requestBody = {
-//         "json_medical_statement": statementTemplateQuill.getContents(),
-//         "name": document.getElementById("statement-template-name").value,
-//         "doctor": document.getElementById("medical-statement-doctor").value
-//     }
+const handleSaveMedicalStatementTemplate = () => {
+    const requestBody = {
+        "json_medical_statement": statementTemplateQuill.getContents(),
+        "name": document.getElementById("statement-template-name").value,
+        "doctor": document.getElementById("medical-statement-doctor").value
+    }
 
-//     requestFromApi(`${apiBaseUrl}modelos-recomendacoes/`, (response) => {
-//         window.alert('Modelo de Recomendação salva com sucessso.\nRecarreque esta página para usar o novo template!')
-//     }, (response) => {
-//         console.log('erro ao salvar:', response)
-//         window.alert("Erro ao salvar recomendação. Verifique os campos preenchidos.")
-//         document.getElementById("statement-template-name").className = "form-control consultation-input is-invalid"
-//     }, requestBody, 'POST')
-// }
+    requestFromApi(`${apiBaseUrl}modelos-declaracoes/`, (response) => {
+        window.alert('Modelo de Declaração salva com sucessso.\nRecarreque esta página para usar o novo modelo!')
+    }, (response) => {
+        console.log('erro ao salvar:', response)
+        window.alert("Erro ao salvar decclaração. Verifique os campos preenchidos ou peça suporte.")
+        document.getElementById("statement-template-name").className = "form-control consultation-input is-invalid"
+    }, requestBody, 'POST')
+}
 
 
 const handleSaveMedicalStatement = () => {
