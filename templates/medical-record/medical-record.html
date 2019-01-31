@@ -111,7 +111,7 @@
                     <a class="nav-link disabled" id="recepts-tab" data-toggle="tab" href="#recepts" role="tab" aria-controls="recepts" aria-selected="false">Receitas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" id="declarations-tab" data-toggle="tab" href="#declarations" role="tab" aria-controls="declarations" aria-selected="false">Declarações</a>
+                    <a class="nav-link" id="statements-tab" data-toggle="tab" href="#statements" role="tab" aria-controls="statements" aria-selected="false">Declarações</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="recommendations-tab" data-toggle="tab" href="#recommendations" role="tab" aria-controls="recommendations" aria-selected="false">Recomendações</a>
@@ -165,6 +165,21 @@
                                 </tr>
                             </thead>
                             <tbody id="medical-report-table-body"></tbody>
+                        </table>
+
+                    </div>
+                    <div class="tab-pane fade" id="statements" role="tabpanel" aria-labelledby="statements-tab">
+                            
+                        <a class="btn btn-success text-white mb-2" onclick="window.location.href += '/declaracao/nova'">+</a>
+                        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medical-statement-table-body"></tbody>
                         </table>
 
                     </div>

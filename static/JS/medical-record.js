@@ -86,6 +86,22 @@ const fillMedicalRecommendation = (medicalRecommendation, tableBody) => {
     }, tableBody, 'tr')
 }
 
+const fillMedicalStatement = (medicalStatement, tableBody) => {
+    addTag(tr => {
+        addTag(th => {
+            th.scope = 'row'
+            th.innerText = `${medicalStatement.date.slice(8,10)}/${medicalStatement.date.slice(5,7)}/${medicalStatement.date.slice(0,4)} - ${medicalStatement.date.slice(11,16)}`
+        }, tr, 'th')
+        addTag(td => {
+            addTag(a => {
+                a.innerText = 'Editar'
+                a.className = 'default-link'
+                a.href = `${window.location.origin}/ficha-medica/declaracao/${medicalStatement.id}`
+            }, td, 'a')
+        }, tr, 'td')
+    }, tableBody, 'tr')
+}
+
 const baseApiUrl = window.location.origin+'/api/'
 
 document.onreadystatechange = () => {
@@ -115,6 +131,12 @@ document.onreadystatechange = () => {
             medicalRecord.medical_recommendation.forEach(medicalRecommendationId => {
                 requestFromApi(`${baseApiUrl}recomendacoes/${medicalRecommendationId}`, medicalRecommendation => {
                     fillMedicalRecommendation(medicalRecommendation, document.getElementById("medical-recommedation-table-body"))
+                })
+            })
+
+            medicalRecord.medical_statement.forEach(medicalStatementId => {
+                requestFromApi(`${baseApiUrl}declaracoes/${medicalStatementId}`, medicalStatement => {
+                    fillMedicalStatement(medicalStatement, document.getElementById("medical-statement-table-body"))
                 })
             })
         })
