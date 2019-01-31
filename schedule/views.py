@@ -412,7 +412,7 @@ class NewMedicalStatement(LoginRequiredMixin, views.View):
 
         data = {
             'today': today,
-            'time_now': time_now,
+            'time_now': time_now[:5],
             'medical_record_id': kwargs['medical_record_id'],
             'patient_name': medical_record.patient.name,
             'doctor': request.user.doctor,
@@ -429,14 +429,14 @@ class EditMedicalStatement(LoginRequiredMixin, views.View):
         if (not is_doctor(request.user)):
             return render_not_allowed_view()
 
-        medical_statement = get_object_or_404(MedicalStatement, pk=kwargs['medical_recommendation_id'])
-        recommendation_datetime = medical_recommendation.date.isoformat()
+        medical_statement = get_object_or_404(MedicalStatement, pk=kwargs['medical_statement_id'])
+        medical_statement_datetime = medical_statement.date.isoformat()
         dorctors_statement_templates = MedicalStatementTemplate.objects.filter(doctor=request.user.doctor.id)
 
         data = {
             'medical_statement': medical_statement,
-            'medical_statement_date': medica_statement_datetime[:10],
-            'medical_statement_time': report_datetime[11:16],
+            'medical_statement_date': medical_statement_datetime[:10],
+            'medical_statement_time': medical_statement_datetime[11:16],
             'dorctors_statement_templates': dorctors_statement_templates
         }
 

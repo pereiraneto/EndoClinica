@@ -14,7 +14,7 @@
         <form id="medical-statement-form">
             
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6>Data</h6>
                     <input type="date" id="medical-statement-date" class="form-control" value="{{today}}">
                     <div class="invalid-feedback error-feedback">
@@ -22,7 +22,15 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-2">
+                    <h6>Hora</h6>
+                    <input type="time" id="medical-statement-time" class="form-control" value="{{time_now}}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma Hora válida
+                    </div>
+                </div>
+
+                <div class="col-md-7">
                     <div class="row">
                         <div class="col">
                             <h6>Modelos de Recomendação</h6>

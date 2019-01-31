@@ -14,15 +14,23 @@
         <form id="medical-recommendation-form">
             
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <h6>Data</h6>
-                    <input type="date" id="medical-recommendation-date" class="form-control" value="{{recommendation_date}}">
+                    <input type="date" id="medical-statement-date" class="form-control" value="{{medical_statement_date}}">
                     <div class="invalid-feedback error-feedback">
-                        Insira uma data e hora válida
+                        Insira uma data válida
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-2">
+                    <h6>Hora</h6>
+                    <input type="time" id="medical-statement-time" class="form-control" value="{{medical_statement_time}}">
+                    <div class="invalid-feedback error-feedback">
+                        Insira uma Hora válida
+                    </div>
+                </div>
+
+                <div class="col-md-7">
                     <div class="row">
                         <div class="col">
                             <h6>Modelos de Recomendação</h6>
