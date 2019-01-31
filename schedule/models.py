@@ -205,7 +205,7 @@ class MedicalRecommendation(models.Model):
 class MedicalStatementTemplate(models.Model):
     doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=70)
-    json_medical_recommendation = JSONField()
+    json_medical_statement = JSONField()
 
 
 class MedicalStatement(models.Model):
