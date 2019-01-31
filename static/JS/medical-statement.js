@@ -66,21 +66,21 @@ const handleDeleteStatementTemplate = () => {
     }, undefined, "DELETE")
 }
 
-// const handleChangeSelectedstatementTemplate = () => {
-//     const seletedstatementTemplateId = document.getElementById('statement-template-select').value
+const handleChangeSelectedStatementTemplate = () => {
+    const seletedStatementTemplateId = document.getElementById('statement-template-select').value
 
-//     if (seletedstatementTemplateId != 0) {
-//         requestFromApi(`${apiBaseUrl}modelos-recomendacoes/${seletedstatementTemplateId}`, statementTemplate => {
-//             statementQuill.setContents(statementTemplate.json_medical_statement)
-//         })
-//     }
-// }
+    if (seletedStatementTemplateId != 0) {
+        requestFromApi(`${apiBaseUrl}modelos-declaracoes/${seletedStatementTemplateId}`, statementTemplate => {
+            statementQuill.setContents(statementTemplate.json_medical_statement)
+        })
+    }
+}
 
 
 // document.onreadystatechange = () => {
 //     if (document.readyState == "interactive") {
 //         if (isEditionView) {
-//             requestFromApi(`${apiBaseUrl}recomendacoes/${medicalRecommedationId}`, medicalstatement => {
+//             requestFromApi(`${apiBaseUrl}declaracoes/${medicalRecommedationId}`, medicalstatement => {
 //                 statementQuill.setContents(medicalstatement.json_medical_statement)
 //             })
 //         }
