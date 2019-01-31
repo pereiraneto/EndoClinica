@@ -56,15 +56,15 @@ const handleSaveMedicalStatement = () => {
     }, requestBody, requestMethod);
 }
 
-// const handleDeleteStatementTemplate = () => {
-//     const statementId = document.getElementById('statement-template-select').value
+const handleDeleteStatementTemplate = () => {
+    const statementId = document.getElementById('statement-template-select').value
 
-//     requestFromApi(`${apiBaseUrl}modelos-recomendacoes/${statementId}`, response => {
-//         window.alert("Modelo de Recomendação deletada com sucesso!\nQuando você voltar a esta página, o modelo não estará mais aqui.")
-//     }, () => {
-//         window.alert("Houve um erro ao tentar deletar esse modelo.")
-//     }, undefined, "DELETE")
-// }
+    requestFromApi(`${apiBaseUrl}modelos-declaracoes/${statementId}`, response => {
+        window.alert("Modelo de Declaração deletada com sucesso!\nQuando você voltar a esta página, o modelo não estará mais aqui.")
+    }, () => {
+        window.alert("Houve um erro ao tentar deletar esse modelo.")
+    }, undefined, "DELETE")
+}
 
 // const handleChangeSelectedstatementTemplate = () => {
 //     const seletedstatementTemplateId = document.getElementById('statement-template-select').value
